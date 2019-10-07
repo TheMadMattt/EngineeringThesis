@@ -9,7 +9,6 @@ namespace EngineeringThesis.Core.Services
 {
     public class InvoiceService
     {
-        private readonly EngineeringThesisContext _ctx;
         public InvoiceService()
         {
         }
@@ -25,9 +24,9 @@ namespace EngineeringThesis.Core.Services
                 {
                     InvoiceNumber = "01/2019", 
                     InvoiceDate = DateTime.Now,
-                    Contractor = customer,
-                    Seller = customer,
-                    PaymentType = paymentType,
+                    ContractorId = customer.Id,
+                    SellerId = customer.Id,
+                    PaymentTypeId = paymentType.Id,
                     PaymentDeadline = new DateTime(2019,11,10)
                 };
 

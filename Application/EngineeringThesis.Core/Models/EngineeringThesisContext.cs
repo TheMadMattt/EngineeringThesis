@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,12 @@ namespace EngineeringThesis.Core.Models
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder
-                .UseSqlite("Data Source=Invoices.db");
+        {
+            var connectionString = System.AppDomain.CurrentDomain.BaseDirectory;
+            connectionString += "\\Invoices.db";
+            optionsBuilder
+                .UseSqlite($@"Data Source={connectionString}");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
