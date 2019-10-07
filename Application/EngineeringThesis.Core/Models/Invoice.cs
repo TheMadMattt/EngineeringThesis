@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using EngineeringThesis.Core.Models.Enums;
 
 namespace EngineeringThesis.Core.Models
 {
@@ -18,15 +17,15 @@ namespace EngineeringThesis.Core.Models
         public int SellerId { get; set; }
         public int PaymentTypeId { get; set; } //ENUM
         public DateTime PaymentDeadline { get; set; }
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
 
         [ForeignKey("ContractorId")]
         public Customer Contractor { get; set; }
         [ForeignKey("SellerId")]
         public Customer Seller { get; set; }
         [ForeignKey("PaymentTypeId")]
-        public PaymentTypes PaymentType { get; set; }
-        public ICollection<InvoiceItem> InvoiceItems { get; set; }
+        public PaymentType PaymentType { get; set; }
+        public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
 
     }
 }

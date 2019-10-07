@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using EngineeringThesis.Core.Models.Enums;
 
 namespace EngineeringThesis.Core.Models
 {
@@ -9,19 +9,19 @@ namespace EngineeringThesis.Core.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int Name { get; set; }
+        public string Name { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public int StreetNumber { get; set; }
-        public int SuiteNumber { get; set; }
+        public int? SuiteNumber { get; set; }
         public string PhoneNumber { get; set; }
-        public int NIP { get; set; }
-        public int REGON { get; set; }
-        public int BankAccountNumber { get; set; }
+        public string NIP { get; set; }
+        public string REGON { get; set; }
+        public string BankAccountNumber { get; set; }
         public int CustomerTypeId { get; set; }
 
         [ForeignKey("CustomerTypeId")]
-        public CustomerTypes CustomerType { get; set; }
+        public CustomerType CustomerType { get; set; }
     }
 }
