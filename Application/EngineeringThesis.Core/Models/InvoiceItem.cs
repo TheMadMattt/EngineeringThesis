@@ -3,11 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EngineeringThesis.Core.Models
 {
-    public class Product
+    public class InvoiceItem
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey(nameof(Invoice))]
         public int InvoiceId { get; set; }
         [Required]
         public string Name { get; set; }
@@ -19,6 +18,9 @@ namespace EngineeringThesis.Core.Models
         public int NetSum { get; set; }
         public int GrossSum { get; set; }
         public string Comments { get; set; }
+
+        [ForeignKey("InvoiceId")]
+        public Invoice Invoice { get; set; }
 
     }
 }
