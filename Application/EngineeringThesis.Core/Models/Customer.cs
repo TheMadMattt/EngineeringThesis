@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using EngineeringThesis.Core.Models.Enums;
 
-namespace EngineeringThesis.Models
+namespace EngineeringThesis.Core.Models
 {
-    class Customer
+    public class Customer
     {
+        [Key]
         public int Id { get; set; }
+        [Required]
         public int Name { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }
@@ -17,6 +19,7 @@ namespace EngineeringThesis.Models
         public int NIP { get; set; }
         public int REGON { get; set; }
         public int BankAccountNumber { get; set; }
-        public int CustomerType { get; set; }
+        [ForeignKey(nameof(CustomerTypes))]
+        public int CustomerTypeId { get; set; }
     }
 }

@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EngineeringThesis.Models
+namespace EngineeringThesis.Core.Models
 {
-    class Product
+    public class Product
     {
+        [Key]
         public int Id { get; set; }
+        [ForeignKey(nameof(Invoice))]
         public int InvoiceId { get; set; }
+        [Required]
         public string Name { get; set; }
         public string PKWiU { get; set; }
         public string Unit { get; set; }

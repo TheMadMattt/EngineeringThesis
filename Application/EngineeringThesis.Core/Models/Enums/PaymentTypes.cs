@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace EngineeringThesis.Models.Enums
+﻿namespace EngineeringThesis.Core.Models.Enums
 {
     public enum PaymentTypes
     {
