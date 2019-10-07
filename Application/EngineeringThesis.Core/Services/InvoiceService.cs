@@ -18,10 +18,21 @@ namespace EngineeringThesis.Core.Services
         {
             using (var ctx = new EngineeringThesisContext())
             {
-                var customer = ctx.Customers;
+                var customer = ctx.Customers.FirstOrDefault(x => x.Id == 1);
+                var paymentType = ctx.PaymentTypes.FirstOrDefault(x => x.Id == 1);
 
-                customer.ToString();
+                Invoice invoice = new Invoice
+                {
+                    InvoiceNumber = "01/2019", 
+                    InvoiceDate = DateTime.Now,
+                    Contractor = customer,
+                    Seller = customer,
+                    PaymentType = paymentType,
+                    PaymentDeadline = new DateTime(2019,11,10)
+                };
 
+                ctx.Invoices.Add(invoice);
+                ctx.SaveChanges();
             }
         }
 
