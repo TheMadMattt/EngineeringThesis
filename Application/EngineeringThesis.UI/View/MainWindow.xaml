@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineeringThesis.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
+        <DataGrid Name="DataGrid" AutoGenerateColumns="False" Height="100px" Margin="0,44,0,290">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding InvoiceNumber}"/>
+                <DataGridTextColumn Header="Customer" Binding="{Binding Contractor.Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
+        <Button Width="50px" Height="50px" Click="Button_Click">CLICK</Button>
     </Grid>
 </Window>

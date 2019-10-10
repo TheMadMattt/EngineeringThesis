@@ -86,6 +86,7 @@ namespace EngineeringThesis.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -142,6 +143,18 @@ namespace EngineeringThesis.Core.Migrations
                     b.HasIndex("SellerId");
 
                     b.ToTable("Invoices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContractorId = 1,
+                            InvoiceDate = new DateTime(2019, 10, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            InvoiceNumber = "01/2019",
+                            PaymentDeadline = new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentTypeId = 2,
+                            SellerId = 1
+                        });
                 });
 
             modelBuilder.Entity("EngineeringThesis.Core.Models.InvoiceItem", b =>
@@ -178,14 +191,40 @@ namespace EngineeringThesis.Core.Migrations
                     b.Property<string>("Unit")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("VATSum")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("VATSum")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InvoiceId");
 
                     b.ToTable("InvoiceItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Amount = 1,
+                            GrossSum = "1845",
+                            InvoiceId = 1,
+                            Name = "Smartfon",
+                            NetPrice = "1500",
+                            NetSum = "1500",
+                            Unit = "szt",
+                            VATSum = 23
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Amount = 1,
+                            GrossSum = "2460",
+                            InvoiceId = 1,
+                            Name = "Tablet",
+                            NetPrice = "2000",
+                            NetSum = "2000",
+                            Unit = "szt",
+                            VATSum = 23
+                        });
                 });
 
             modelBuilder.Entity("EngineeringThesis.Core.Models.PaymentType", b =>
@@ -195,6 +234,7 @@ namespace EngineeringThesis.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

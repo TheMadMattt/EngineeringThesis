@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EngineeringThesis.Core.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace EngineeringThesis.Core.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +26,7 @@ namespace EngineeringThesis.Core.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,7 +111,7 @@ namespace EngineeringThesis.Core.Migrations
                     Unit = table.Column<string>(nullable: true),
                     NetPrice = table.Column<string>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
-                    VATSum = table.Column<string>(nullable: true),
+                    VATSum = table.Column<int>(nullable: false),
                     NetSum = table.Column<string>(nullable: true),
                     GrossSum = table.Column<string>(nullable: true),
                     Comments = table.Column<string>(nullable: true)
@@ -156,6 +156,21 @@ namespace EngineeringThesis.Core.Migrations
                 table: "Customers",
                 columns: new[] { "Id", "BankAccountNumber", "City", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "SuiteNumber", "ZipCode" },
                 values: new object[] { 1, "154987526365212554788", "Cieszyn", 1, "1234567890", "Mateusz Polok", "668055060", "123456789", "Filasiewicza", 48, null, "43-400" });
+
+            migrationBuilder.InsertData(
+                table: "Invoices",
+                columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "PaymentDeadline", "PaymentTypeId", "SellerId" },
+                values: new object[] { 1, null, 1, new DateTime(2019, 10, 10, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
+
+            migrationBuilder.InsertData(
+                table: "InvoiceItems",
+                columns: new[] { "Id", "Amount", "Comments", "GrossSum", "InvoiceId", "Name", "NetPrice", "NetSum", "PKWiU", "Unit", "VATSum" },
+                values: new object[] { 2, 1, null, "1845", 1, "Smartfon", "1500", "1500", null, "szt", 23 });
+
+            migrationBuilder.InsertData(
+                table: "InvoiceItems",
+                columns: new[] { "Id", "Amount", "Comments", "GrossSum", "InvoiceId", "Name", "NetPrice", "NetSum", "PKWiU", "Unit", "VATSum" },
+                values: new object[] { 1, 1, null, "2460", 1, "Tablet", "2000", "2000", null, "szt", 23 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CustomerTypeId",

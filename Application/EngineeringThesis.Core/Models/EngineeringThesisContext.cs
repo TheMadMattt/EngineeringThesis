@@ -62,6 +62,45 @@ namespace EngineeringThesis.Core.Models
                     CustomerTypeId = 1
                 }
             );
+
+            modelBuilder.Entity<Invoice>().HasData(
+                new Invoice
+                {
+                    Id=1,
+                    InvoiceNumber = "01/2019",
+                    InvoiceDate = DateTime.Today,
+                    ContractorId = 1,
+                    SellerId = 1,
+                    PaymentTypeId = 2,
+                    PaymentDeadline = new DateTime(2019,11,1)
+                }
+            );
+
+            modelBuilder.Entity<InvoiceItem>().HasData(
+                new InvoiceItem
+                {
+                    Id = 2,
+                    InvoiceId = 1,
+                    Name = "Smartfon",
+                    Unit = "szt",
+                    NetPrice = "1500",
+                    Amount = 1,
+                    VATSum = 23,
+                    NetSum = "1500",
+                    GrossSum = "1845"
+                },
+                new InvoiceItem
+                {
+                    Id = 1,
+                    InvoiceId = 1,
+                    Name = "Tablet",
+                    Unit = "szt",
+                    NetPrice = "2000",
+                    Amount = 1,
+                    VATSum = 23,
+                    NetSum = "2000",
+                    GrossSum = "2460"
+                });
         }
     }
 }

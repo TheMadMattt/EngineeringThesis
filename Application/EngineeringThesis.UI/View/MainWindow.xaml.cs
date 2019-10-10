@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 
 namespace EngineeringThesis.UI
@@ -21,13 +22,24 @@ namespace EngineeringThesis.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public readonly InvoiceService InvoiceService;
+        public List<Invoice> Invoices;
         public MainWindow()
         {
             InitializeComponent();
 
-            InvoiceService service = new InvoiceService();
+            InvoiceService = new InvoiceService();
 
-            service.testAdd();
+            Invoices = InvoiceService.TestAdd();
+
+            DataGrid.ItemsSource = Invoices;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Invoices[0].Contractor.Name = "Bartek Prokop";
+
+            DataGrid.Items.Refresh();
         }
     }
 }
