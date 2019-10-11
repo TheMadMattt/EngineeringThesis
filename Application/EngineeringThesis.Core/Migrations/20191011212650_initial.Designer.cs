@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EngineeringThesis.Core.Migrations
 {
-    [DbContext(typeof(EngineeringThesisContext))]
-    [Migration("20191010143854_initial")]
+    [DbContext(typeof(ApplicationContext))]
+    [Migration("20191011212650_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,11 +49,8 @@ namespace EngineeringThesis.Core.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StreetNumber")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("SuiteNumber")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("StreetNumber")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ZipCode")
                         .HasColumnType("TEXT");
@@ -76,8 +73,22 @@ namespace EngineeringThesis.Core.Migrations
                             PhoneNumber = "668055060",
                             REGON = "123456789",
                             Street = "Filasiewicza",
-                            StreetNumber = 48,
+                            StreetNumber = "48",
                             ZipCode = "43-400"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BankAccountNumber = "758492113124142414103",
+                            City = "Wrocław",
+                            CustomerTypeId = 1,
+                            NIP = "0987654321",
+                            Name = "Bartosz Prokopowicz",
+                            PhoneNumber = "123456789",
+                            REGON = "987654321",
+                            Street = "Sienkiewicza",
+                            StreetNumber = "102/1",
+                            ZipCode = "50-348"
                         });
                 });
 
@@ -151,11 +162,11 @@ namespace EngineeringThesis.Core.Migrations
                         {
                             Id = 1,
                             ContractorId = 1,
-                            InvoiceDate = new DateTime(2019, 10, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            InvoiceDate = new DateTime(2019, 10, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             InvoiceNumber = "01/2019",
                             PaymentDeadline = new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 2,
-                            SellerId = 1
+                            SellerId = 2
                         });
                 });
 

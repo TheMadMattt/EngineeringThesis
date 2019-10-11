@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Services;
+using EngineeringThesis.Core.ViewModel;
+using EngineeringThesis.UI.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EngineeringThesis.UI
@@ -23,12 +27,23 @@ namespace EngineeringThesis.UI
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            var navigationService = ServiceProvider.GetRequiredService<NavigationService>();
+
+            var mainWindow = navigationService.ShowAsync<MainWindow>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
+            serviceCollection.AddDbContext<ApplicationContext>();
+            serviceCollection.AddScoped<NavigationService>();
+
+            //Services
+            serviceCollection.AddScoped(typeof(InvoiceService));
+
+            //ViewModels
+            serviceCollection.AddTransient(typeof(MainViewModel));
+
+            //Views
             serviceCollection.AddTransient(typeof(MainWindow));
         }
     }

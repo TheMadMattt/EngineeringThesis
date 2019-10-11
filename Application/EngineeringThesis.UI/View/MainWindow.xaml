@@ -5,16 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineeringThesis.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid Name="DataGrid" AutoGenerateColumns="False" Height="100px" Margin="0,44,0,290">
+        <DataGrid Name="DataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding InvoiceNumber}"/>
-                <DataGridTextColumn Header="Customer" Binding="{Binding Contractor.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Numer faktury" Binding="{Binding InvoiceNumber}"/>
+                <DataGridTextColumn Header="Data wystawienia" Binding="{Binding InvoiceDate}"/>
+                <DataGridTextColumn Header="Nazwa firmy" Binding="{Binding Contractor.Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
+                                        <Binding Path="Contractor.ZipCode" />
+                                        <Binding Path="Contractor.City" />
+                                        <Binding Path="Contractor.Street"></Binding>
+                                        <Binding Path="Contractor.StreetNumber"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Width="50px" Height="50px" Click="Button_Click">CLICK</Button>
+        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Height="100px" Width="100px" Click="Button_Click">CLICK</Button>
     </Grid>
 </Window>

@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
+using EngineeringThesis.Core.ViewModel;
+using NavigationService = System.Windows.Navigation.NavigationService;
 
 namespace EngineeringThesis.UI
 {
@@ -22,22 +24,23 @@ namespace EngineeringThesis.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly InvoiceService InvoiceService;
-        public List<Invoice> Invoices;
-        public MainWindow()
+        private readonly Navigation.NavigationService _navigationService;
+        public MainViewModel MainViewModel;
+        public MainWindow(Navigation.NavigationService navigationService, MainViewModel mainViewModel)
         {
             InitializeComponent();
 
-            InvoiceService = new InvoiceService();
+            this._navigationService = navigationService;
+            MainViewModel = mainViewModel;
 
-            Invoices = InvoiceService.TestAdd();
+            MainViewModel.GetInvoices();
 
-            DataGrid.ItemsSource = Invoices;
+            DataGrid.ItemsSource = MainViewModel.Invoices;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Invoices[0].Contractor.Name = "Bartek Prokop";
+            MainViewModel.Invoices[0].Contractor.Name = "Bartek Prokop";
 
             DataGrid.Items.Refresh();
         }

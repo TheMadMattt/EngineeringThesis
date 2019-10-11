@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringThesis.Core.Models
 {
-    public class EngineeringThesisContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
@@ -14,7 +14,7 @@ namespace EngineeringThesis.Core.Models
         public DbSet<CustomerType> CustomerTypes { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
-        public EngineeringThesisContext() : base()
+        public ApplicationContext() : base()
         {
             
         }
@@ -54,11 +54,25 @@ namespace EngineeringThesis.Core.Models
                     ZipCode = "43-400", 
                     City = "Cieszyn", 
                     Street = "Filasiewicza", 
-                    StreetNumber = 48,
+                    StreetNumber = "48",
                     PhoneNumber = "668055060", 
                     NIP = "1234567890", 
                     REGON = "123456789",
-                    BankAccountNumber = "154987526365212554788", 
+                    BankAccountNumber = "154987526365212554788",
+                    CustomerTypeId = 1
+                },
+                new Customer
+                {
+                    Id = 2,
+                    Name = "Bartosz Prokopowicz",
+                    ZipCode = "50-348",
+                    City = "Wrocław",
+                    Street = "Sienkiewicza",
+                    StreetNumber = "102/1",
+                    PhoneNumber = "123456789",
+                    NIP = "0987654321",
+                    REGON = "987654321",
+                    BankAccountNumber = "758492113124142414103",
                     CustomerTypeId = 1
                 }
             );
@@ -70,7 +84,7 @@ namespace EngineeringThesis.Core.Models
                     InvoiceNumber = "01/2019",
                     InvoiceDate = DateTime.Today,
                     ContractorId = 1,
-                    SellerId = 1,
+                    SellerId = 2,
                     PaymentTypeId = 2,
                     PaymentDeadline = new DateTime(2019,11,1)
                 }

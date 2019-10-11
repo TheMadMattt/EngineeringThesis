@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.203" />
+    <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +18,19 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\PresentationCore.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\PresentationFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using EngineeringThesis.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,14 +9,9 @@ namespace EngineeringThesis.Core.Services
 {
     public class InvoiceService
     {
-        public InvoiceService()
+        public List<Invoice> GetInvoices()
         {
-
-        }
-
-        public List<Invoice> TestAdd()
-        {
-            using var ctx = new EngineeringThesisContext();
+            using var ctx = new ApplicationContext();
 
             return ctx.Invoices
                 .Include(p => p.InvoiceItems)
