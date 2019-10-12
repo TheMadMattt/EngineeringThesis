@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.Generic;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 
-namespace EngineeringThesis.Core.ViewModel
+namespace EngineeringThesis.UI.ViewModel
 {
     public class MainViewModel: BaseViewModel
     {

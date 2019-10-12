@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
-using EngineeringThesis.Core.Services;
-using EngineeringThesis.Core.ViewModel;
-using NavigationService = System.Windows.Navigation.NavigationService;
+using EngineeringThesis.UI.ViewModel;
 
-namespace EngineeringThesis.UI
+namespace EngineeringThesis.UI.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -38,10 +25,10 @@ namespace EngineeringThesis.UI
             DataGrid.ItemsSource = MainViewModel.Invoices;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MainViewModel.Invoices[0].Contractor.Name = "Bartek Prokop";
-
+            var selFaktura = DataGrid.SelectedCells[0].Item as Invoice;
+            selFaktura.Comments = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             DataGrid.Items.Refresh();
         }
     }

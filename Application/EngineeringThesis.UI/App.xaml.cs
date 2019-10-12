@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
-using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
+using EngineeringThesis.UI.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EngineeringThesis.UI
@@ -29,7 +29,7 @@ namespace EngineeringThesis.UI
 
             var navigationService = ServiceProvider.GetRequiredService<NavigationService>();
 
-            var mainWindow = navigationService.ShowAsync<MainWindow>();
+            var mainWindow = navigationService.ShowAsync<View.MainWindow>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
@@ -44,7 +44,7 @@ namespace EngineeringThesis.UI
             serviceCollection.AddTransient(typeof(MainViewModel));
 
             //Views
-            serviceCollection.AddTransient(typeof(MainWindow));
+            serviceCollection.AddTransient(typeof(View.MainWindow));
         }
     }
 }
