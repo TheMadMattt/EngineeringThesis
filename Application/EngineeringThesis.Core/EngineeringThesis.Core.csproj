@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <ApplicationIcon />
+    <Win32Resource />
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,16 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="PresentationCore">
       <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\PresentationCore.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework">
       <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\PresentationFramework.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

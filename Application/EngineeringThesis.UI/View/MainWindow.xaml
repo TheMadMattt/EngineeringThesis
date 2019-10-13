@@ -5,6 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineeringThesis.UI.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -17,17 +24,25 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DataGrid Name="DataGrid" Height="300px" AutoGenerateColumns="False" VerticalAlignment="Top" 
+        <dragablz:TabablzControl>
+            <TabItem Header="Faktury">
+                <TextBlock Text="HELLLOOOO"></TextBlock>
+            </TabItem>
+            <TabItem Header="Kontrahenci">
+                <TextBlock Text="ELOELEOELOELLEOLE"></TextBlock>
+            </TabItem>
+        </dragablz:TabablzControl>
+        <DataGrid Name="DataGrid" Height="300px" AutoGenerateColumns="False" VerticalAlignment="Bottom" 
                   IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="False" 
                   HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numer faktury" Binding="{Binding InvoiceNumber}" 
+                <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceNumber}" Binding="{Binding InvoiceNumber}" 
                                     ElementStyle="{StaticResource CenterAlignment}" Width="Auto"/>
-                <DataGridTextColumn Header="Data wystawienia" Binding="{Binding InvoiceDate, StringFormat=d, ConverterCulture=pl-PL}"  
+                <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceDate}" Binding="{Binding InvoiceDate, StringFormat=d, ConverterCulture=pl-PL}"  
                                     ElementStyle="{StaticResource CenterAlignment}" Width="Auto"/>
-                <DataGridTextColumn Header="Nazwa firmy" Binding="{Binding Contractor.Name}" 
+                <DataGridTextColumn Header="{x:Static resx:MainWindow.ContractorName}" Binding="{Binding Contractor.Name}" 
                                     ElementStyle="{StaticResource WrapCenterColumn}" Width="*"/>
-                <DataGridTemplateColumn Header="Adres firmy" Width="*">
+                <DataGridTemplateColumn Header="{x:Static resx:MainWindow.ContractorAddress}" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
@@ -43,11 +58,11 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Sprzedawca" Binding="{Binding Seller.Name}" 
+                <DataGridTextColumn Header="{x:Static resx:MainWindow.SellerName}" Binding="{Binding Seller.Name}" 
                                     ElementStyle="{StaticResource WrapCenterColumn}" Width="*"/>
-                <DataGridTextColumn Header="Data płatności" Binding="{Binding PaymentDeadline, StringFormat=d, ConverterCulture=pl-PL}" 
+                <DataGridTextColumn Header="{x:Static resx:MainWindow.PaymentDeadline}" Binding="{Binding PaymentDeadline, StringFormat=d, ConverterCulture=pl-PL}" 
                                     ElementStyle="{StaticResource CenterAlignment}" Width="Auto"/>
-                <DataGridTextColumn Header="Uwagi" Binding="{Binding Comments}" ElementStyle="{StaticResource WrapCenterColumn}" Width="2*">
+                <DataGridTextColumn Header="{x:Static resx:MainWindow.Comments}" Binding="{Binding Comments}" ElementStyle="{StaticResource WrapCenterColumn}" Width="2*">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

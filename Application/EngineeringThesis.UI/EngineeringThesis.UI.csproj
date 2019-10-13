@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.203" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
     <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
@@ -14,6 +15,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EngineeringThesis.Core\EngineeringThesis.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\MainWindow.resx">
+      <LastGenOutput>MainWindow.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
