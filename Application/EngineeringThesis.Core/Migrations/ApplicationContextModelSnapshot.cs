@@ -28,6 +28,9 @@ namespace EngineeringThesis.Core.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Comments")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("CustomerTypeId")
                         .HasColumnType("INTEGER");
 
@@ -65,7 +68,7 @@ namespace EngineeringThesis.Core.Migrations
                             Id = 1,
                             BankAccountNumber = "154987526365212554788",
                             City = "Cieszyn",
-                            CustomerTypeId = 1,
+                            CustomerTypeId = 2,
                             NIP = "1234567890",
                             Name = "Mateusz Polok",
                             PhoneNumber = "668055060",
@@ -160,10 +163,20 @@ namespace EngineeringThesis.Core.Migrations
                         {
                             Id = 1,
                             ContractorId = 1,
-                            InvoiceDate = new DateTime(2019, 10, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            InvoiceDate = new DateTime(2019, 10, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             InvoiceNumber = "01/2019",
                             PaymentDeadline = new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 2,
+                            SellerId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContractorId = 1,
+                            InvoiceDate = new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InvoiceNumber = "02/2019",
+                            PaymentDeadline = new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentTypeId = 3,
                             SellerId = 2
                         });
                 });

@@ -72,6 +72,33 @@ namespace EngineeringThesis.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Adres firmy.
         /// </summary>
+        public static string CompanyAddress {
+            get {
+                return ResourceManager.GetString("CompanyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uwagi.
+        /// </summary>
+        public static string CompanyComments {
+            get {
+                return ResourceManager.GetString("CompanyComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa firmy.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adres firmy.
+        /// </summary>
         public static string ContractorAddress {
             get {
                 return ResourceManager.GetString("ContractorAddress", resourceCulture);
@@ -106,11 +133,29 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NIP.
+        /// </summary>
+        public static string NIPNumber {
+            get {
+                return ResourceManager.GetString("NIPNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data płatności.
         /// </summary>
         public static string PaymentDeadline {
             get {
                 return ResourceManager.GetString("PaymentDeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regon.
+        /// </summary>
+        public static string RegonNumber {
+            get {
+                return ResourceManager.GetString("RegonNumber", resourceCulture);
             }
         }
         

@@ -39,6 +39,7 @@ namespace EngineeringThesis.UI
 
             //Services
             serviceCollection.AddScoped(typeof(InvoiceService));
+            serviceCollection.AddScoped(typeof(CustomerService));
 
             //ViewModels
             serviceCollection.AddTransient(typeof(MainViewModel));

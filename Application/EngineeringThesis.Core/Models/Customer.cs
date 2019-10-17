@@ -18,6 +18,7 @@ namespace EngineeringThesis.Core.Models
         public string NIP { get; set; }
         public string REGON { get; set; }
         public string BankAccountNumber { get; set; }
+        public string? Comments { get; set; }
         public int CustomerTypeId { get; set; }
 
         [ForeignKey("CustomerTypeId")]

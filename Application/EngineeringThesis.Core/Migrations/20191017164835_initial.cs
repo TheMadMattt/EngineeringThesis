@@ -48,6 +48,7 @@ namespace EngineeringThesis.Core.Migrations
                     NIP = table.Column<string>(nullable: true),
                     REGON = table.Column<string>(nullable: true),
                     BankAccountNumber = table.Column<string>(nullable: true),
+                    Comments = table.Column<string>(nullable: true),
                     CustomerTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -153,18 +154,23 @@ namespace EngineeringThesis.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "BankAccountNumber", "City", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
-                values: new object[] { 1, "154987526365212554788", "Cieszyn", 1, "1234567890", "Mateusz Polok", "668055060", "123456789", "Filasiewicza", "48", "43-400" });
+                columns: new[] { "Id", "BankAccountNumber", "City", "Comments", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
+                values: new object[] { 2, "758492113124142414103", "Wrocław", null, 1, "0987654321", "Bartosz Prokopowicz", "123456789", "987654321", "Sienkiewicza", "102/1", "50-348" });
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "BankAccountNumber", "City", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
-                values: new object[] { 2, "758492113124142414103", "Wrocław", 1, "0987654321", "Bartosz Prokopowicz", "123456789", "987654321", "Sienkiewicza", "102/1", "50-348" });
+                columns: new[] { "Id", "BankAccountNumber", "City", "Comments", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
+                values: new object[] { 1, "154987526365212554788", "Cieszyn", null, 2, "1234567890", "Mateusz Polok", "668055060", "123456789", "Filasiewicza", "48", "43-400" });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 1, null, 1, new DateTime(2019, 10, 11, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2 });
+                values: new object[] { 1, null, 1, new DateTime(2019, 10, 17, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Invoices",
+                columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "PaymentDeadline", "PaymentTypeId", "SellerId" },
+                values: new object[] { 2, null, 1, new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "02/2019", new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 2 });
 
             migrationBuilder.InsertData(
                 table: "InvoiceItems",

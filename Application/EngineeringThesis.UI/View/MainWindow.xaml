@@ -26,8 +26,8 @@
     <Grid>
         <dragablz:TabablzControl>
             <TabItem Header="Faktury">
-                <DataGrid Name="DataGrid" Height="300px" AutoGenerateColumns="False" VerticalAlignment="Top" 
-                  IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="False" 
+                <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
+                  IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="False" 
                   HorizontalScrollBarVisibility="Auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceNumber}" Binding="{Binding InvoiceNumber}" 
@@ -62,7 +62,36 @@
                 </DataGrid>
             </TabItem>
             <TabItem Header="Kontrahenci">
-                <TextBlock Text="ELOELEOELOELLEOLE"></TextBlock>
+                <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
+                          IsReadOnly="True" ScrollViewer.CanContentScroll="False" 
+                          HorizontalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 
+                                            ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="{x:Static resx:MainWindow.CompanyAddress}" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
+                                                <Binding Path="ZipCode" />
+                                                <Binding Path="City" />
+                                                <Binding Path="Street"></Binding>
+                                                <Binding Path="StreetNumber"></Binding>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{x:Static resx:MainWindow.NIPNumber}" Binding="{Binding NIP}" 
+                                            ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static resx:MainWindow.RegonNumber}" Binding="{Binding REGON}" 
+                                            ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static resx:MainWindow.Comments}" Binding="{Binding Comments}" 
+                                            ElementStyle="{StaticResource WrapCenterColumn}" Width="2*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </dragablz:TabablzControl>
 

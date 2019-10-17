@@ -120,6 +120,15 @@
   <data name="Comments" xml:space="preserve">
     <value>Uwagi</value>
   </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Adres firmy</value>
+  </data>
+  <data name="CompanyComments" xml:space="preserve">
+    <value>Uwagi</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Nazwa firmy</value>
+  </data>
   <data name="ContractorAddress" xml:space="preserve">
     <value>Adres firmy</value>
   </data>
@@ -132,8 +141,14 @@
   <data name="InvoiceNumber" xml:space="preserve">
     <value>Numer faktury</value>
   </data>
+  <data name="NIPNumber" xml:space="preserve">
+    <value>NIP</value>
+  </data>
   <data name="PaymentDeadline" xml:space="preserve">
     <value>Data płatności</value>
+  </data>
+  <data name="RegonNumber" xml:space="preserve">
+    <value>Regon</value>
   </data>
   <data name="SellerName" xml:space="preserve">
     <value>Sprzedawca</value>

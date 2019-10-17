@@ -59,7 +59,7 @@ namespace EngineeringThesis.Core.Models
                     NIP = "1234567890", 
                     REGON = "123456789",
                     BankAccountNumber = "154987526365212554788",
-                    CustomerTypeId = 1
+                    CustomerTypeId = 2
                 },
                 new Customer
                 {
@@ -87,6 +87,16 @@ namespace EngineeringThesis.Core.Models
                     SellerId = 2,
                     PaymentTypeId = 2,
                     PaymentDeadline = new DateTime(2019,11,1)
+                },
+                new Invoice
+                {
+                    Id=2,
+                    InvoiceNumber = "02/2019",
+                    InvoiceDate = new DateTime(2019,09,14),
+                    ContractorId = 1,
+                    SellerId = 2,
+                    PaymentTypeId = 3,
+                    PaymentDeadline = new DateTime(2020,05,14)
                 }
             );
 
