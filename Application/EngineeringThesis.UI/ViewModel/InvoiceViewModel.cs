@@ -38,5 +38,10 @@ namespace EngineeringThesis.UI.ViewModel
         {
             return PaymentTypes = _paymentTypeService.GetPaymentTypes();
         }
+
+        public Invoice GetInvoice(int id)
+        {
+            return _invoiceService.GetInvoice(id);
+        }
     }
 }

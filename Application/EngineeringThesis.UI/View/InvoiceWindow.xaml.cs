@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,7 +43,7 @@ namespace EngineeringThesis.UI.View
         {
             if (parameter is Invoice invoice)
             {
-                InvoiceViewModel.Invoice = invoice;
+                InvoiceViewModel.Invoice = InvoiceViewModel.GetInvoice(invoice.Id);
                 BindInvoiceToControls();
             }
             
@@ -63,6 +64,18 @@ namespace EngineeringThesis.UI.View
             }
 
             InvoiceItemsDataGrid.ItemsSource = InvoiceViewModel.Invoice.InvoiceItems;
+        }
+
+        private void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Czy napewno chcesz usunąć: " + ((InvoiceItem) InvoiceItemsDataGrid.SelectedItem).Name,
+                    "Usuń", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                InvoiceViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
+                InvoiceItemsDataGrid.Items.Refresh();
+            }
         }
     }
 }

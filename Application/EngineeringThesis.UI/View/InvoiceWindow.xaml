@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineeringThesis.UI.View"
+        xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         mc:Ignorable="d"
         Title="InvoiceWindow" Height="500" Width="800">
     <Window.Resources>
@@ -22,7 +23,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="Kontrahent" Grid.Column="0" Grid.Row="0">
+            <GroupBox Header="{x:Static resx:InvoiceWindow.Contractor}" Grid.Column="0" Grid.Row="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -48,10 +49,12 @@
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">Firma:</Label>
+                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" 
+                                   Content="{x:Static resx:InvoiceWindow.Business}"/>
                             <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.Name}"/>
-                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">Adres:</Label>
+                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" 
+                                   Content="{x:Static resx:InvoiceWindow.Address}"/>
                             <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
@@ -62,20 +65,20 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right">NIP:</Label>
+                            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.NIP}"/>
                             <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.NIP}"/>
-                            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right">Regon:</Label>
+                            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Regon}"/>
                             <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.REGON}"/>
-                            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right">Numer konta bankowego:</Label>
+                            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.BankAccountNumber}"/>
                             <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.BankAccountNumber}"/>
                         </Grid>
                     </ScrollViewer>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Sprzedawca" Grid.Column="1" Grid.Row="0">
+            <GroupBox Header="{x:Static resx:InvoiceWindow.Seller}" Grid.Column="1" Grid.Row="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -101,10 +104,10 @@
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">Firma:</Label>
+                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Business}"></Label>
                             <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.Name}"/>
-                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">Adres:</Label>
+                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Address}"></Label>
                             <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
@@ -115,13 +118,14 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right">NIP:</Label>
+                            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.NIP}"></Label>
                             <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.NIP}"/>
-                            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right">Regon:</Label>
+                            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Regon}"></Label>
                             <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.REGON}"/>
-                            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right">Numer konta bankowego:</Label>
+                            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.BankAccountNumber}">
+                            </Label>
                             <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" TextWrapping="Wrap"
                                        Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.BankAccountNumber}"/>
                         </Grid>
@@ -133,10 +137,10 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Data wystawienia" Grid.Row="0">
+                <GroupBox Header="{x:Static resx:InvoiceWindow.InvoiceDate}" Grid.Row="0">
                     <DatePicker Name="InvoiceDatePicker"></DatePicker>
                 </GroupBox>
-                <GroupBox Header="Płatności" Grid.Row="1">
+                <GroupBox Header="{x:Static resx:InvoiceWindow.Payments}" Grid.Row="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -148,7 +152,7 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" Content="Płatność:"></Label>
+                        <Label Grid.Column="0" Grid.Row="0" Content="{x:Static resx:InvoiceWindow.Payment}"></Label>
                         <ComboBox Name="PaymentTypeComboBox" Grid.Column="1" Grid.Row="0" SelectedIndex="0">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -156,43 +160,52 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <Label Grid.Column="0" Grid.Row="1" Content="Termin:"></Label>
+                        <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:InvoiceWindow.Deadline}"></Label>
                         <DatePicker Name="PaymentDeadlineDatePicker" Grid.Column="1" Grid.Row="1"></DatePicker>
-                        <Label Grid.Column="0" Grid.Row="2" Content="Zapłacona:"></Label>
+                        <Label Grid.Column="0" Grid.Row="2" Content="{x:Static resx:InvoiceWindow.Paid}"></Label>
                         <CheckBox Name="IsPaidCheckBox" IsChecked="False" Grid.Column="1" Grid.Row="2"></CheckBox>
-                        <Label Grid.Column="0" Grid.Row="3" Content="Kiedy:"></Label>
+                        <Label Grid.Column="0" Grid.Row="3" Content="{x:Static resx:InvoiceWindow.When}"></Label>
                         <DatePicker Name="PaidDatePicker" Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ElementName=IsPaidCheckBox, Path=IsChecked}"></DatePicker>
                     </Grid>
                 </GroupBox>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
                   IsReadOnly="True" ScrollViewer.CanContentScroll="False" 
-                  HorizontalScrollBarVisibility="Visible">
+                  HorizontalScrollBarVisibility="Visible" Grid.Column="0" SelectedIndex="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="PKWiU" Binding="{Binding PKWiU}"  
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemPKWiU}" Binding="{Binding PKWiU}"  
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Jednostka" Binding="{Binding Unit}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemUnit}" Binding="{Binding Unit}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Cena netto" Binding="{Binding NetPrice, StringFormat={}{0:C0}.00 zł}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetPrice}" Binding="{Binding NetPrice, StringFormat={}{0:C0}.00 zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Ilość" Binding="{Binding Amount}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemAmount}" Binding="{Binding Amount}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="VAT" Binding="{Binding VAT, StringFormat={}{0}%}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVAT}" Binding="{Binding VAT, StringFormat={}{0}%}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Suma netto" Binding="{Binding NetSum, StringFormat={}{0:C0}.00 zł}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat={}{0:C0}.00 zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Suma brutto" Binding="{Binding GrossSum, StringFormat={}{0:C0}.00 zł}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemGrossSum}" Binding="{Binding GrossSum, StringFormat={}{0:C0}.00 zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Suma VAT" Binding="{Binding VATSum, StringFormat={}{0:C0}.00 zł}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVATSum}" Binding="{Binding VATSum, StringFormat={}{0:C0}.00 zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                    <DataGridTextColumn Header="Uwagi" Binding="{Binding Comments}" 
+                    <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemComments}" Binding="{Binding Comments}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <StackPanel Grid.Column="1">
+                <Button Name="AddItemBtn" Content="{x:Static resx:InvoiceWindow.AddItem}" Margin="0,0,0,15"/>
+                <Button Name="EditItemBtn" Content="{x:Static resx:InvoiceWindow.EditItem}" Margin="0,0,0,15"/>
+                <Button Name="DeleteItemBtn" Content="{x:Static resx:InvoiceWindow.DeleteItem}" Click="DeleteItemBtn_Click"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
