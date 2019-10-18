@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineeringThesis.Core.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20191017164835_initial")]
-    partial class initial
+    [Migration("20191018183953_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,34 @@ namespace EngineeringThesis.Core.Migrations
                             Street = "Sienkiewicza",
                             StreetNumber = "102/1",
                             ZipCode = "50-348"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BankAccountNumber = "238672113564142894103",
+                            City = "Wrocław",
+                            CustomerTypeId = 2,
+                            NIP = "1083657321",
+                            Name = "Bartłomiej Blicharski",
+                            PhoneNumber = "223656089",
+                            REGON = "923654621",
+                            Street = "Sienkiewicza",
+                            StreetNumber = "102/1",
+                            ZipCode = "50-348"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BankAccountNumber = "758126713125672490103",
+                            City = "Wrocław",
+                            CustomerTypeId = 1,
+                            NIP = "5687894001",
+                            Name = "Sebastian Stanclik",
+                            PhoneNumber = "623256780",
+                            REGON = "923654521",
+                            Street = "Sienkiewicza",
+                            StreetNumber = "102/1",
+                            ZipCode = "50-348"
                         });
                 });
 
@@ -141,6 +169,9 @@ namespace EngineeringThesis.Core.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("PaymentDeadline")
                         .HasColumnType("TEXT");
 
@@ -164,22 +195,23 @@ namespace EngineeringThesis.Core.Migrations
                         new
                         {
                             Id = 1,
-                            ContractorId = 1,
-                            InvoiceDate = new DateTime(2019, 10, 17, 0, 0, 0, 0, DateTimeKind.Local),
+                            ContractorId = 2,
+                            InvoiceDate = new DateTime(2019, 10, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             InvoiceNumber = "01/2019",
-                            PaymentDeadline = new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDate = new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDeadline = new DateTime(2019, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 2,
-                            SellerId = 2
+                            SellerId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ContractorId = 1,
+                            ContractorId = 4,
                             InvoiceDate = new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "02/2019",
                             PaymentDeadline = new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 3,
-                            SellerId = 2
+                            SellerId = 3
                         });
                 });
 
@@ -217,8 +249,11 @@ namespace EngineeringThesis.Core.Migrations
                     b.Property<string>("Unit")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("VATSum")
+                    b.Property<int>("VAT")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("VATSum")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -237,7 +272,8 @@ namespace EngineeringThesis.Core.Migrations
                             NetPrice = "1500",
                             NetSum = "1500",
                             Unit = "szt",
-                            VATSum = 23
+                            VAT = 23,
+                            VATSum = "345"
                         },
                         new
                         {
@@ -249,7 +285,8 @@ namespace EngineeringThesis.Core.Migrations
                             NetPrice = "2000",
                             NetSum = "2000",
                             Unit = "szt",
-                            VATSum = 23
+                            VAT = 23,
+                            VATSum = "460"
                         });
                 });
 

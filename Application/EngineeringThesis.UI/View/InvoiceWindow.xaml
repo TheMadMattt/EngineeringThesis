@@ -1,0 +1,198 @@
+﻿<Window x:Class="EngineeringThesis.UI.View.InvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EngineeringThesis.UI.View"
+        mc:Ignorable="d"
+        Title="InvoiceWindow" Height="500" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="CenterAlignment">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Kontrahent" Grid.Column="0" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ComboBox Name="ContractorComboBox" VerticalAlignment="Top" SelectedIndex="1" Grid.Row="0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">Firma:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.Name}"/>
+                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">Adres:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.ZipCode" />
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.City" />
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.Street"></Binding>
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.StreetNumber"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right">NIP:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.NIP}"/>
+                            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right">Regon:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.REGON}"/>
+                            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right">Numer konta bankowego:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.BankAccountNumber}"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Sprzedawca" Grid.Column="1" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ComboBox Name="SellerComboBox" VerticalAlignment="Top" SelectedIndex="1" Grid.Row="0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">Firma:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.Name}"/>
+                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">Adres:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.ZipCode" />
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.City" />
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.Street"></Binding>
+                                        <Binding ElementName="ContractorComboBox" Path="SelectedItem.StreetNumber"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right">NIP:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.NIP}"/>
+                            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right">Regon:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.REGON}"/>
+                            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right">Numer konta bankowego:</Label>
+                            <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.BankAccountNumber}"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </GroupBox>
+            <Grid Grid.Column="2" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Data wystawienia" Grid.Row="0">
+                    <DatePicker Name="InvoiceDatePicker"></DatePicker>
+                </GroupBox>
+                <GroupBox Header="Płatności" Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Płatność:"></Label>
+                        <ComboBox Name="PaymentTypeComboBox" Grid.Column="1" Grid.Row="0" SelectedIndex="0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Termin:"></Label>
+                        <DatePicker Name="PaymentDeadlineDatePicker" Grid.Column="1" Grid.Row="1"></DatePicker>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Zapłacona:"></Label>
+                        <CheckBox Name="IsPaidCheckBox" IsChecked="False" Grid.Column="1" Grid.Row="2"></CheckBox>
+                        <Label Grid.Column="0" Grid.Row="3" Content="Kiedy:"></Label>
+                        <DatePicker Name="PaidDatePicker" Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ElementName=IsPaidCheckBox, Path=IsChecked}"></DatePicker>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
+                  IsReadOnly="True" ScrollViewer.CanContentScroll="False" 
+                  HorizontalScrollBarVisibility="Visible">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="PKWiU" Binding="{Binding PKWiU}"  
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Jednostka" Binding="{Binding Unit}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Cena netto" Binding="{Binding NetPrice, StringFormat={}{0:C0}.00 zł}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Ilość" Binding="{Binding Amount}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="VAT" Binding="{Binding VAT, StringFormat={}{0}%}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Suma netto" Binding="{Binding NetSum, StringFormat={}{0:C0}.00 zł}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Suma brutto" Binding="{Binding GrossSum, StringFormat={}{0:C0}.00 zł}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Suma VAT" Binding="{Binding VATSum, StringFormat={}{0:C0}.00 zł}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                    <DataGridTextColumn Header="Uwagi" Binding="{Binding Comments}" 
+                                        ElementStyle="{StaticResource CenterAlignment}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

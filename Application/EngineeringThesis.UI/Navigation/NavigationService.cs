@@ -11,7 +11,7 @@ namespace EngineeringThesis.UI.Navigation
 
         public NavigationService(IServiceProvider serviceProvider)
         {
-            this._serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task ShowAsync<T>(object parameter = null) where T : Window

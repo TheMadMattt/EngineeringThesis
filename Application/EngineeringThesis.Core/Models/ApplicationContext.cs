@@ -74,6 +74,34 @@ namespace EngineeringThesis.Core.Models
                     REGON = "987654321",
                     BankAccountNumber = "758492113124142414103",
                     CustomerTypeId = 1
+                },
+                new Customer
+                {
+                    Id = 3,
+                    Name = "Bartłomiej Blicharski",
+                    ZipCode = "50-348",
+                    City = "Wrocław",
+                    Street = "Sienkiewicza",
+                    StreetNumber = "102/1",
+                    PhoneNumber = "223656089",
+                    NIP = "1083657321",
+                    REGON = "923654621",
+                    BankAccountNumber = "238672113564142894103",
+                    CustomerTypeId = 2
+                },
+                new Customer
+                {
+                    Id = 4,
+                    Name = "Sebastian Stanclik",
+                    ZipCode = "50-348",
+                    City = "Wrocław",
+                    Street = "Sienkiewicza",
+                    StreetNumber = "102/1",
+                    PhoneNumber = "623256780",
+                    NIP = "5687894001",
+                    REGON = "923654521",
+                    BankAccountNumber = "758126713125672490103",
+                    CustomerTypeId = 1
                 }
             );
 
@@ -83,18 +111,19 @@ namespace EngineeringThesis.Core.Models
                     Id=1,
                     InvoiceNumber = "01/2019",
                     InvoiceDate = DateTime.Today,
-                    ContractorId = 1,
-                    SellerId = 2,
+                    ContractorId = 2,
+                    SellerId = 1,
                     PaymentTypeId = 2,
-                    PaymentDeadline = new DateTime(2019,11,1)
+                    PaymentDeadline = new DateTime(2019,11,11),
+                    PaymentDate = new DateTime(2019,10,19)
                 },
                 new Invoice
                 {
                     Id=2,
                     InvoiceNumber = "02/2019",
                     InvoiceDate = new DateTime(2019,09,14),
-                    ContractorId = 1,
-                    SellerId = 2,
+                    ContractorId = 4,
+                    SellerId = 3,
                     PaymentTypeId = 3,
                     PaymentDeadline = new DateTime(2020,05,14)
                 }
@@ -109,7 +138,8 @@ namespace EngineeringThesis.Core.Models
                     Unit = "szt",
                     NetPrice = "1500",
                     Amount = 1,
-                    VATSum = 23,
+                    VAT = 23,
+                    VATSum = "345",
                     NetSum = "1500",
                     GrossSum = "1845"
                 },
@@ -121,7 +151,8 @@ namespace EngineeringThesis.Core.Models
                     Unit = "szt",
                     NetPrice = "2000",
                     Amount = 1,
-                    VATSum = 23,
+                    VAT = 23,
+                    VATSum = "460",
                     NetSum = "2000",
                     GrossSum = "2460"
                 });

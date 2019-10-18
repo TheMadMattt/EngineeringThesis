@@ -25,7 +25,7 @@ namespace EngineeringThesis.UI.ViewModel
 
         public List<Customer> GetCustomers()
         {
-            return Customers = _customerService.GetCustomers();
+            return Customers = _customerService.GetContractors();
         }
     }
 }

@@ -15,7 +15,8 @@ namespace EngineeringThesis.Core.Models
         public string Unit { get; set; }
         public string NetPrice { get; set; }
         public int Amount { get; set; }
-        public int VATSum { get; set; }
+        public int VAT { get; set; }
+        public string VATSum { get; set; }
         public string NetSum { get; set; }
         public string GrossSum { get; set; }
         public string? Comments { get; set; }

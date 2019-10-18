@@ -9,11 +9,19 @@ namespace EngineeringThesis.Core.Services
 {
     public class CustomerService
     {
-        public List<Customer> GetCustomers()
+        public List<Customer> GetContractors()
         {
             using var ctx = new ApplicationContext();
 
             return ctx.Customers.Where(x => x.CustomerTypeId == 1).Include(customerType => customerType.CustomerType)
+                .ToList();
+        }
+
+        public List<Customer> GetSellers()
+        {
+            using var ctx = new ApplicationContext();
+
+            return ctx.Customers.Where(x => x.CustomerTypeId == 2).Include(customerType => customerType.CustomerType)
                 .ToList();
         }
     }
