@@ -42,14 +42,17 @@ namespace EngineeringThesis.UI
             serviceCollection.AddScoped(typeof(InvoiceService));
             serviceCollection.AddScoped(typeof(CustomerService));
             serviceCollection.AddScoped(typeof(PaymentTypeService));
+            serviceCollection.AddScoped(typeof(InvoiceItemService));
 
             //ViewModels
             serviceCollection.AddTransient(typeof(MainViewModel));
             serviceCollection.AddTransient(typeof(InvoiceViewModel));
+            serviceCollection.AddTransient(typeof(InvoiceItemViewModel));
 
             //Views
             serviceCollection.AddTransient(typeof(MainWindow));
             serviceCollection.AddTransient(typeof(InvoiceWindow));
+            serviceCollection.AddTransient(typeof(InvoiceItemWindow));
         }
     }
 }

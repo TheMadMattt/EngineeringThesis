@@ -1,21 +1,17 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.UI.Navigation;
 using EngineeringThesis.UI.ViewModel;
+using Forge.Forms;
+using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.UI.View
 {
@@ -46,8 +42,29 @@ namespace EngineeringThesis.UI.View
                 InvoiceViewModel.Invoice = InvoiceViewModel.GetInvoice(invoice.Id);
                 BindInvoiceToControls();
             }
+            else
+            {
+                InvoiceViewModel.Invoice = new Invoice();
+                var lastInvoice = InvoiceViewModel.GetLastInvoice();
+                InvoiceViewModel.Invoice.InvoiceNumber =
+                    InvoiceViewModel.CreateInvoiceNumber(lastInvoice.InvoiceNumber);
+                InvoiceViewModel.Invoice.InvoiceItems = new List<InvoiceItem>();
+                BindNewInvoiceToControls();
+            }
             
+
             return Task.CompletedTask;
+        }
+
+        private void BindNewInvoiceToControls()
+        {
+            ContractorComboBox.SelectedItem = InvoiceViewModel.Contractors[0];
+            SellerComboBox.SelectedItem = InvoiceViewModel.Sellers[0];
+            InvoiceDatePicker.SelectedDate = DateTime.Today;
+            PaymentTypeComboBox.SelectedItem = InvoiceViewModel.PaymentTypes[0];
+            PaymentDeadlineDatePicker.SelectedDate = DateTime.Today;
+            IsPaidCheckBox.IsChecked = false;
+            InvoiceItemsDataGrid.ItemsSource = InvoiceViewModel.Invoice.InvoiceItems;
         }
 
         public void BindInvoiceToControls()
@@ -66,15 +83,59 @@ namespace EngineeringThesis.UI.View
             InvoiceItemsDataGrid.ItemsSource = InvoiceViewModel.Invoice.InvoiceItems;
         }
 
-        private void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
+        private async void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult messageBoxResult =
-                MessageBox.Show("Czy napewno chcesz usunąć: " + ((InvoiceItem) InvoiceItemsDataGrid.SelectedItem).Name,
-                    "Usuń", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            if (InvoiceItemsDataGrid.SelectedItem != null)
             {
-                InvoiceViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
+                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning("Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
+                    "Usuwanie produktu", "Tak", "Nie"));
+                if (result.Action != null)
+                {
+                    if (result.Action.Equals("positive"))
+                    {
+                        InvoiceViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
+                        InvoiceItemsDataGrid.Items.Refresh();
+                    }
+                }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+            }
+        }
+
+        private async void AddItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            InvoiceItem invoiceItem = new InvoiceItem();
+            var invoiceItemWindow = await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
+            if (InvoiceViewModel.IsNullOrEmpty(invoiceItem))
+            {
+                InvoiceViewModel.Invoice.InvoiceItems.Add(invoiceItem);
                 InvoiceItemsDataGrid.Items.Refresh();
+            }
+            
+        }
+
+        private async void EditItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
+            {
+                var invoiceItemWindow = await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
+                var index = InvoiceViewModel.Invoice.InvoiceItems.ToList().FindIndex(x => x.Id == invoiceItem.Id);
+                (InvoiceViewModel.Invoice.InvoiceItems.ToList())[index] = invoiceItem;
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+            }
+            
+        }
+
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
             }
         }
     }

@@ -43,5 +43,32 @@ namespace EngineeringThesis.UI.ViewModel
         {
             return _invoiceService.GetInvoice(id);
         }
+
+        public Invoice GetLastInvoice()
+        {
+            return _invoiceService.GetLastInvoice();
+        }
+
+        public string CreateInvoiceNumber(string lastInvoiceNumber)
+        {
+            string[] splitted = lastInvoiceNumber.Split("/");
+            var number = Convert.ToInt32(splitted[0]);
+            var year = Convert.ToInt32(splitted[1]);
+
+            number += 1;
+            if (!year.Equals(DateTime.Today.Year))
+            {
+                year += 1;
+            }
+
+            return number + "/" + year;
+        }
+
+        public static bool IsNullOrEmpty(InvoiceItem obj)
+        {
+            return !String.IsNullOrEmpty(obj.Name) && obj.Amount > 0 && !String.IsNullOrEmpty(obj.Unit)
+                   && !String.IsNullOrEmpty(obj.NetPrice) && obj.VAT > 0 && !String.IsNullOrEmpty(obj.VATSum)
+                   && !String.IsNullOrEmpty(obj.NetSum) && !String.IsNullOrEmpty(obj.GrossSum);
+        }
     }
 }

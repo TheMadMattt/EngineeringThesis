@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aptof.Controls" Version="1.0.9" />
     <PackageReference Include="Dragablz" Version="0.0.3.203" />
+    <PackageReference Include="Forge.Forms" Version="1.1.1" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
     <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />

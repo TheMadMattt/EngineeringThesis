@@ -32,5 +32,12 @@ namespace EngineeringThesis.Core.Services
                 .Include(x => x.Seller)
                 .FirstOrDefault(x => x.Id == id);
         }
+
+        public Invoice GetLastInvoice()
+        {
+            using var ctx = new ApplicationContext();
+
+            return ctx.Invoices.OrderByDescending(p => p.Id).FirstOrDefault();
+        }
     }
 }
