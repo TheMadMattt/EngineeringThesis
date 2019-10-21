@@ -10,8 +10,10 @@
     <PackageReference Include="Aptof.Controls" Version="1.0.9" />
     <PackageReference Include="Dragablz" Version="0.0.3.203" />
     <PackageReference Include="Forge.Forms" Version="1.1.1" />
+    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
     <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
   </ItemGroup>
 

@@ -10,9 +10,9 @@ namespace EngineeringThesis.Core.Utility.Validators
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var number = Convert.ToDouble(value);
+            var number = double.TryParse(value.ToString(), out var doubleNumber);
 
-            if (number > 0)
+            if (doubleNumber > 0)
             {
                 return new ValidationResult(true, null);
             }

@@ -121,14 +121,20 @@ namespace EngineeringThesis.UI.View
             if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
             {
                 var invoiceItemWindow = await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
-                var index = InvoiceViewModel.Invoice.InvoiceItems.ToList().FindIndex(x => x.Id == invoiceItem.Id);
-                (InvoiceViewModel.Invoice.InvoiceItems.ToList())[index] = invoiceItem;
+
+                if (InvoiceViewModel.IsNullOrEmpty(invoiceItem))
+                {
+                    var invoiceItemsList = InvoiceViewModel.Invoice.InvoiceItems.ToList();
+                    var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
+                    invoiceItemsList[index] = invoiceItem;
+                }
+                
             }
             else
             {
                 await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
             }
-            
+            InvoiceItemsDataGrid.Items.Refresh();
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -174,6 +180,18 @@ namespace EngineeringThesis.UI.View
             {
                 MaximizeWindowIcon.Kind = PackIconKind.WindowRestore;
             }
+        }
+
+        private void InvoiceItemAction_MouseEnter(object sender, MouseEventArgs e)
+        {
+            InvoiceItemAction.Opacity = 1;
+            StackPanel.Opacity = 1;
+            AddItemBtn.Opacity = 1;
+        }
+
+        private void InvoiceItemAction_MouseLeave(object sender, MouseEventArgs e)
+        {
+            InvoiceItemAction.Opacity = 0.5;
         }
     }
 }

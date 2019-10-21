@@ -23,5 +23,21 @@ namespace EngineeringThesis.UI.ViewModel
             }
             set => SetProperty(ref _invoiceItem, value);
         }
+
+        private InvoiceItem _invoiceItemWithRef;
+
+        public InvoiceItem InvoiceItemWithRef
+        {
+            get
+            {
+                if (_invoiceItemWithRef != null)
+                {
+                    return _invoiceItemWithRef;
+                }
+
+                return _invoiceItemWithRef = new InvoiceItem();
+            }
+            set => SetProperty(ref _invoiceItemWithRef, value);
+        }
     }
 }

@@ -66,9 +66,9 @@ namespace EngineeringThesis.UI.ViewModel
 
         public static bool IsNullOrEmpty(InvoiceItem obj)
         {
-            return !String.IsNullOrEmpty(obj.Name) && obj.Amount > 0 && !String.IsNullOrEmpty(obj.Unit)
-                   && !String.IsNullOrEmpty(obj.NetPrice) && obj.VAT > 0 && !String.IsNullOrEmpty(obj.VATSum)
-                   && !String.IsNullOrEmpty(obj.NetSum) && !String.IsNullOrEmpty(obj.GrossSum);
+            return !string.IsNullOrEmpty(obj.Name) && obj.Amount > 0 && !string.IsNullOrEmpty(obj.Unit)
+                   && !string.IsNullOrEmpty(obj.NetPrice) && obj.VAT > 0 && !string.IsNullOrEmpty(obj.VATSum)
+                   && !string.IsNullOrEmpty(obj.NetSum) && !string.IsNullOrEmpty(obj.GrossSum);
         }
     }
 }
