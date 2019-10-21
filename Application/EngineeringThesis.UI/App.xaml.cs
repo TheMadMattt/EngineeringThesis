@@ -53,6 +53,7 @@ namespace EngineeringThesis.UI
             serviceCollection.AddTransient(typeof(MainWindow));
             serviceCollection.AddTransient(typeof(InvoiceWindow));
             serviceCollection.AddTransient(typeof(InvoiceItemWindow));
+            serviceCollection.AddTransient(typeof(AddCustomerWindow));
         }
     }
 }

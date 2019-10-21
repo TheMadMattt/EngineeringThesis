@@ -71,7 +71,7 @@
                 <StackPanel Orientation="Vertical">
                     <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0">
                         <Button Name="AddContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
-                                ToolTip="Dodaj kontrahenta" Height="40" Width="40"></Button>
+                                ToolTip="Dodaj kontrahenta" Height="40" Width="40" Click="AddContractorButton_Click"></Button>
                     </ToolBar>
                     <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
                           IsReadOnly="True" ScrollViewer.CanContentScroll="False" 

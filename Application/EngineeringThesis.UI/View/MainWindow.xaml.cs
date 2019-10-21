@@ -37,5 +37,10 @@ namespace EngineeringThesis.UI.View
         {
             var invoiceWindow = await _navigationService.ShowDialogAsync<InvoiceWindow>();
         }
+
+        private async void AddContractorButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>();
+        }
     }
 }
