@@ -131,11 +131,48 @@ namespace EngineeringThesis.UI.View
             
         }
 
-        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MaximizeWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+                MaximizeWindowIcon.Kind = PackIconKind.WindowRestore;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                MaximizeWindowIcon.Kind = PackIconKind.WindowMaximize;
+            }
+        }
+
+        private void ToolbarGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
+            }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                MaximizeWindowIcon.Kind = PackIconKind.WindowMaximize;
+            }
+            else
+            {
+                MaximizeWindowIcon.Kind = PackIconKind.WindowRestore;
             }
         }
     }
