@@ -75,7 +75,7 @@
                     </ToolBar>
                     <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
                           IsReadOnly="True" ScrollViewer.CanContentScroll="False" 
-                          HorizontalScrollBarVisibility="Auto">
+                          HorizontalScrollBarVisibility="Auto" MouseDoubleClick="CustomerDataGrid_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 
                                             ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>

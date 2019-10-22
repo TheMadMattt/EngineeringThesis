@@ -42,5 +42,11 @@ namespace EngineeringThesis.UI.View
         {
             var addCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>();
         }
+
+        private void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var customer = CustomerDataGrid.SelectedCells[0].Item as Customer;
+            var editCustomerWindow = _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+        }
     }
 }

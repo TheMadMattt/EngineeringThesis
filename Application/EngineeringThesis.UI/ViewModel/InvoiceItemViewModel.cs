@@ -4,12 +4,21 @@ using System.Text;
 using System.Windows;
 using System.Windows.Navigation;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Services;
 
 namespace EngineeringThesis.UI.ViewModel
 {
     public class InvoiceItemViewModel: BaseViewModel
     {
+        private readonly InvoiceItemService _invoiceItemService;
         private InvoiceItem _invoiceItem;
+        public InvoiceItem InvoiceItemWithRef;
+
+        public InvoiceItemViewModel(InvoiceItemService invoiceItemService)
+        {
+            _invoiceItemService = invoiceItemService;
+        }
+
         public InvoiceItem InvoiceItem
         {
             get
@@ -24,20 +33,5 @@ namespace EngineeringThesis.UI.ViewModel
             set => SetProperty(ref _invoiceItem, value);
         }
 
-        private InvoiceItem _invoiceItemWithRef;
-
-        public InvoiceItem InvoiceItemWithRef
-        {
-            get
-            {
-                if (_invoiceItemWithRef != null)
-                {
-                    return _invoiceItemWithRef;
-                }
-
-                return _invoiceItemWithRef = new InvoiceItem();
-            }
-            set => SetProperty(ref _invoiceItemWithRef, value);
-        }
     }
 }

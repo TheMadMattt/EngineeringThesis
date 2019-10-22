@@ -24,7 +24,6 @@ namespace EngineeringThesis.UI.View
         public InvoiceViewModel InvoiceViewModel;
         public InvoiceWindow(NavigationService navigationService, InvoiceViewModel invoiceViewModel)
         {
-            Language = XmlLanguage.GetLanguage("pl-PL");
             InitializeComponent();
             InvoiceDatePicker.SelectedDate = DateTime.Today;
             InvoiceViewModel = invoiceViewModel;

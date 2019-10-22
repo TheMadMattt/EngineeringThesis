@@ -28,14 +28,10 @@ namespace EngineeringThesis.UI.View
     /// </summary>
     public partial class InvoiceItemWindow : Window, IActivable
     {
-        private readonly InvoiceItemService _invoiceItemService;
         public InvoiceItemViewModel InvoiceItemViewModel;
-        public InvoiceItemWindow(InvoiceItemService invoiceItemService, InvoiceItemViewModel invoiceItemViewModel)
+        public InvoiceItemWindow(InvoiceItemViewModel invoiceItemViewModel)
         {
-            Language = XmlLanguage.GetLanguage("pl-PL");
-
             InitializeComponent();
-            _invoiceItemService = invoiceItemService;
             InvoiceItemViewModel = invoiceItemViewModel;
 
             DataContext = InvoiceItemViewModel;
@@ -76,14 +72,14 @@ namespace EngineeringThesis.UI.View
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
                 InvoiceItemViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
-                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl-PL"));
+                NetSumTextBlock.Text = sum.ToString("C2");
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
                 var VAT = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * VAT;
                 InvoiceItemViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
-                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl-PL"));
+                GrossSumTextBlock.Text = sum.ToString("C2");
             }
         }
 
@@ -93,14 +89,14 @@ namespace EngineeringThesis.UI.View
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value); 
                 InvoiceItemViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
-                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl-PL"));
+                NetSumTextBlock.Text = sum.ToString("C2");
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
                 var VAT = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * VAT;
                 InvoiceItemViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
-                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl-PL"));
+                GrossSumTextBlock.Text = sum.ToString("C2");
             }
         }
 
@@ -111,7 +107,7 @@ namespace EngineeringThesis.UI.View
                 var VAT = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * VAT;
                 InvoiceItemViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
-                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl-PL"));
+                GrossSumTextBlock.Text = sum.ToString("C2");
             }
         }
 
@@ -142,7 +138,7 @@ namespace EngineeringThesis.UI.View
             InvoiceItemViewModel.InvoiceItemWithRef.PKWiU = InvoiceItemViewModel.InvoiceItem.PKWiU;
             InvoiceItemViewModel.InvoiceItemWithRef.Unit = InvoiceItemViewModel.InvoiceItem.Unit;
             InvoiceItemViewModel.InvoiceItemWithRef.NetPrice =
-                Convert.ToDecimal(InvoiceItemViewModel.InvoiceItem.NetPrice.Replace(",",".")).ToString("#.00").Replace(".",",");
+                Convert.ToDecimal(InvoiceItemViewModel.InvoiceItem.NetPrice).ToString("#.00");
             InvoiceItemViewModel.InvoiceItemWithRef.Amount = InvoiceItemViewModel.InvoiceItem.Amount;
             InvoiceItemViewModel.InvoiceItemWithRef.VAT = InvoiceItemViewModel.InvoiceItem.VAT;
             InvoiceItemViewModel.InvoiceItemWithRef.NetSum = InvoiceItemViewModel.InvoiceItem.NetSum;

@@ -21,8 +21,8 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBox Name="CustomerNameTextBox" materialDesign:HintAssist.Hint="Nazwa firmy" Grid.Row="0"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-            <Binding Path="InvoiceItem.Name" UpdateSourceTrigger="PropertyChanged">
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top">
+            <Binding Path="Customer.Name" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
                     <validators:IsEmptyValidator/>
                 </Binding.ValidationRules>
@@ -35,7 +35,7 @@
             </Grid.ColumnDefinitions>
             <TextBox Name="CityTextBox" materialDesign:HintAssist.Hint="Miasto" Grid.Column="0"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-                <Binding Path="InvoiceItem.Name" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Customer.City" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:IsEmptyValidator/>
                     </Binding.ValidationRules>
@@ -43,7 +43,7 @@
             </TextBox>
             <TextBox Name="ZipCodeTextBox" materialDesign:HintAssist.Hint="Kod pocztowy" Grid.Column="1"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top">
-                <Binding Path="InvoiceItem.Name" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Customer.ZipCode" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:IsEmptyValidator/>
                     </Binding.ValidationRules>
@@ -52,7 +52,7 @@
         </Grid>
         <TextBox Name="StreetTextBox" materialDesign:HintAssist.Hint="Ulica" Grid.Row="2"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-            <Binding Path="InvoiceItem.Name" UpdateSourceTrigger="PropertyChanged">
+            <Binding Path="Customer.Street" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
                     <validators:IsEmptyValidator/>
                 </Binding.ValidationRules>
@@ -65,18 +65,19 @@
             </Grid.ColumnDefinitions>
             <TextBox Name="StreetNumberTextBox" materialDesign:HintAssist.Hint="Nr domu" Grid.Column="0"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-                <Binding Path="InvoiceItem.Name" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="StreetNumber" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:IsEmptyValidator/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
             <TextBox Name="FlatNumberTextBox" materialDesign:HintAssist.Hint="Nr mieszkania" Grid.Column="1"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top">
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
+                     Text="{Binding FlatNumber}">
             </TextBox>
         </Grid>
         <xctk:MaskedTextBox Mask="000-000-000" Name="PhoneNumberTextBox" materialDesign:HintAssist.Hint="Telefon" Grid.Row="4"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top">
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Text="{Binding Customer.PhoneNumber}">
         </xctk:MaskedTextBox>
     </Grid>
 </Window>
