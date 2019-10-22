@@ -31,9 +31,9 @@
                         <Button Name="AddInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
                                 ToolTip="Dodaj fakturę" Height="40" Width="40" Click="AddInvoiceButton_Click"></Button>
                     </ToolBar>
-                    <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" 
-                  IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="False" 
-                  HorizontalScrollBarVisibility="Auto">
+                    <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single"
+                              IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="False" 
+                              HorizontalScrollBarVisibility="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceNumber}" Binding="{Binding InvoiceNumber}" 
                                     ElementStyle="{StaticResource CenterAlignment}" Width="Auto"/>
@@ -74,7 +74,7 @@
                                 ToolTip="Dodaj kontrahenta" Height="40" Width="40" Click="AddContractorButton_Click"></Button>
                     </ToolBar>
                     <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
-                          IsReadOnly="True" ScrollViewer.CanContentScroll="False" 
+                          IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
                           HorizontalScrollBarVisibility="Auto" MouseDoubleClick="CustomerDataGrid_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 

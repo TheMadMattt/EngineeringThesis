@@ -53,9 +53,9 @@
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid>
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -209,12 +209,8 @@
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <!-- <Grid.ColumnDefinitions> -->
-                        <!--     <ColumnDefinition></ColumnDefinition> -->
-                        <!--     <ColumnDefinition Width="Auto"></ColumnDefinition> -->
-                        <!-- </Grid.ColumnDefinitions> -->
                         <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
-                                  IsReadOnly="True" ScrollViewer.CanContentScroll="False" 
+                                  IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
                                   HorizontalScrollBarVisibility="Visible" Grid.Column="0" SelectedIndex="0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" 
@@ -229,21 +225,16 @@
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVAT}" Binding="{Binding VAT, StringFormat={}{0}%}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat={}{0:C2} zł}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat=C2}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemGrossSum}" Binding="{Binding GrossSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVATSum}" Binding="{Binding VATSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemComments}" Binding="{Binding Comments}" 
-                                        ElementStyle="{StaticResource WrapCenterColumn}" Width="2*"/>
+                                        ElementStyle="{StaticResource WrapCenterColumn}" MaxWidth="200"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <!-- <StackPanel Grid.Column="1"> -->
-                        <!--     <Button Name="AddItemBtn" Content="{x:Static resx:InvoiceWindow.AddItem}" Margin="0,0,0,15" Click="AddItemBtn_Click"/> -->
-                        <!--     <Button Name="EditItemBtn" Content="{x:Static resx:InvoiceWindow.EditItem}" Margin="0,0,0,15" Click="EditItemBtn_Click"/> -->
-                        <!--     <Button Name="DeleteItemBtn" Content="{x:Static resx:InvoiceWindow.DeleteItem}" Click="DeleteItemBtn_Click"/> -->
-                        <!-- </StackPanel> -->
                         <materialDesign:PopupBox
                             Name="InvoiceItemAction"
                             Opacity="0.5"

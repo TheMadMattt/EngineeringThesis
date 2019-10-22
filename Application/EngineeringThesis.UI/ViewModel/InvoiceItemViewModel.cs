@@ -32,6 +32,5 @@ namespace EngineeringThesis.UI.ViewModel
             }
             set => SetProperty(ref _invoiceItem, value);
         }
-
     }
 }

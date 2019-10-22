@@ -8,7 +8,7 @@ namespace EngineeringThesis.Core.Services
 {
     public class InvoiceItemService
     {
-        public InvoiceItem GetItem(int id)
+        public InvoiceItem GetInvoiceItem(int id)
         {
             using var ctx = new ApplicationContext();
 
