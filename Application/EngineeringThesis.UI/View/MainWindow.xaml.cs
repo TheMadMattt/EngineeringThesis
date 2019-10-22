@@ -20,11 +20,8 @@ namespace EngineeringThesis.UI.View
             _navigationService = navigationService;
             MainViewModel = mainViewModel;
 
-            MainViewModel.GetInvoices();
-            MainViewModel.GetCustomers();
-
-            InvoiceDataGrid.ItemsSource = MainViewModel.Invoices;
-            CustomerDataGrid.ItemsSource = MainViewModel.Customers;
+            InvoiceDataGrid.ItemsSource = MainViewModel.GetInvoices();
+            CustomerDataGrid.ItemsSource = MainViewModel.GetCustomers();
         }
 
         private async void InvoiceDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -41,6 +38,7 @@ namespace EngineeringThesis.UI.View
         private async void AddContractorButton_Click(object sender, RoutedEventArgs e)
         {
             var addCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>();
+            CustomerDataGrid.ItemsSource = MainViewModel.GetCustomers();
         }
 
         private void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

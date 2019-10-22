@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Utility;
 using EngineeringThesis.UI.Navigation;
 using EngineeringThesis.UI.ViewModel;
 
@@ -55,8 +56,30 @@ namespace EngineeringThesis.UI.View
                 CustomerViewModel.StreetNumber = address.StreetNumber;
                 CustomerViewModel.FlatNumber = address.FlatNumber;
             }
+            else
+            {
+                CustomerViewModel.CustomerWithRef = new Customer();
+                CustomerViewModel.Customer = new Customer();
+            }
 
             return Task.CompletedTask;
+        }
+
+        private void PhoneNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Utility.IsTextNumeric(e.Text);
+        }
+
+        private void AddCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerViewModel.BindToRefObject();
+            CustomerViewModel.SaveCustomer();
+            this.Close();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

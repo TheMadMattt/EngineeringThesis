@@ -24,5 +24,15 @@ namespace EngineeringThesis.Core.Services
             return ctx.Customers.Where(x => x.CustomerTypeId == 2).Include(customerType => customerType.CustomerType)
                 .ToList();
         }
+
+        public bool SaveCustomer(Customer customerWithRef)
+        {
+            using var ctx = new ApplicationContext();
+
+            ctx.Customers.Add(customerWithRef);
+            ctx.SaveChanges();
+
+            return true;
+        }
     }
 }

@@ -16,6 +16,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="QuickConverter" Version="1.2.5" />
   </ItemGroup>
 
   <ItemGroup>

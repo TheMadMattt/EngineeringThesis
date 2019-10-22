@@ -12,11 +12,5 @@ namespace EngineeringThesis.Core.Utility
             Regex regex = new Regex("[^0-9]+");
             return regex.IsMatch(text);
         }
-
-        public static bool IsTextCurrency(string text)
-        {
-            Regex regex = new Regex("^[0-9]+\\.[0-9]{2}$");
-            return regex.IsMatch(text);
-        }
     }
 }

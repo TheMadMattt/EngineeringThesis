@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Navigation;
@@ -31,6 +32,37 @@ namespace EngineeringThesis.UI.ViewModel
                 return _invoiceItem = new InvoiceItem();
             }
             set => SetProperty(ref _invoiceItem, value);
+        }
+
+        public string FormatCurrency(string number)
+        {
+            var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            clone.NumberFormat.NumberDecimalSeparator = ",";
+            clone.NumberFormat.NumberGroupSeparator = ".";
+
+            return decimal.Parse(number, clone).ToString("#.00");
+        }
+
+        public void BindToRefObject()
+        {
+            try
+            {
+                InvoiceItemWithRef.Name = InvoiceItem.Name;
+                InvoiceItemWithRef.PKWiU = InvoiceItem.PKWiU;
+                InvoiceItemWithRef.Unit = InvoiceItem.Unit;
+                InvoiceItemWithRef.NetPrice =
+                    FormatCurrency(InvoiceItem.NetPrice);
+                InvoiceItemWithRef.Amount = InvoiceItem.Amount;
+                InvoiceItemWithRef.VAT = InvoiceItem.VAT;
+                InvoiceItemWithRef.NetSum = InvoiceItem.NetSum;
+                InvoiceItemWithRef.GrossSum = InvoiceItem.GrossSum;
+                InvoiceItemWithRef.Comments = InvoiceItem.Comments;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

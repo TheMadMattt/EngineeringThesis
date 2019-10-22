@@ -46,7 +46,7 @@ namespace EngineeringThesis.UI.View
                 {
                     Name = invoiceItem.Name,
                     Amount = invoiceItem.Amount,
-                    NetPrice = invoiceItem.NetPrice,
+                    NetPrice = invoiceItem.NetPrice.Replace(".",","),
                     VAT = invoiceItem.VAT,
                     Unit = invoiceItem.Unit,
                     PKWiU = invoiceItem.PKWiU,
@@ -134,16 +134,7 @@ namespace EngineeringThesis.UI.View
 
         private void UpdateInvoiceItem()
         {
-            InvoiceItemViewModel.InvoiceItemWithRef.Name = InvoiceItemViewModel.InvoiceItem.Name;
-            InvoiceItemViewModel.InvoiceItemWithRef.PKWiU = InvoiceItemViewModel.InvoiceItem.PKWiU;
-            InvoiceItemViewModel.InvoiceItemWithRef.Unit = InvoiceItemViewModel.InvoiceItem.Unit;
-            InvoiceItemViewModel.InvoiceItemWithRef.NetPrice =
-                Convert.ToDecimal(InvoiceItemViewModel.InvoiceItem.NetPrice).ToString("#.00");
-            InvoiceItemViewModel.InvoiceItemWithRef.Amount = InvoiceItemViewModel.InvoiceItem.Amount;
-            InvoiceItemViewModel.InvoiceItemWithRef.VAT = InvoiceItemViewModel.InvoiceItem.VAT;
-            InvoiceItemViewModel.InvoiceItemWithRef.NetSum = InvoiceItemViewModel.InvoiceItem.NetSum;
-            InvoiceItemViewModel.InvoiceItemWithRef.GrossSum = InvoiceItemViewModel.InvoiceItem.GrossSum;
-            InvoiceItemViewModel.InvoiceItemWithRef.Comments = InvoiceItemViewModel.InvoiceItem.Comments;
+            InvoiceItemViewModel.BindToRefObject();
 
             if (!string.IsNullOrEmpty(GrossSumTextBlock.Text) && !string.IsNullOrEmpty(NetSumTextBlock.Text))
             {
