@@ -67,7 +67,7 @@
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <ComboBox Name="ContractorComboBox" VerticalAlignment="Top" SelectedIndex="1" Grid.Row="0">
+                                <ComboBox Name="ContractorComboBox" VerticalAlignment="Top" SelectedIndex="0" Grid.Row="0">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>
@@ -122,7 +122,7 @@
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <ComboBox Name="SellerComboBox" VerticalAlignment="Top" SelectedIndex="1" Grid.Row="0">
+                                <ComboBox Name="SellerComboBox" VerticalAlignment="Top" SelectedIndex="0" Grid.Row="0">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>

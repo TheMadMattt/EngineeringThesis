@@ -30,6 +30,7 @@ namespace EngineeringThesis.UI.View
             InitializeComponent();
             CustomerViewModel = customerViewModel;
 
+            CustomerTypeComboBox.ItemsSource = CustomerViewModel.GetCustomerTypes();
             DataContext = CustomerViewModel;
         }
 
@@ -52,9 +53,10 @@ namespace EngineeringThesis.UI.View
                     Comments = customer.Comments,
                     CustomerTypeId = customer.CustomerTypeId
                 };
-                var address = CustomerViewModel.SplitAddress(customer.StreetNumber);
-                CustomerViewModel.StreetNumber = address.StreetNumber;
-                CustomerViewModel.FlatNumber = address.FlatNumber;
+                CustomerViewModel.SplitAddress(customer.StreetNumber);
+                CustomerViewModel.IsUpdate = true;
+
+                PrepareControls();
             }
             else
             {
@@ -65,6 +67,13 @@ namespace EngineeringThesis.UI.View
             return Task.CompletedTask;
         }
 
+        private void PrepareControls()
+        {
+            HasNIPCheckBox.IsChecked = CustomerViewModel.Customer.NIP == null;
+            HasREGONCheckBox.IsChecked = CustomerViewModel.Customer.REGON == null;
+            HasBankAccountCheckBox.IsChecked = CustomerViewModel.Customer.BankAccountNumber == null;
+        }
+
         private void PhoneNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Utility.IsTextNumeric(e.Text);
@@ -72,8 +81,32 @@ namespace EngineeringThesis.UI.View
 
         private void AddCustomerButton_Click(object sender, RoutedEventArgs e)
         {
+            if (HasNIPCheckBox.IsChecked == true)
+            {
+                CustomerViewModel.Customer.NIP = null;
+            }
+
+            if (HasREGONCheckBox.IsChecked == true)
+            {
+                CustomerViewModel.Customer.REGON = null;
+            }
+
+            if (HasBankAccountCheckBox.IsChecked == true)
+            {
+                CustomerViewModel.Customer.BankAccountNumber = null;
+            }
+
             CustomerViewModel.BindToRefObject();
-            CustomerViewModel.SaveCustomer();
+
+            if (CustomerViewModel.IsUpdate)
+            {
+                CustomerViewModel.UpdateCustomer();
+            }
+            else
+            {
+                CustomerViewModel.SaveCustomer();
+            }
+            
             this.Close();
         }
 

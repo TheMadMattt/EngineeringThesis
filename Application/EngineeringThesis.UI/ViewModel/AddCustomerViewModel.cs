@@ -11,18 +11,31 @@ namespace EngineeringThesis.UI.ViewModel
     public class AddCustomerViewModel : BaseViewModel
     {
         private readonly CustomerService _customerService;
-        public Customer CustomerWithRef;
         private Customer _customer;
         private string _flatNumber;
         private string _streetNumber;
+        private bool _isUpdate = false;
+
+        public Customer CustomerWithRef;
+        public List<CustomerType> CustomerTypes;
+
         public AddCustomerViewModel(CustomerService customerService)
         {
             _customerService = customerService;
         }
 
-        public bool SaveCustomer()
+        public void SaveCustomer()
         {
-            return _customerService.SaveCustomer(CustomerWithRef);
+            _customerService.SaveCustomer(CustomerWithRef);
+        }
+        public void UpdateCustomer()
+        {
+            _customerService.UpdateCustomer(CustomerWithRef);
+        }
+
+        public List<CustomerType> GetCustomerTypes()
+        {
+            return CustomerTypes = _customerService.GetCustomerTypes();
         }
 
         public Customer Customer
@@ -39,6 +52,12 @@ namespace EngineeringThesis.UI.ViewModel
             set => SetProperty(ref _customer, value);
         }
 
+        public bool IsUpdate
+        {
+            get => _isUpdate;
+            set => SetProperty(ref _isUpdate, value);
+        }
+
         public string FlatNumber
         {
             get => _flatNumber;
@@ -51,21 +70,11 @@ namespace EngineeringThesis.UI.ViewModel
             set => SetProperty(ref _streetNumber, value);
         }
 
-        public StreetFlatNumber SplitAddress(string address)
+        public void SplitAddress(string address)
         {
-            StreetFlatNumber streetFlatNumber = new StreetFlatNumber();
-
             string[] numbers = address.Split("/");
-            streetFlatNumber.StreetNumber = numbers[0];
-            streetFlatNumber.FlatNumber = numbers[1];
-
-            return streetFlatNumber;
-        }
-
-        public struct StreetFlatNumber
-        {
-            public string FlatNumber;
-            public string StreetNumber;
+            StreetNumber = numbers[0];
+            FlatNumber = numbers[1];
         }
 
         public void BindToRefObject()

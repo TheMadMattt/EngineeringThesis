@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using EngineeringThesis.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,29 @@ namespace EngineeringThesis.Core.Services
                 .ToList();
         }
 
-        public bool SaveCustomer(Customer customerWithRef)
+        public void SaveCustomer(Customer customerWithRef)
         {
             using var ctx = new ApplicationContext();
 
             ctx.Customers.Add(customerWithRef);
             ctx.SaveChanges();
+        }
 
-            return true;
+        public void UpdateCustomer(Customer customerWithRef)
+        {
+            using var ctx = new ApplicationContext();
+
+            var oldCustomer = ctx.Customers.Find(customerWithRef.Id);
+
+            ctx.Entry(oldCustomer).CurrentValues.SetValues(customerWithRef);
+            ctx.SaveChanges();
+        }
+
+        public List<CustomerType> GetCustomerTypes()
+        {
+            using var ctx = new ApplicationContext();
+
+            return ctx.CustomerTypes.ToList();
         }
     }
 }

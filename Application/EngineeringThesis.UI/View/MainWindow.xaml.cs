@@ -45,6 +45,7 @@ namespace EngineeringThesis.UI.View
         {
             var customer = CustomerDataGrid.SelectedCells[0].Item as Customer;
             var editCustomerWindow = _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+            CustomerDataGrid.ItemsSource = MainViewModel.GetCustomers();
         }
     }
 }
