@@ -73,8 +73,16 @@ namespace EngineeringThesis.UI.ViewModel
         public void SplitAddress(string address)
         {
             string[] numbers = address.Split("/");
-            StreetNumber = numbers[0];
-            FlatNumber = numbers[1];
+            if (numbers.Length == 2)
+            {
+                StreetNumber = numbers[0];
+                FlatNumber = numbers[1];
+            }
+            else
+            {
+                StreetNumber = numbers[0];
+            }
+            
         }
 
         public void BindToRefObject()

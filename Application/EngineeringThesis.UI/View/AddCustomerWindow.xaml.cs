@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Utility;
+using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.UI.Navigation;
 using EngineeringThesis.UI.ViewModel;
 
@@ -25,6 +26,7 @@ namespace EngineeringThesis.UI.View
     public partial class AddCustomerWindow : Window, IActivable
     {
         public AddCustomerViewModel CustomerViewModel;
+
         public AddCustomerWindow(AddCustomerViewModel customerViewModel)
         {
             InitializeComponent();
@@ -79,40 +81,64 @@ namespace EngineeringThesis.UI.View
             e.Handled = Utility.IsTextNumeric(e.Text);
         }
 
-        private void AddCustomerButton_Click(object sender, RoutedEventArgs e)
+        private async void AddCustomerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (HasNIPCheckBox.IsChecked == true)
+            ForceValidation();
+            if (ControlsHasNoError())
             {
-                CustomerViewModel.Customer.NIP = null;
-            }
+                if (HasNIPCheckBox.IsChecked == true)
+                {
+                    CustomerViewModel.Customer.NIP = null;
+                }
 
-            if (HasREGONCheckBox.IsChecked == true)
-            {
-                CustomerViewModel.Customer.REGON = null;
-            }
+                if (HasREGONCheckBox.IsChecked == true)
+                {
+                    CustomerViewModel.Customer.REGON = null;
+                }
 
-            if (HasBankAccountCheckBox.IsChecked == true)
-            {
-                CustomerViewModel.Customer.BankAccountNumber = null;
-            }
+                if (HasBankAccountCheckBox.IsChecked == true)
+                {
+                    CustomerViewModel.Customer.BankAccountNumber = null;
+                }
 
-            CustomerViewModel.BindToRefObject();
+                CustomerViewModel.BindToRefObject();
 
-            if (CustomerViewModel.IsUpdate)
-            {
-                CustomerViewModel.UpdateCustomer();
+                if (CustomerViewModel.IsUpdate)
+                {
+                    CustomerViewModel.UpdateCustomer();
+                }
+                else
+                {
+                    CustomerViewModel.SaveCustomer();
+                }
+
+                this.Close();
             }
             else
             {
-                CustomerViewModel.SaveCustomer();
+                await Forge.Forms.Show.Dialog("AddCustomerDialogHost").For(
+                    new Information("Nie wszystkie pola zostały uzupełnione", "Uzupełnij pozostałe pola", "OK"));
             }
-            
-            this.Close();
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ForceValidation()
+        {
+            CustomerNameTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            CityTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            ZipCodeTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+        }
+
+        private bool ControlsHasNoError()
+        {
+            return !Validation.GetHasError(CustomerNameTextBox) &&
+                   !Validation.GetHasError(CityTextBox) &&
+                   !Validation.GetHasError(ZipCodeTextBox);
         }
     }
 }
