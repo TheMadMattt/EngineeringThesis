@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Windows;
-using System.Windows.Navigation;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 
-namespace EngineeringThesis.UI.ViewModel
+namespace EngineeringThesis.Core.ViewModel
 {
     public class InvoiceItemViewModel: BaseViewModel
     {

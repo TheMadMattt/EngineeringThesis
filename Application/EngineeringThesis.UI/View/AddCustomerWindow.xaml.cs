@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Models.DisplayModels;
 using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
+using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
-using EngineeringThesis.UI.ViewModel;
 
 namespace EngineeringThesis.UI.View
 {
@@ -25,29 +16,28 @@ namespace EngineeringThesis.UI.View
     /// </summary>
     public partial class AddCustomerWindow : Window, IActivable
     {
-        public AddCustomerViewModel CustomerViewModel;
+        public AddCustomerViewModel ViewModel;
 
-        public AddCustomerWindow(AddCustomerViewModel customerViewModel)
+        public AddCustomerWindow(AddCustomerViewModel viewModel)
         {
             InitializeComponent();
-            CustomerViewModel = customerViewModel;
+            ViewModel = viewModel;
 
-            CustomerTypeComboBox.ItemsSource = CustomerViewModel.GetCustomerTypes();
-            DataContext = CustomerViewModel;
+            CustomerTypeComboBox.ItemsSource = ViewModel.GetCustomerTypes();
+            DataContext = ViewModel;
         }
 
         public Task ActivateAsync(object parameter)
         {
             if (parameter is Customer customer)
             {
-                CustomerViewModel.CustomerWithRef = customer;
-                CustomerViewModel.Customer = new Customer
+                ViewModel.CustomerWithRef = customer;
+                ViewModel.Customer = new CustomerDisplayModel
                 {
                     Name = customer.Name,
                     ZipCode = customer.ZipCode,
                     City = customer.City,
                     Street = customer.Street,
-                    StreetNumber = customer.StreetNumber,
                     PhoneNumber = customer.PhoneNumber,
                     NIP = customer.NIP,
                     REGON = customer.REGON,
@@ -55,15 +45,15 @@ namespace EngineeringThesis.UI.View
                     Comments = customer.Comments,
                     CustomerTypeId = customer.CustomerTypeId
                 };
-                CustomerViewModel.SplitAddress(customer.StreetNumber);
-                CustomerViewModel.IsUpdate = true;
+                ViewModel.SplitAddress(customer.StreetNumber);
+                ViewModel.IsUpdate = true;
 
                 PrepareControls();
             }
             else
             {
-                CustomerViewModel.CustomerWithRef = new Customer();
-                CustomerViewModel.Customer = new Customer();
+                ViewModel.CustomerWithRef = new Customer();
+                ViewModel.Customer = new CustomerDisplayModel();
             }
 
             return Task.CompletedTask;
@@ -71,14 +61,11 @@ namespace EngineeringThesis.UI.View
 
         private void PrepareControls()
         {
-            HasNIPCheckBox.IsChecked = CustomerViewModel.Customer.NIP == null;
-            HasREGONCheckBox.IsChecked = CustomerViewModel.Customer.REGON == null;
-            HasBankAccountCheckBox.IsChecked = CustomerViewModel.Customer.BankAccountNumber == null;
-        }
-
-        private void PhoneNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = Utility.IsTextNumeric(e.Text);
+            NoNIPCheckBox.IsChecked = ViewModel.Customer.NIP == null;
+            NoREGONCheckBox.IsChecked = ViewModel.Customer.REGON == null;
+            NoBankAccountCheckBox.IsChecked = ViewModel.Customer.BankAccountNumber == null;
+            CustomerTypeComboBox.SelectedItem =
+                ViewModel.CustomerTypes.Find(x => x.Id == ViewModel.Customer.CustomerTypeId);
         }
 
         private async void AddCustomerButton_Click(object sender, RoutedEventArgs e)
@@ -86,30 +73,31 @@ namespace EngineeringThesis.UI.View
             ForceValidation();
             if (ControlsHasNoError())
             {
-                if (HasNIPCheckBox.IsChecked == true)
+                if (NoNIPCheckBox.IsChecked == true)
                 {
-                    CustomerViewModel.Customer.NIP = null;
+                    ViewModel.Customer.NIP = null;
                 }
 
-                if (HasREGONCheckBox.IsChecked == true)
+                if (NoREGONCheckBox.IsChecked == true)
                 {
-                    CustomerViewModel.Customer.REGON = null;
+                    ViewModel.Customer.REGON = null;
                 }
 
-                if (HasBankAccountCheckBox.IsChecked == true)
+                if (NoBankAccountCheckBox.IsChecked == true)
                 {
-                    CustomerViewModel.Customer.BankAccountNumber = null;
+                    ViewModel.Customer.BankAccountNumber = null;
                 }
 
-                CustomerViewModel.BindToRefObject();
+                ViewModel.BindToRefObject();
+                ViewModel.CustomerWithRef.CustomerTypeId = ((CustomerType) CustomerTypeComboBox.SelectedItem).Id;
 
-                if (CustomerViewModel.IsUpdate)
+                if (ViewModel.IsUpdate)
                 {
-                    CustomerViewModel.UpdateCustomer();
+                    ViewModel.UpdateCustomer();
                 }
                 else
                 {
-                    CustomerViewModel.SaveCustomer();
+                    ViewModel.SaveCustomer();
                 }
 
                 this.Close();
@@ -129,16 +117,69 @@ namespace EngineeringThesis.UI.View
 
         private void ForceValidation()
         {
+            if (NoNIPCheckBox.IsChecked == false)
+            {
+                NIPTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            }
+
+            if (NoREGONCheckBox.IsChecked == false)
+            {
+                REGONTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            }
+
+            if (NoBankAccountCheckBox.IsChecked == false)
+            {
+                BankAccountNumberTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            }
+
             CustomerNameTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
             CityTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
             ZipCodeTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            FlatNumberTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            StreetNumberTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            StreetTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            PhoneNumberTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
         }
 
         private bool ControlsHasNoError()
         {
             return !Validation.GetHasError(CustomerNameTextBox) &&
                    !Validation.GetHasError(CityTextBox) &&
-                   !Validation.GetHasError(ZipCodeTextBox);
+                   !Validation.GetHasError(ZipCodeTextBox) && 
+                   !Validation.GetHasError(FlatNumberTextBox) &&
+                   !Validation.GetHasError(StreetNumberTextBox) &&
+                   !Validation.GetHasError(StreetTextBox) &&
+                   !Validation.GetHasError(PhoneNumberTextBox) &&
+                   !Validation.GetHasError(NIPTextBox) && 
+                   !Validation.GetHasError(REGONTextBox) &&
+                   !Validation.GetHasError(BankAccountNumberTextBox);
+        }
+
+        private void NoNIPCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (NoNIPCheckBox.IsChecked == true)
+            {
+                var binding = NIPTextBox?.GetBindingExpression(TextBox.TextProperty);
+                Validation.ClearInvalid(binding);
+            }
+        }
+
+        private void NoREGONCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (NoREGONCheckBox.IsChecked == true)
+            {
+                var binding = REGONTextBox?.GetBindingExpression(TextBox.TextProperty);
+                Validation.ClearInvalid(binding);
+            }
+        }
+
+        private void NoBankAccountCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (NoBankAccountCheckBox.IsChecked == true)
+            {
+                var binding = BankAccountNumberTextBox?.GetBindingExpression(TextBox.TextProperty);
+                Validation.ClearInvalid(binding);
+            }
         }
     }
 }

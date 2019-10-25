@@ -10,9 +10,9 @@ using System.Windows;
 using System.Windows.Markup;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
+using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
 using EngineeringThesis.UI.View;
-using EngineeringThesis.UI.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EngineeringThesis.UI

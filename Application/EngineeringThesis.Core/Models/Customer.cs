@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Navigation;
 using Forge.Forms.Annotations;
 
 namespace EngineeringThesis.Core.Models

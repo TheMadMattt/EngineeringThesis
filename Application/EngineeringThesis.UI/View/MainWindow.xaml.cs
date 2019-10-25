@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
-using EngineeringThesis.UI.ViewModel;
 
 namespace EngineeringThesis.UI.View
 {

@@ -24,6 +24,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
+            <ControlTemplate x:Key="ErrorTemplate">
+                <StackPanel Orientation="Vertical">
+                    <AdornedElementPlaceholder/>
+                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="OrangeRed"
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="10"
+                                   Margin="0,0,4,0"/>
+                </StackPanel>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

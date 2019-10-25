@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace EngineeringThesis.UI.ViewModel
+namespace EngineeringThesis.Core.Models.DisplayModels
 {
-    public abstract class BaseViewModel: INotifyPropertyChanged
+    public abstract class BaseModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,6 +21,14 @@ namespace EngineeringThesis.UI.ViewModel
             storage = value;
             this.OnPropertyChanged(propertyName);
             return true;
+        }
+
+        protected virtual void ValidateProperty<T>(T value, string name)
+        {
+            Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+            {
+                MemberName = name
+            });
         }
     }
 }
