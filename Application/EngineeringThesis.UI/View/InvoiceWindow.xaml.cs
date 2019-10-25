@@ -8,8 +8,8 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Utility.ShowDialogs;
+using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
-using EngineeringThesis.UI.ViewModel;
 using Forge.Forms;
 using MaterialDesignThemes.Wpf;
 

@@ -17,8 +17,8 @@ using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
+using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
-using EngineeringThesis.UI.ViewModel;
 using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.UI.View

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Navigation;
 using Forge.Forms.Annotations;
 
 namespace EngineeringThesis.Core.Models
@@ -10,7 +11,6 @@ namespace EngineeringThesis.Core.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [Value(Must.NotBeEmpty)]
         public string Name { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }

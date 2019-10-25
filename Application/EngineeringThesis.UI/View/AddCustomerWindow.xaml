@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="AddCustomerWindow" Height="500" Width="500" WindowStartupLocation="CenterScreen">
+        Title="AddCustomerWindow" Height="610" Width="500" WindowStartupLocation="CenterScreen">
     <materialDesign:DialogHost Identifier="AddCustomerDialogHost">
         <Grid Margin="10,10,10,10">
             <Grid.RowDefinitions>
@@ -27,7 +27,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -35,12 +35,9 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Name="CustomerNameTextBox" materialDesign:HintAssist.Hint="Nazwa firmy" Grid.Column="0"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top">
-                    <Binding Path="Customer.Name" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Margin="0,0,10,0"
+                     Text="{Binding Customer.Name, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
                 <ComboBox Name="CustomerTypeComboBox" SelectedIndex="0" Grid.Column="1">
                     <ComboBox.ItemTemplate>
@@ -50,115 +47,96 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Name="CityTextBox" materialDesign:HintAssist.Hint="Miasto" Grid.Column="0" Margin="0,0,10,0"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-                    <Binding Path="Customer.City" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
+                     Text="{Binding Customer.City, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
                 <xctk:MaskedTextBox Name="ZipCodeTextBox" materialDesign:HintAssist.Hint="Kod pocztowy" Grid.Column="1"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00-000">
-                    <Binding Path="Customer.ZipCode" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00-000"
+                     Text="{Binding Customer.ZipCode, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
             </Grid>
-            <TextBox Name="StreetTextBox" materialDesign:HintAssist.Hint="Ulica" Grid.Row="2"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top">
-                <Binding Path="Customer.Street" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validators:IsEmptyValidator/>
-                    </Binding.ValidationRules>
-                </Binding>
+            <TextBox Name="StreetTextBox" materialDesign:HintAssist.Hint="Ulica" Grid.Row="2" Margin="0,15,0,0"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
+                 Text="{Binding Customer.Street, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
             </TextBox>
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="3" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Name="StreetNumberTextBox" materialDesign:HintAssist.Hint="Nr domu" Grid.Column="0" Margin="0,0,10,0"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-                    <Binding Path="StreetNumber" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
+                     Text="{Binding Customer.StreetNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
                 <TextBox Name="FlatNumberTextBox" materialDesign:HintAssist.Hint="Nr mieszkania" Grid.Column="1"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
-                     Text="{Binding FlatNumber}">
+                     Text="{Binding Customer.FlatNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
             </Grid>
-            <TextBox Name="PhoneNumberTextBox" materialDesign:HintAssist.Hint="Telefon" Grid.Row="4"
+            <TextBox Name="PhoneNumberTextBox" materialDesign:HintAssist.Hint="Telefon" Grid.Row="4" Margin="0,15,0,0"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
-                 Text="{Binding Customer.PhoneNumber}" PreviewTextInput="PhoneNumberTextBox_PreviewTextInput" />
-            <Grid Grid.Row="5">
+                 Text="{Binding Customer.PhoneNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+            <Grid Grid.Row="5" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <xctk:MaskedTextBox Name="NIPTextBox" materialDesign:HintAssist.Hint="NIP" Grid.Column="0" Margin="0,0,10,0"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="000\-00\-00\-000"
-                                IsEnabled="{qc:Binding '!$P', P={Binding ElementName=HasNIPCheckBox, Path=IsChecked}}">
-                    <Binding Path="Customer.NIP" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                                IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoNIPCheckBox, Path=IsChecked}}"
+                                Text="{Binding Customer.NIP, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                                Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
-                <CheckBox Name="HasNIPCheckBox" Grid.Column="1"
-                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center">
+                <CheckBox Name="NoNIPCheckBox" Grid.Column="1"
+                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" Checked="NoNIPCheckBox_Checked">
                     Brak numeru NIP
                 </CheckBox>
             </Grid>
-            <Grid Grid.Row="6">
+            <Grid Grid.Row="6" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <xctk:MaskedTextBox Name="REGONTextBox" materialDesign:HintAssist.Hint="REGON" Grid.Column="0" Margin="0,0,10,0"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="000-00-00-00"
-                                IsEnabled="{qc:Binding '!$P', P={Binding ElementName=HasREGONCheckBox, Path=IsChecked}}">
-                    <Binding Path="Customer.REGON" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                                IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoREGONCheckBox, Path=IsChecked}}"
+                                Text="{Binding Customer.REGON, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                                Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
-                <CheckBox Name="HasREGONCheckBox" Grid.Column="1"
-                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center">
+                <CheckBox Name="NoREGONCheckBox" Grid.Column="1"
+                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" Checked="NoREGONCheckBox_Checked">
                     Brak numeru REGON
                 </CheckBox>
             </Grid>
-            <Grid Grid.Row="7">
+            <Grid Grid.Row="7" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <xctk:MaskedTextBox Name="BankAccountNumberTextBox" materialDesign:HintAssist.Hint="Numer konta bankowego" Grid.Column="0" Margin="0,0,10,0"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00 0000 0000 0000 0000 0000 0000"
-                                IsEnabled="{qc:Binding '!$P', P={Binding ElementName=HasBankAccountCheckBox, Path=IsChecked}}">
-                    <Binding Path="Customer.BankAccountNumber" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:IsEmptyValidator/>
-                        </Binding.ValidationRules>
-                    </Binding>
+                                IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoBankAccountCheckBox, Path=IsChecked}}"
+                                Text="{Binding Customer.BankAccountNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                                Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
-                <CheckBox Name="HasBankAccountCheckBox" Grid.Column="1"
-                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center">
+                <CheckBox Name="NoBankAccountCheckBox" Grid.Column="1"
+                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" Checked="NoBankAccountCheckBox_Checked">
                     Brak konta bankowego
                 </CheckBox>
             </Grid>
-            <TextBox Name="CommentsTextBox" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="8" Margin="0,10,0,0" Text="{Binding Customer.Comments}"
+            <TextBox Name="CommentsTextBox" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="8" Margin="0,20,0,0" Text="{Binding Customer.Comments}"
                  materialDesign:HintAssist.Hint="Uwagi" FontSize="15" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                  Height="100" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"/>
             <Grid Grid.Row="9" VerticalAlignment="Bottom">

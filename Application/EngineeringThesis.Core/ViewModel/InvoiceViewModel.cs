@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 
-namespace EngineeringThesis.UI.ViewModel
+namespace EngineeringThesis.Core.ViewModel
 {
     public class InvoiceViewModel : BaseViewModel
     {
