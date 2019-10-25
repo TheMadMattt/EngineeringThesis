@@ -126,7 +126,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <xctk:MaskedTextBox Name="BankAccountNumberTextBox" materialDesign:HintAssist.Hint="Numer konta bankowego" Grid.Column="0" Margin="0,0,10,0"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00 0000 0000 0000 0000 0000 0000"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00000000000000000000000000"
                                 IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoBankAccountCheckBox, Path=IsChecked}}"
                                 Text="{Binding Customer.BankAccountNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">

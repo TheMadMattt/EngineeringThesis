@@ -76,7 +76,6 @@ namespace EngineeringThesis.Core.ViewModel
             CustomerWithRef.REGON = Customer.REGON;
             CustomerWithRef.BankAccountNumber = Customer.BankAccountNumber;
             CustomerWithRef.Comments = Customer.Comments;
-            CustomerWithRef.CustomerTypeId = 1;
         }
     }
 }

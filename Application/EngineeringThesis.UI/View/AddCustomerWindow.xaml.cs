@@ -89,6 +89,7 @@ namespace EngineeringThesis.UI.View
                 }
 
                 ViewModel.BindToRefObject();
+                ViewModel.CustomerWithRef.CustomerTypeId = ((CustomerType) CustomerTypeComboBox.SelectedItem).Id;
 
                 if (ViewModel.IsUpdate)
                 {

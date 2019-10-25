@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace EngineeringThesis.Core.Models
+namespace EngineeringThesis.Core.Models.DisplayModels
 {
     public abstract class BaseModel: INotifyPropertyChanged
     {

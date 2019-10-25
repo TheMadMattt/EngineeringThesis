@@ -90,8 +90,8 @@ namespace EngineeringThesis.Core.Models.DisplayModels
             }
         }
         private string _nip;
-        [RegularExpression("^(\\d{10})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
-        [Required(ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEmptyError")]
+        [RegularExpression("^(\\d{3}\\-\\d{2}\\-\\d{2}\\-\\d{3})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
+        [AllowNull]
         public string NIP
         {
             get => _nip;
@@ -102,8 +102,8 @@ namespace EngineeringThesis.Core.Models.DisplayModels
             }
         }
         private string _regon;
-        [RegularExpression("^(\\d{9})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
-        [Required(ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEmptyError")]
+        [RegularExpression("^(\\d{3}\\-\\d{2}\\-\\d{2}\\-\\d{2})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
+        [AllowNull]
         public string REGON
         {
             get => _regon;
@@ -115,7 +115,7 @@ namespace EngineeringThesis.Core.Models.DisplayModels
         }
         private string _bankAccountNumber;
         [RegularExpression("^(\\d{26})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
-        [Required(ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEmptyError")]
+        [AllowNull]
         public string BankAccountNumber
         {
             get => _bankAccountNumber;
