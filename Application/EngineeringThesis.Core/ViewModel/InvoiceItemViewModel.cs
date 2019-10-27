@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Models.DisplayModels;
 using EngineeringThesis.Core.Services;
 
 namespace EngineeringThesis.Core.ViewModel
@@ -8,7 +9,7 @@ namespace EngineeringThesis.Core.ViewModel
     public class InvoiceItemViewModel: BaseViewModel
     {
         private readonly InvoiceItemService _invoiceItemService;
-        private InvoiceItem _invoiceItem;
+        private InvoiceItemDisplayModel _invoiceItem;
         public InvoiceItem InvoiceItemWithRef;
 
         public InvoiceItemViewModel(InvoiceItemService invoiceItemService)
@@ -16,7 +17,7 @@ namespace EngineeringThesis.Core.ViewModel
             _invoiceItemService = invoiceItemService;
         }
 
-        public InvoiceItem InvoiceItem
+        public InvoiceItemDisplayModel InvoiceItem
         {
             get
             {
@@ -25,7 +26,7 @@ namespace EngineeringThesis.Core.ViewModel
                     return _invoiceItem;
                 }
 
-                return _invoiceItem = new InvoiceItem();
+                return _invoiceItem = new InvoiceItemDisplayModel();
             }
             set => SetProperty(ref _invoiceItem, value);
         }

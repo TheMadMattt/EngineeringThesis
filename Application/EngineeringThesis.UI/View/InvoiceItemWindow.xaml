@@ -25,12 +25,9 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBox Name="InvoiceItemNameTextBox" materialDesign:HintAssist.Hint="Nazwa produktu" Grid.Row="0"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" >
-                <Binding Path="InvoiceItem.Name" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validators:IsEmptyValidator/>
-                    </Binding.ValidationRules>
-                </Binding>
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" 
+                 Text="{Binding InvoiceItem.Name, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
             </TextBox>
             <Grid Grid.Row="1" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>

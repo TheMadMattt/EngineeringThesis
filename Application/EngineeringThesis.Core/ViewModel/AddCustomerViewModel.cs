@@ -8,7 +8,7 @@ namespace EngineeringThesis.Core.ViewModel
     public class AddCustomerViewModel: BaseViewModel
     {
         private readonly CustomerService _customerService;
-        public CustomerDisplayModel _customer;
+        private CustomerDisplayModel _customer;
         public Customer CustomerWithRef;
         public List<CustomerType> CustomerTypes;
 
@@ -19,7 +19,15 @@ namespace EngineeringThesis.Core.ViewModel
 
         public CustomerDisplayModel Customer
         {
-            get => _customer;
+            get
+            {
+                if (_customer != null)
+                {
+                    return _customer;
+                }
+
+                return _customer = new CustomerDisplayModel();
+            }
             set => SetProperty(ref _customer, value);
         }
 

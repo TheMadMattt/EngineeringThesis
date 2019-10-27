@@ -1,62 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using EngineeringThesis.Core.Models;
-using EngineeringThesis.Core.Services;
+using EngineeringThesis.Core.Models.DisplayModels;
 using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
-using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.UI.View
 {
     /// <summary>
     /// Interaction logic for InvoiceItemWindow.xaml
     /// </summary>
-    public partial class InvoiceItemWindow : Window, IActivable
+    public partial class InvoiceItemWindow : IActivable
     {
-        public InvoiceItemViewModel InvoiceItemViewModel;
-        public InvoiceItemWindow(InvoiceItemViewModel invoiceItemViewModel)
+        public InvoiceItemViewModel ViewModel;
+        public InvoiceItemWindow(InvoiceItemViewModel viewModel)
         {
             InitializeComponent();
-            InvoiceItemViewModel = invoiceItemViewModel;
+            ViewModel = viewModel;
 
-            DataContext = InvoiceItemViewModel;
+            DataContext = ViewModel;
         }
 
         public Task ActivateAsync(object parameter)
         {
             if (parameter is InvoiceItem invoiceItem)
             {
-                InvoiceItemViewModel.InvoiceItemWithRef = invoiceItem;
-                InvoiceItemViewModel.InvoiceItem = new InvoiceItem
+                if (!string.IsNullOrEmpty(invoiceItem.Name))
                 {
-                    Name = invoiceItem.Name,
-                    Amount = invoiceItem.Amount,
-                    NetPrice = invoiceItem.NetPrice.Replace(".",","),
-                    VAT = invoiceItem.VAT,
-                    Unit = invoiceItem.Unit,
-                    PKWiU = invoiceItem.PKWiU,
-                    Comments = invoiceItem.Comments,
-                    NetSum = invoiceItem.NetSum,
-                    GrossSum = invoiceItem.GrossSum
-                };
+                    ViewModel.InvoiceItemWithRef = invoiceItem;
+                    ViewModel.InvoiceItem = new InvoiceItemDisplayModel
+                    {
+                        Name = invoiceItem.Name,
+                        Amount = invoiceItem.Amount,
+                        NetPrice = invoiceItem.NetPrice,
+                        VAT = invoiceItem.VAT,
+                        Unit = invoiceItem.Unit,
+                        PKWiU = invoiceItem.PKWiU,
+                        Comments = invoiceItem.Comments,
+                        NetSum = invoiceItem.NetSum,
+                        GrossSum = invoiceItem.GrossSum
+                    };
+                }
+                else
+                {
+                    ViewModel.InvoiceItem = new InvoiceItemDisplayModel();
+                    ViewModel.InvoiceItemWithRef = invoiceItem;
+                }
+                
 
             }
-            Title = !string.IsNullOrEmpty(InvoiceItemViewModel.InvoiceItem.Name) ? "Edycja produktu" : "Dodawanie produktu";
+            Title = !string.IsNullOrEmpty(ViewModel.InvoiceItem.Name) ? "Edycja produktu" : "Dodawanie produktu";
 
             return Task.CompletedTask;
         }
@@ -71,14 +69,14 @@ namespace EngineeringThesis.UI.View
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
-                InvoiceItemViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
+                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
                 NetSumTextBlock.Text = sum.ToString("C2");
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
-                var VAT = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * VAT;
-                InvoiceItemViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
+                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
+                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
+                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
                 GrossSumTextBlock.Text = sum.ToString("C2");
             }
         }
@@ -88,14 +86,14 @@ namespace EngineeringThesis.UI.View
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value); 
-                InvoiceItemViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
+                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
                 NetSumTextBlock.Text = sum.ToString("C2");
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
-                var VAT = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * VAT;
-                InvoiceItemViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
+                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
+                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
+                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
                 GrossSumTextBlock.Text = sum.ToString("C2");
             }
         }
@@ -104,9 +102,9 @@ namespace EngineeringThesis.UI.View
         {
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
-                var VAT = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * VAT;
-                InvoiceItemViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
+                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
+                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
+                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
                 GrossSumTextBlock.Text = sum.ToString("C2");
             }
         }
@@ -124,7 +122,7 @@ namespace EngineeringThesis.UI.View
             if (ControlsHasError())
             {
                 UpdateInvoiceItem();
-                this.Close();
+                Close();
             }
             else
             {
@@ -134,12 +132,12 @@ namespace EngineeringThesis.UI.View
 
         private void UpdateInvoiceItem()
         {
-            InvoiceItemViewModel.BindToRefObject();
+            ViewModel.BindToRefObject();
 
             if (!string.IsNullOrEmpty(GrossSumTextBlock.Text) && !string.IsNullOrEmpty(NetSumTextBlock.Text))
             {
-                var VATSum = Convert.ToDecimal(InvoiceItemViewModel.InvoiceItem.GrossSum) - Convert.ToDecimal(InvoiceItemViewModel.InvoiceItem.NetSum);
-                InvoiceItemViewModel.InvoiceItemWithRef.VATSum = VATSum.ToString("#.00");
+                var vatSum = Convert.ToDecimal(ViewModel.InvoiceItem.GrossSum) - Convert.ToDecimal(ViewModel.InvoiceItem.NetSum);
+                ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("#.00");
             }
 
         }
@@ -155,7 +153,7 @@ namespace EngineeringThesis.UI.View
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

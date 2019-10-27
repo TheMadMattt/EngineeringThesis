@@ -41,12 +41,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CustomerDisplayModel.resx</DependentUpon>
     </Compile>
+    <Compile Update="Models\DisplayModels\Resources\InvoiceItemDisplayModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InvoiceItemDisplayModel.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Models\DisplayModels\Resources\CustomerDisplayModel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CustomerDisplayModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Models\DisplayModels\Resources\InvoiceItemDisplayModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>InvoiceItemDisplayModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
