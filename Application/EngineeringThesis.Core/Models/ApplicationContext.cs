@@ -136,11 +136,11 @@ namespace EngineeringThesis.Core.Models
                     InvoiceId = 1,
                     Name = "Smartfon",
                     Unit = "szt",
-                    NetPrice = "1500",
+                    NetPrice = "1500,00",
                     Amount = 1,
                     VAT = 23,
-                    VATSum = "345",
-                    NetSum = "1500",
+                    VATSum = "345,00",
+                    NetSum = "1500,00",
                     GrossSum = "1845"
                 },
                 new InvoiceItem
@@ -149,12 +149,12 @@ namespace EngineeringThesis.Core.Models
                     InvoiceId = 1,
                     Name = "Tablet",
                     Unit = "szt",
-                    NetPrice = "2000",
+                    NetPrice = "2000,00",
                     Amount = 1,
                     VAT = 23,
-                    VATSum = "460",
-                    NetSum = "2000",
-                    GrossSum = "2460"
+                    VATSum = "460,00",
+                    NetSum = "2000,00",
+                    GrossSum = "2460,00"
                 });
         }
     }

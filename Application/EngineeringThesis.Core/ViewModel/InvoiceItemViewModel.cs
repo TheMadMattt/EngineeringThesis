@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Models.DisplayModels;
 using EngineeringThesis.Core.Services;
@@ -31,15 +32,6 @@ namespace EngineeringThesis.Core.ViewModel
             set => SetProperty(ref _invoiceItem, value);
         }
 
-        public string FormatCurrency(string number)
-        {
-            var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-            clone.NumberFormat.NumberDecimalSeparator = ",";
-            clone.NumberFormat.NumberGroupSeparator = ".";
-
-            return decimal.Parse(number, clone).ToString("#.00");
-        }
-
         public void BindToRefObject()
         {
             try
@@ -47,12 +39,11 @@ namespace EngineeringThesis.Core.ViewModel
                 InvoiceItemWithRef.Name = InvoiceItem.Name;
                 InvoiceItemWithRef.PKWiU = InvoiceItem.PKWiU;
                 InvoiceItemWithRef.Unit = InvoiceItem.Unit;
-                InvoiceItemWithRef.NetPrice =
-                    FormatCurrency(InvoiceItem.NetPrice);
+                InvoiceItemWithRef.NetPrice = InvoiceItem.NetPrice;
                 InvoiceItemWithRef.Amount = InvoiceItem.Amount;
-                InvoiceItemWithRef.VAT = InvoiceItem.VAT;
-                InvoiceItemWithRef.NetSum = InvoiceItem.NetSum;
-                InvoiceItemWithRef.GrossSum = InvoiceItem.GrossSum;
+                InvoiceItemWithRef.VAT = Convert.ToInt16(InvoiceItem.VAT);
+                InvoiceItemWithRef.NetSum = FormatCurrency(InvoiceItem.NetSum);
+                InvoiceItemWithRef.GrossSum = FormatCurrency(InvoiceItem.GrossSum);
                 InvoiceItemWithRef.Comments = InvoiceItem.Comments;
             }
             catch (Exception e)
@@ -60,6 +51,15 @@ namespace EngineeringThesis.Core.ViewModel
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public string FormatCurrency(string number)
+        {
+            var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            clone.NumberFormat.NumberDecimalSeparator = ",";
+            clone.NumberFormat.NumberGroupSeparator = ".";
+            
+            return decimal.Parse(number, clone).ToString("#,00");
         }
     }
 }

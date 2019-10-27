@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,7 +39,7 @@ namespace EngineeringThesis.UI.View
                         Name = invoiceItem.Name,
                         Amount = invoiceItem.Amount,
                         NetPrice = invoiceItem.NetPrice,
-                        VAT = invoiceItem.VAT,
+                        VAT = invoiceItem.VAT.ToString(),
                         Unit = invoiceItem.Unit,
                         PKWiU = invoiceItem.PKWiU,
                         Comments = invoiceItem.Comments,
@@ -69,15 +70,15 @@ namespace EngineeringThesis.UI.View
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
-                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
-                NetSumTextBlock.Text = sum.ToString("C2");
+                ViewModel.InvoiceItem.NetSum = sum.ToString("#,00");
+                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
                 var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
-                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
-                GrossSumTextBlock.Text = sum.ToString("C2");
+                ViewModel.InvoiceItem.GrossSum = sum.ToString("#,00");
+                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }
         }
 
@@ -86,15 +87,15 @@ namespace EngineeringThesis.UI.View
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value); 
-                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00");
-                NetSumTextBlock.Text = sum.ToString("C2");
+                ViewModel.InvoiceItem.NetSum = sum.ToString("#,00");
+                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
             {
                 var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
-                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
-                GrossSumTextBlock.Text = sum.ToString("C2");
+                ViewModel.InvoiceItem.GrossSum = sum.ToString("#,00");
+                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }
         }
 
@@ -104,8 +105,8 @@ namespace EngineeringThesis.UI.View
             {
                 var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
-                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00");
-                GrossSumTextBlock.Text = sum.ToString("C2");
+                ViewModel.InvoiceItem.GrossSum = sum.ToString("#,00");
+                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }
         }
 

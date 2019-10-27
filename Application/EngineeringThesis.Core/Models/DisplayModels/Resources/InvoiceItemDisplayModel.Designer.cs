@@ -61,11 +61,38 @@ namespace EngineeringThesis.Core.Models.DisplayModels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ilość musi być większa od 0.
+        /// </summary>
+        public static string AmountBiggerThan0 {
+            get {
+                return ResourceManager.GetString("AmountBiggerThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To pole nie może być puste.
         /// </summary>
         public static string NotEmptyError {
             get {
                 return ResourceManager.GetString("NotEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podaj prawidłową wartość VAT.
+        /// </summary>
+        public static string VATerror {
+            get {
+                return ResourceManager.GetString("VATerror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format ceny jest nieprawidłowy.
+        /// </summary>
+        public static string WrongPriceFormat {
+            get {
+                return ResourceManager.GetString("WrongPriceFormat", resourceCulture);
             }
         }
     }

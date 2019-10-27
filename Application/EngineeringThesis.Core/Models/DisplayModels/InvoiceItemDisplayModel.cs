@@ -40,7 +40,7 @@ namespace EngineeringThesis.Core.Models.DisplayModels
             }
         }
         private string _netPrice;
-
+        [Required(ErrorMessageResourceType = typeof(Resources.InvoiceItemDisplayModel), ErrorMessageResourceName = "NotEmptyError")]
         public string NetPrice
         {
             get => _netPrice;
@@ -51,7 +51,6 @@ namespace EngineeringThesis.Core.Models.DisplayModels
             }
         }
         private int _amount;
-
         public int Amount
         {
             get => _amount;
@@ -61,9 +60,9 @@ namespace EngineeringThesis.Core.Models.DisplayModels
                 SetProperty(ref _amount, value);
             }
         }
-        private int _vat;
-
-        public int VAT
+        private string _vat;
+        [RegularExpression("^[0-9]{1,2}$", ErrorMessageResourceType = typeof(Resources.InvoiceItemDisplayModel), ErrorMessageResourceName = "VATerror")]
+        public string VAT
         {
             get => _vat;
             set

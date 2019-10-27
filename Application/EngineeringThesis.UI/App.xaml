@@ -29,7 +29,7 @@
                     <AdornedElementPlaceholder/>
                     <TextBlock Text="{Binding [0].ErrorContent}" Foreground="OrangeRed"
                                    VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="10"
-                                   Margin="0,0,4,0"/>
+                                   Margin="0,0,4,0" TextWrapping="Wrap"/>
                 </StackPanel>
             </ControlTemplate>
         </ResourceDictionary>
