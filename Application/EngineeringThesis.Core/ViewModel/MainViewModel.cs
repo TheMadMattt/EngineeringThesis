@@ -26,5 +26,10 @@ namespace EngineeringThesis.Core.ViewModel
         {
             return Customers = _customerService.GetContractors();
         }
+
+        public void DeleteInvoice(Invoice invoice)
+        {
+            _invoiceService.DeleteInvoice(invoice);
+        }
     }
 }

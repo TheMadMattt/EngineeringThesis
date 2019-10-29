@@ -26,13 +26,19 @@
     <Grid>
         <dragablz:TabablzControl>
             <TabItem Header="Faktury">
-                <StackPanel Orientation="Vertical">
-                    <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0">
-                        <Button Name="AddInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Row="0">
+                        <Button Name="AddInvoiceButton" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
                                 ToolTip="Dodaj fakturę" Height="40" Width="40" Click="AddInvoiceButton_Click"></Button>
+                        <Button Name="DeleteInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
+                                ToolTip="Usuń fakturę" Height="40" Width="40" Click="DeleteInvoiceButton_Click" ></Button>
                     </ToolBar>
-                    <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single"
-                              IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="False" 
+                    <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ScrollViewer.CanContentScroll="True"
+                              IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceNumber}" Binding="{Binding InvoiceNumber}" 
@@ -65,7 +71,7 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Kontrahenci">
                 <StackPanel Orientation="Vertical">
@@ -74,7 +80,7 @@
                                 ToolTip="Dodaj kontrahenta" Height="40" Width="40" Click="AddContractorButton_Click"></Button>
                     </ToolBar>
                     <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
-                          IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
+                          IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
                           HorizontalScrollBarVisibility="Auto" MouseDoubleClick="CustomerDataGrid_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 

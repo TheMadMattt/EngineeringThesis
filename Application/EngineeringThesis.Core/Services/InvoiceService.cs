@@ -39,5 +39,13 @@ namespace EngineeringThesis.Core.Services
 
             return ctx.Invoices.OrderByDescending(p => p.Id).FirstOrDefault();
         }
+
+        public void DeleteInvoice(Invoice invoice)
+        {
+            using var ctx = new ApplicationContext();
+
+            ctx.Invoices.Remove(invoice);
+            ctx.SaveChanges();
+        }
     }
 }

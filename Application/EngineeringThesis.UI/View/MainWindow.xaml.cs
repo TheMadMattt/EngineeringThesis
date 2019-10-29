@@ -12,22 +12,22 @@ namespace EngineeringThesis.UI.View
     public partial class MainWindow : Window
     {
         private readonly NavigationService _navigationService;
-        public MainViewModel MainViewModel;
-        public MainWindow(NavigationService navigationService, MainViewModel mainViewModel)
+        public MainViewModel ViewModel;
+        public MainWindow(NavigationService navigationService, MainViewModel viewModel)
         {
             InitializeComponent();
 
             _navigationService = navigationService;
-            MainViewModel = mainViewModel;
+            ViewModel = viewModel;
 
-            InvoiceDataGrid.ItemsSource = MainViewModel.GetInvoices();
-            CustomerDataGrid.ItemsSource = MainViewModel.GetCustomers();
+            InvoiceDataGrid.ItemsSource = ViewModel.GetInvoices();
+            CustomerDataGrid.ItemsSource = ViewModel.GetCustomers();
         }
 
         private async void InvoiceDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var Invoice = InvoiceDataGrid.SelectedCells[0].Item as Invoice;
-            var inviceWindow = await _navigationService.ShowDialogAsync<InvoiceWindow>(Invoice);
+            var invoiceWindow = await _navigationService.ShowDialogAsync<InvoiceWindow>(Invoice);
         }
 
         private async void AddInvoiceButton_Click(object sender, RoutedEventArgs e)
@@ -38,14 +38,22 @@ namespace EngineeringThesis.UI.View
         private async void AddContractorButton_Click(object sender, RoutedEventArgs e)
         {
             var addCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>();
-            CustomerDataGrid.ItemsSource = MainViewModel.GetCustomers();
+            CustomerDataGrid.ItemsSource = ViewModel.GetCustomers();
         }
 
         private void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var customer = CustomerDataGrid.SelectedCells[0].Item as Customer;
             var editCustomerWindow = _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-            CustomerDataGrid.ItemsSource = MainViewModel.GetCustomers();
+            CustomerDataGrid.ItemsSource = ViewModel.GetCustomers();
+        }
+
+        private void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            var invoice = InvoiceDataGrid.SelectedCells[0].Item as Invoice;
+            ViewModel.DeleteInvoice(invoice);
+            InvoiceDataGrid.ItemsSource = ViewModel.GetInvoices();
+            InvoiceDataGrid.Items.Refresh();
         }
     }
 }
