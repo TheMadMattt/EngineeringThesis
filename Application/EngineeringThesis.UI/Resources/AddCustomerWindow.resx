@@ -117,88 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItem" xml:space="preserve">
+  <data name="Add" xml:space="preserve">
     <value>Dodaj</value>
   </data>
-  <data name="Address" xml:space="preserve">
-    <value>Adres:</value>
-  </data>
   <data name="BankAccountNumber" xml:space="preserve">
-    <value>Numer konta:</value>
+    <value>Numer konta bankowego</value>
   </data>
-  <data name="Business" xml:space="preserve">
-    <value>Firma:</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
   </data>
-  <data name="Contractor" xml:space="preserve">
-    <value>Kontrahent</value>
+  <data name="City" xml:space="preserve">
+    <value>Miasto</value>
   </data>
-  <data name="Deadline" xml:space="preserve">
-    <value>Termin: </value>
-  </data>
-  <data name="DeleteItem" xml:space="preserve">
-    <value>Usuń</value>
-  </data>
-  <data name="EditItem" xml:space="preserve">
-    <value>Edytuj</value>
-  </data>
-  <data name="Invoice" xml:space="preserve">
-    <value>Faktura</value>
-  </data>
-  <data name="InvoiceDate" xml:space="preserve">
-    <value>Data wystawienia</value>
-  </data>
-  <data name="ItemAmount" xml:space="preserve">
-    <value>Ilość</value>
-  </data>
-  <data name="ItemComments" xml:space="preserve">
+  <data name="Comments" xml:space="preserve">
     <value>Uwagi</value>
   </data>
-  <data name="ItemGrossSum" xml:space="preserve">
-    <value>Suma brutto</value>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Nazwa firmy</value>
   </data>
-  <data name="ItemName" xml:space="preserve">
-    <value>Nazwa</value>
+  <data name="Customer" xml:space="preserve">
+    <value>Klient</value>
   </data>
-  <data name="ItemNetPrice" xml:space="preserve">
-    <value>Cena netto</value>
-  </data>
-  <data name="ItemNetSum" xml:space="preserve">
-    <value>Suma netto</value>
-  </data>
-  <data name="ItemPKWiU" xml:space="preserve">
-    <value>PKWiU</value>
-  </data>
-  <data name="ItemUnit" xml:space="preserve">
-    <value>Jednostka</value>
-  </data>
-  <data name="ItemVAT" xml:space="preserve">
-    <value>VAT</value>
-  </data>
-  <data name="ItemVATSum" xml:space="preserve">
-    <value>Suma VAT</value>
+  <data name="FlatNumber" xml:space="preserve">
+    <value>Nr lokalu</value>
   </data>
   <data name="NIP" xml:space="preserve">
-    <value>NIP:</value>
+    <value>NIP</value>
   </data>
-  <data name="Options" xml:space="preserve">
-    <value>Opcje</value>
+  <data name="NoBankAccountNumber" xml:space="preserve">
+    <value>Brak konta bankowego</value>
   </data>
-  <data name="Paid" xml:space="preserve">
-    <value>Zapłacona:</value>
+  <data name="NoNIPNumber" xml:space="preserve">
+    <value>Brak numeru NIP</value>
   </data>
-  <data name="Payment" xml:space="preserve">
-    <value>Płatność:</value>
+  <data name="NoREGONNumber" xml:space="preserve">
+    <value>Brak numeru REGON</value>
   </data>
-  <data name="Payments" xml:space="preserve">
-    <value>Płatności</value>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Nr telefonu</value>
   </data>
-  <data name="Regon" xml:space="preserve">
-    <value>REGON:</value>
+  <data name="REGON" xml:space="preserve">
+    <value>REGON</value>
   </data>
-  <data name="Seller" xml:space="preserve">
-    <value>Sprzedawca</value>
+  <data name="Street" xml:space="preserve">
+    <value>Ulica</value>
   </data>
-  <data name="When" xml:space="preserve">
-    <value>Kiedy:</value>
+  <data name="StreetNumber" xml:space="preserve">
+    <value>Nr domu</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Kod pocztowy</value>
   </data>
 </root>

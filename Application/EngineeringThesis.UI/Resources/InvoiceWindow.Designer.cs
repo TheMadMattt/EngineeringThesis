@@ -133,6 +133,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faktura.
+        /// </summary>
+        public static string Invoice {
+            get {
+                return ResourceManager.GetString("Invoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data wystawienia.
         /// </summary>
         public static string InvoiceDate {
@@ -237,6 +246,15 @@ namespace EngineeringThesis.UI.Resources {
         public static string NIP {
             get {
                 return ResourceManager.GetString("NIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opcje.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
             }
         }
         

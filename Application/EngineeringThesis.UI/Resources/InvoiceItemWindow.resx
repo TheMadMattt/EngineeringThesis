@@ -120,85 +120,40 @@
   <data name="AddItem" xml:space="preserve">
     <value>Dodaj</value>
   </data>
-  <data name="Address" xml:space="preserve">
-    <value>Adres:</value>
-  </data>
-  <data name="BankAccountNumber" xml:space="preserve">
-    <value>Numer konta:</value>
-  </data>
-  <data name="Business" xml:space="preserve">
-    <value>Firma:</value>
-  </data>
-  <data name="Contractor" xml:space="preserve">
-    <value>Kontrahent</value>
-  </data>
-  <data name="Deadline" xml:space="preserve">
-    <value>Termin: </value>
-  </data>
-  <data name="DeleteItem" xml:space="preserve">
-    <value>Usuń</value>
-  </data>
-  <data name="EditItem" xml:space="preserve">
-    <value>Edytuj</value>
-  </data>
-  <data name="Invoice" xml:space="preserve">
-    <value>Faktura</value>
-  </data>
-  <data name="InvoiceDate" xml:space="preserve">
-    <value>Data wystawienia</value>
-  </data>
-  <data name="ItemAmount" xml:space="preserve">
+  <data name="Amount" xml:space="preserve">
     <value>Ilość</value>
   </data>
-  <data name="ItemComments" xml:space="preserve">
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
     <value>Uwagi</value>
   </data>
-  <data name="ItemGrossSum" xml:space="preserve">
-    <value>Suma brutto</value>
+  <data name="GrossSum" xml:space="preserve">
+    <value>Suma brutto: </value>
   </data>
-  <data name="ItemName" xml:space="preserve">
-    <value>Nazwa</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nazwa produktu</value>
   </data>
-  <data name="ItemNetPrice" xml:space="preserve">
+  <data name="NetPrice" xml:space="preserve">
     <value>Cena netto</value>
   </data>
-  <data name="ItemNetSum" xml:space="preserve">
-    <value>Suma netto</value>
+  <data name="NetSum" xml:space="preserve">
+    <value>Suma netto: </value>
   </data>
-  <data name="ItemPKWiU" xml:space="preserve">
+  <data name="NullPrice" xml:space="preserve">
+    <value>0,00 zł</value>
+  </data>
+  <data name="pkwiu" xml:space="preserve">
     <value>PKWiU</value>
   </data>
-  <data name="ItemUnit" xml:space="preserve">
+  <data name="Product" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
     <value>Jednostka</value>
   </data>
-  <data name="ItemVAT" xml:space="preserve">
-    <value>VAT</value>
-  </data>
-  <data name="ItemVATSum" xml:space="preserve">
-    <value>Suma VAT</value>
-  </data>
-  <data name="NIP" xml:space="preserve">
-    <value>NIP:</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Opcje</value>
-  </data>
-  <data name="Paid" xml:space="preserve">
-    <value>Zapłacona:</value>
-  </data>
-  <data name="Payment" xml:space="preserve">
-    <value>Płatność:</value>
-  </data>
-  <data name="Payments" xml:space="preserve">
-    <value>Płatności</value>
-  </data>
-  <data name="Regon" xml:space="preserve">
-    <value>REGON:</value>
-  </data>
-  <data name="Seller" xml:space="preserve">
-    <value>Sprzedawca</value>
-  </data>
-  <data name="When" xml:space="preserve">
-    <value>Kiedy:</value>
+  <data name="VAT" xml:space="preserve">
+    <value>VAT [%]</value>
   </data>
 </root>

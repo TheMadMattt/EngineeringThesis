@@ -12,7 +12,7 @@
         xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="InvoiceWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
+        Title="{x:Static resx:InvoiceWindow.Invoice}" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="0"
@@ -35,7 +35,12 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Name="ToolbarGrid" Grid.Row="0" Background="{DynamicResource PrimaryHueMidBrush}" MouseDown="ToolbarGrid_MouseDown">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Margin="5" Foreground="White" FontSize="15" Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"></Label>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                         <Button Name="MinimizeButton" Width="30px" Height="30px" Margin="0,0,5,0" Background="{x:Null}"
                                 Style="{StaticResource MaterialDesignIconButton}" Click="MinimizeButton_Click">
                             <materialDesign:PackIcon Kind="WindowMinimize" Foreground="White"></materialDesign:PackIcon>
@@ -243,8 +248,8 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             ToolTipService.Placement="Left"
-                            ToolTip="Opcje produktu"
-                            Width="50px"
+                            ToolTip="{x:Static resx:InvoiceWindow.Options}"
+                            Width="50px" PopupMode="Click" StaysOpen="False"
                             Height="50px" MouseEnter="InvoiceItemAction_MouseEnter" MouseLeave="InvoiceItemAction_MouseLeave">
                             <StackPanel Name="StackPanel">
                                 <Button Name="AddItemBtn" Margin="0,0,0,15" Click="AddItemBtn_Click" ToolTip="{x:Static resx:InvoiceWindow.AddItem}">

@@ -13,7 +13,7 @@
         xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="{x:Static resx:MainWindow.Invoice}" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="CenterAlignment">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -25,7 +25,7 @@
     </Window.Resources>
     <Grid>
         <dragablz:TabablzControl>
-            <TabItem Header="Faktury">
+            <TabItem Header="{x:Static resx:MainWindow.Invoices}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -33,13 +33,13 @@
                     </Grid.RowDefinitions>
                     <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Row="0">
                         <Button Name="AddInvoiceButton" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
-                                ToolTip="Dodaj fakturę" Height="40" Width="40" Click="AddInvoiceButton_Click"></Button>
+                                ToolTip="{x:Static resx:MainWindow.AddInvoice}" Height="40" Width="40" Click="AddInvoiceButton_Click"></Button>
                         <Button Name="DeleteInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
-                                ToolTip="Usuń fakturę" Height="40" Width="40" Click="DeleteInvoiceButton_Click" ></Button>
+                                ToolTip="{x:Static resx:MainWindow.DeleteInvoice}" Height="40" Width="40" Click="DeleteInvoiceButton_Click" ></Button>
                     </ToolBar>
                     <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ScrollViewer.CanContentScroll="True"
                               IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Auto">
+                              HorizontalScrollBarVisibility="Auto" SelectedIndex="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceNumber}" Binding="{Binding InvoiceNumber}" 
                                     ElementStyle="{StaticResource CenterAlignment}" Width="Auto"/>
@@ -73,15 +73,21 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Kontrahenci">
-                <StackPanel Orientation="Vertical">
-                    <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0">
+            <TabItem Header="{x:Static resx:MainWindow.Contractors}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Row="0">
                         <Button Name="AddContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
-                                ToolTip="Dodaj kontrahenta" Height="40" Width="40" Click="AddContractorButton_Click"></Button>
+                                ToolTip="{x:Static resx:MainWindow.AddContractor}" Height="40" Width="40" Margin="0,0,10,0" Click="AddContractorButton_Click"></Button>
+                        <Button Name="DeleteContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
+                                ToolTip="{x:Static resx:MainWindow.DeleteContractor}" Height="40" Width="40" Click="DeleteContractorButton_Click" ></Button>
                     </ToolBar>
-                    <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" 
-                          IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
-                          HorizontalScrollBarVisibility="Auto" MouseDoubleClick="CustomerDataGrid_MouseDoubleClick">
+                    <DataGrid Name="CustomerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
+                              IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
+                          HorizontalScrollBarVisibility="Auto" MouseDoubleClick="CustomerDataGrid_MouseDoubleClick" SelectedIndex="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 
                                             ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>
@@ -109,7 +115,7 @@
                                             ElementStyle="{StaticResource WrapCenterColumn}" Width="2*"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </TabItem>
         </dragablz:TabablzControl>
 

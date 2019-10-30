@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddContractor" xml:space="preserve">
+    <value>Dodaj kontrahenta</value>
+  </data>
+  <data name="AddInvoice" xml:space="preserve">
+    <value>Dodaj fakturę</value>
+  </data>
   <data name="Comments" xml:space="preserve">
     <value>Uwagi</value>
   </data>
@@ -135,11 +141,26 @@
   <data name="ContractorName" xml:space="preserve">
     <value>Nazwa firmy</value>
   </data>
+  <data name="Contractors" xml:space="preserve">
+    <value>Kontrahenci</value>
+  </data>
+  <data name="DeleteContractor" xml:space="preserve">
+    <value>Usuń kontrahenta</value>
+  </data>
+  <data name="DeleteInvoice" xml:space="preserve">
+    <value>Usuń fakturę</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
   <data name="InvoiceDate" xml:space="preserve">
     <value>Data wystawienia</value>
   </data>
   <data name="InvoiceNumber" xml:space="preserve">
     <value>Numer faktury</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Faktury</value>
   </data>
   <data name="NIPNumber" xml:space="preserve">
     <value>NIP</value>

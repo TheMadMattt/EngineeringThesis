@@ -22,14 +22,14 @@ namespace EngineeringThesis.UI.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MainWindow {
+    public class AddCustomerWindow {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MainWindow() {
+        internal AddCustomerWindow() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EngineeringThesis.UI.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EngineeringThesis.UI.Resources.MainWindow", typeof(MainWindow).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EngineeringThesis.UI.Resources.AddCustomerWindow", typeof(AddCustomerWindow).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,38 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dodaj kontrahenta.
+        ///   Looks up a localized string similar to Dodaj.
         /// </summary>
-        public static string AddContractor {
+        public static string Add {
             get {
-                return ResourceManager.GetString("AddContractor", resourceCulture);
+                return ResourceManager.GetString("Add", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dodaj fakturę.
+        ///   Looks up a localized string similar to Numer konta bankowego.
         /// </summary>
-        public static string AddInvoice {
+        public static string BankAccountNumber {
             get {
-                return ResourceManager.GetString("AddInvoice", resourceCulture);
+                return ResourceManager.GetString("BankAccountNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anuluj.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miasto.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
             }
         }
         
@@ -88,24 +106,6 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adres firmy.
-        /// </summary>
-        public static string CompanyAddress {
-            get {
-                return ResourceManager.GetString("CompanyAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uwagi.
-        /// </summary>
-        public static string CompanyComments {
-            get {
-                return ResourceManager.GetString("CompanyComments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nazwa firmy.
         /// </summary>
         public static string CompanyName {
@@ -115,119 +115,101 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adres firmy.
+        ///   Looks up a localized string similar to Klient.
         /// </summary>
-        public static string ContractorAddress {
+        public static string Customer {
             get {
-                return ResourceManager.GetString("ContractorAddress", resourceCulture);
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nazwa firmy.
+        ///   Looks up a localized string similar to Nr lokalu.
         /// </summary>
-        public static string ContractorName {
+        public static string FlatNumber {
             get {
-                return ResourceManager.GetString("ContractorName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kontrahenci.
-        /// </summary>
-        public static string Contractors {
-            get {
-                return ResourceManager.GetString("Contractors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Usuń kontrahenta.
-        /// </summary>
-        public static string DeleteContractor {
-            get {
-                return ResourceManager.GetString("DeleteContractor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Usuń fakturę.
-        /// </summary>
-        public static string DeleteInvoice {
-            get {
-                return ResourceManager.GetString("DeleteInvoice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faktura.
-        /// </summary>
-        public static string Invoice {
-            get {
-                return ResourceManager.GetString("Invoice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data wystawienia.
-        /// </summary>
-        public static string InvoiceDate {
-            get {
-                return ResourceManager.GetString("InvoiceDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Numer faktury.
-        /// </summary>
-        public static string InvoiceNumber {
-            get {
-                return ResourceManager.GetString("InvoiceNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faktury.
-        /// </summary>
-        public static string Invoices {
-            get {
-                return ResourceManager.GetString("Invoices", resourceCulture);
+                return ResourceManager.GetString("FlatNumber", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to NIP.
         /// </summary>
-        public static string NIPNumber {
+        public static string NIP {
             get {
-                return ResourceManager.GetString("NIPNumber", resourceCulture);
+                return ResourceManager.GetString("NIP", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data płatności.
+        ///   Looks up a localized string similar to Brak konta bankowego.
         /// </summary>
-        public static string PaymentDeadline {
+        public static string NoBankAccountNumber {
             get {
-                return ResourceManager.GetString("PaymentDeadline", resourceCulture);
+                return ResourceManager.GetString("NoBankAccountNumber", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regon.
+        ///   Looks up a localized string similar to Brak numeru NIP.
         /// </summary>
-        public static string RegonNumber {
+        public static string NoNIPNumber {
             get {
-                return ResourceManager.GetString("RegonNumber", resourceCulture);
+                return ResourceManager.GetString("NoNIPNumber", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sprzedawca.
+        ///   Looks up a localized string similar to Brak numeru REGON.
         /// </summary>
-        public static string SellerName {
+        public static string NoREGONNumber {
             get {
-                return ResourceManager.GetString("SellerName", resourceCulture);
+                return ResourceManager.GetString("NoREGONNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nr telefonu.
+        /// </summary>
+        public static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to REGON.
+        /// </summary>
+        public static string REGON {
+            get {
+                return ResourceManager.GetString("REGON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ulica.
+        /// </summary>
+        public static string Street {
+            get {
+                return ResourceManager.GetString("Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nr domu.
+        /// </summary>
+        public static string StreetNumber {
+            get {
+                return ResourceManager.GetString("StreetNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kod pocztowy.
+        /// </summary>
+        public static string ZipCode {
+            get {
+                return ResourceManager.GetString("ZipCode", resourceCulture);
             }
         }
     }

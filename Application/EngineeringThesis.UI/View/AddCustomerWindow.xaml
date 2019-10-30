@@ -8,13 +8,14 @@
         xmlns:validators="clr-namespace:EngineeringThesis.Core.Utility.Validators;assembly=EngineeringThesis.Core"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="AddCustomerWindow" Height="610" Width="500" WindowStartupLocation="CenterScreen">
+        Title="{x:Static resx:AddCustomerWindow.Customer}" Height="610" Width="500" WindowStartupLocation="CenterScreen">
     <materialDesign:DialogHost Identifier="AddCustomerDialogHost">
         <Grid Margin="10,10,10,10">
             <Grid.RowDefinitions>
@@ -34,7 +35,7 @@
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="CustomerNameTextBox" materialDesign:HintAssist.Hint="Nazwa firmy" Grid.Column="0"
+                <TextBox Name="CustomerNameTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.CompanyName}" Grid.Column="0"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Margin="0,0,10,0"
                      Text="{Binding Customer.Name, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                      Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
@@ -52,18 +53,18 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="CityTextBox" materialDesign:HintAssist.Hint="Miasto" Grid.Column="0" Margin="0,0,10,0"
+                <TextBox Name="CityTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.City}" Grid.Column="0" Margin="0,0,10,0"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
                      Text="{Binding Customer.City, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                      Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
-                <xctk:MaskedTextBox Name="ZipCodeTextBox" materialDesign:HintAssist.Hint="Kod pocztowy" Grid.Column="1"
+                <xctk:MaskedTextBox Name="ZipCodeTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.ZipCode}" Grid.Column="1"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00-000"
                      Text="{Binding Customer.ZipCode, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                      Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
             </Grid>
-            <TextBox Name="StreetTextBox" materialDesign:HintAssist.Hint="Ulica" Grid.Row="2" Margin="0,15,0,0"
+            <TextBox Name="StreetTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.Street}" Grid.Row="2" Margin="0,15,0,0"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
                  Text="{Binding Customer.Street, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
@@ -73,18 +74,18 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="StreetNumberTextBox" materialDesign:HintAssist.Hint="Nr domu" Grid.Column="0" Margin="0,0,10,0"
+                <TextBox Name="StreetNumberTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.StreetNumber}" Grid.Column="0" Margin="0,0,10,0"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
                      Text="{Binding Customer.StreetNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                      Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
-                <TextBox Name="FlatNumberTextBox" materialDesign:HintAssist.Hint="Nr mieszkania" Grid.Column="1"
+                <TextBox Name="FlatNumberTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.FlatNumber}" Grid.Column="1"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
                      Text="{Binding Customer.FlatNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                      Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </TextBox>
             </Grid>
-            <TextBox Name="PhoneNumberTextBox" materialDesign:HintAssist.Hint="Telefon" Grid.Row="4" Margin="0,15,0,0"
+            <TextBox Name="PhoneNumberTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.PhoneNumber}" Grid.Row="4" Margin="0,15,0,0"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top"
                  Text="{Binding Customer.PhoneNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
@@ -93,51 +94,45 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <xctk:MaskedTextBox Name="NIPTextBox" materialDesign:HintAssist.Hint="NIP" Grid.Column="0" Margin="0,0,10,0"
+                <xctk:MaskedTextBox Name="NIPTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.NIP}" Grid.Column="0" Margin="0,0,10,0"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="000\-00\-00\-000"
                                 IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoNIPCheckBox, Path=IsChecked}}"
                                 Text="{Binding Customer.NIP, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
-                <CheckBox Name="NoNIPCheckBox" Grid.Column="1"
-                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" Checked="NoNIPCheckBox_Checked">
-                    Brak numeru NIP
-                </CheckBox>
+                <CheckBox Name="NoNIPCheckBox" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" 
+                          VerticalAlignment="Center" Checked="NoNIPCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoNIPNumber}"/>
             </Grid>
             <Grid Grid.Row="6" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <xctk:MaskedTextBox Name="REGONTextBox" materialDesign:HintAssist.Hint="REGON" Grid.Column="0" Margin="0,0,10,0"
+                <xctk:MaskedTextBox Name="REGONTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.REGON}" Grid.Column="0" Margin="0,0,10,0"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="000-00-00-00"
                                 IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoREGONCheckBox, Path=IsChecked}}"
                                 Text="{Binding Customer.REGON, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
-                <CheckBox Name="NoREGONCheckBox" Grid.Column="1"
-                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" Checked="NoREGONCheckBox_Checked">
-                    Brak numeru REGON
-                </CheckBox>
+                <CheckBox Name="NoREGONCheckBox" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" 
+                          VerticalAlignment="Center" Checked="NoREGONCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoREGONNumber}"/>
             </Grid>
             <Grid Grid.Row="7" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <xctk:MaskedTextBox Name="BankAccountNumberTextBox" materialDesign:HintAssist.Hint="Numer konta bankowego" Grid.Column="0" Margin="0,0,10,0"
+                <xctk:MaskedTextBox Name="BankAccountNumberTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.BankAccountNumber}" Grid.Column="0" Margin="0,0,10,0"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="00000000000000000000000000"
                                 IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoBankAccountCheckBox, Path=IsChecked}}"
                                 Text="{Binding Customer.BankAccountNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 </xctk:MaskedTextBox>
-                <CheckBox Name="NoBankAccountCheckBox" Grid.Column="1"
-                      Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" Checked="NoBankAccountCheckBox_Checked">
-                    Brak konta bankowego
-                </CheckBox>
+                <CheckBox Name="NoBankAccountCheckBox" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" 
+                          VerticalAlignment="Center" Checked="NoBankAccountCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoBankAccountNumber}"/>
             </Grid>
             <TextBox Name="CommentsTextBox" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="8" Margin="0,20,0,0" Text="{Binding Customer.Comments}"
-                 materialDesign:HintAssist.Hint="Uwagi" FontSize="15" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                 materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.Comments}" FontSize="15" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                  Height="100" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"/>
             <Grid Grid.Row="9" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
@@ -147,13 +142,13 @@
                 <Button Name="AddCustomerButton" Grid.Column="0" Margin="0,0,10,0"
                     ToolTip="Icon" Click="AddCustomerButton_Click">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center">Dodaj</TextBlock>
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:AddCustomerWindow.Add}"/>
                         <materialDesign:PackIcon Kind="Add" Height="24" Width="24" />
                     </StackPanel>
                 </Button>
                 <Button Name="CancelButton" Grid.Column="1" VerticalAlignment="Bottom" Margin="10,0,0,0" Click="CancelButton_Click">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center">Anuluj</TextBlock>
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:AddCustomerWindow.Cancel}"/>
                         <materialDesign:PackIcon Kind="Cancel" Height="24" Width="24" />
                     </StackPanel>
                 </Button>

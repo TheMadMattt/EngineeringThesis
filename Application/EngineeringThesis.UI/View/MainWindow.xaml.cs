@@ -55,5 +55,10 @@ namespace EngineeringThesis.UI.View
             InvoiceDataGrid.ItemsSource = ViewModel.GetInvoices();
             InvoiceDataGrid.Items.Refresh();
         }
+
+        private void DeleteContractorButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
