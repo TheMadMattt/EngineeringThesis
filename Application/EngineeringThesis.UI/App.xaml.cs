@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using EngineeringThesis.Core.Models;
@@ -21,11 +15,11 @@ namespace EngineeringThesis.UI
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         public IServiceProvider ServiceProvider { get; set; }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             InitializeCultures();
             var serviceCollection = new ServiceCollection();
@@ -35,12 +29,12 @@ namespace EngineeringThesis.UI
 
             var navigationService = ServiceProvider.GetRequiredService<NavigationService>();
 
-            var mainWindow = navigationService.ShowAsync<MainWindow>();
+            await navigationService.ShowAsync<MainWindow>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
-            var connectionString = System.AppDomain.CurrentDomain.BaseDirectory;
+            var connectionString = AppDomain.CurrentDomain.BaseDirectory;
             connectionString += "\\Invoices.db";
             serviceCollection.AddDbContext<ApplicationContext>(options => options.UseSqlite($@"Data Source={connectionString}"));
             

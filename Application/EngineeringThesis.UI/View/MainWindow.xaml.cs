@@ -44,11 +44,10 @@ namespace EngineeringThesis.UI.View
             CustomerDataGrid.ItemsSource = ViewModel.GetCustomers();
         }
 
-        private void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var customer = CustomerDataGrid.SelectedCells[0].Item as Customer;
-            var editCustomerWindow = _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-            CustomerDataGrid.ItemsSource = ViewModel.GetCustomers();
+            var editCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
         }
 
         private async void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)

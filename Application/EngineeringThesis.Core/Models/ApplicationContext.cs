@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Mime;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringThesis.Core.Models
@@ -15,14 +12,6 @@ namespace EngineeringThesis.Core.Models
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {}
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var connectionString = System.AppDomain.CurrentDomain.BaseDirectory;
-            connectionString += "\\Invoices.db";
-            optionsBuilder
-                .UseSqlite($@"Data Source={connectionString}");
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
