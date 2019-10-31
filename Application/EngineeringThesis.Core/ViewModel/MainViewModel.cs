@@ -31,5 +31,10 @@ namespace EngineeringThesis.Core.ViewModel
         {
             _invoiceService.DeleteInvoice(invoice);
         }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            _customerService.DeleteCustomer(customer);
+        }
     }
 }

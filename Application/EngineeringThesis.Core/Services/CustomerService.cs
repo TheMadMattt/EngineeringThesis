@@ -50,5 +50,13 @@ namespace EngineeringThesis.Core.Services
 
             return ctx.CustomerTypes.ToList();
         }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            using var ctx = new ApplicationContext();
+
+            ctx.Customers.Remove(customer);
+            ctx.SaveChanges();
+        }
     }
 }

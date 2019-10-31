@@ -10,6 +10,7 @@ using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
+using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.UI.View
 {
@@ -153,6 +154,54 @@ namespace EngineeringThesis.UI.View
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MaximizeWindowIcon.Kind = WindowState == WindowState.Normal ? PackIconKind.WindowMaximize : PackIconKind.WindowRestore;
+        }
+
+        private void ToolbarGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if (WindowState == WindowState.Maximized)
+                {
+                    WindowState = WindowState.Normal;
+                }
+                else if (WindowState == WindowState.Normal)
+                {
+                    WindowState = WindowState.Maximized;
+                }
+            }
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+                MaximizeWindowIcon.Kind = PackIconKind.WindowRestore;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                MaximizeWindowIcon.Kind = PackIconKind.WindowMaximize;
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
