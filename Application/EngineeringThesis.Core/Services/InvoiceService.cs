@@ -9,11 +9,15 @@ namespace EngineeringThesis.Core.Services
 {
     public class InvoiceService
     {
+        private readonly ApplicationContext _ctx;
+
+        public InvoiceService(ApplicationContext context)
+        {
+            _ctx = context;
+        }
         public List<Invoice> GetInvoices()
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.Invoices
+            return _ctx.Invoices
                 .Include(p => p.InvoiceItems)
                 .Include(seller => seller.Seller)
                 .Include(contractor => contractor.Contractor)
@@ -23,9 +27,7 @@ namespace EngineeringThesis.Core.Services
 
         public Invoice GetInvoice(int id)
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.Invoices
+            return _ctx.Invoices
                 .Include(x => x.PaymentType)
                 .Include(x => x.InvoiceItems)
                 .Include(x => x.Contractor)
@@ -35,17 +37,13 @@ namespace EngineeringThesis.Core.Services
 
         public Invoice GetLastInvoice()
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.Invoices.OrderByDescending(p => p.Id).FirstOrDefault();
+            return _ctx.Invoices.OrderByDescending(p => p.Id).FirstOrDefault();
         }
 
         public void DeleteInvoice(Invoice invoice)
         {
-            using var ctx = new ApplicationContext();
-
-            ctx.Invoices.Remove(invoice);
-            ctx.SaveChanges();
+            _ctx.Invoices.Remove(invoice);
+            _ctx.SaveChanges();
         }
     }
 }

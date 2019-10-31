@@ -8,11 +8,14 @@ namespace EngineeringThesis.Core.Services
 {
     public class InvoiceItemService
     {
+        private readonly ApplicationContext _ctx;
+        public InvoiceItemService(ApplicationContext context)
+        {
+            _ctx = context;
+        }
         public InvoiceItem GetInvoiceItem(int id)
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.InvoiceItems.FirstOrDefault(x => x.Id == id);
+            return _ctx.InvoiceItems.FirstOrDefault(x => x.Id == id);
         }
     }
 }

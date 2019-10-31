@@ -10,53 +10,47 @@ namespace EngineeringThesis.Core.Services
 {
     public class CustomerService
     {
+        private readonly ApplicationContext _ctx;
+
+        public CustomerService(ApplicationContext context)
+        {
+            _ctx = context;
+        }
         public List<Customer> GetContractors()
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.Customers.Where(x => x.CustomerTypeId == 1).Include(customerType => customerType.CustomerType)
+            return _ctx.Customers.Where(x => x.CustomerTypeId == 1).Include(customerType => customerType.CustomerType)
                 .ToList();
         }
 
         public List<Customer> GetSellers()
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.Customers.Where(x => x.CustomerTypeId == 2).Include(customerType => customerType.CustomerType)
+            return _ctx.Customers.Where(x => x.CustomerTypeId == 2).Include(customerType => customerType.CustomerType)
                 .ToList();
         }
 
         public void SaveCustomer(Customer customerWithRef)
         {
-            using var ctx = new ApplicationContext();
-
-            ctx.Customers.Add(customerWithRef);
-            ctx.SaveChanges();
+            _ctx.Customers.Add(customerWithRef);
+            _ctx.SaveChanges();
         }
 
         public void UpdateCustomer(Customer customerWithRef)
         {
-            using var ctx = new ApplicationContext();
+            var oldCustomer = _ctx.Customers.Find(customerWithRef.Id);
 
-            var oldCustomer = ctx.Customers.Find(customerWithRef.Id);
-
-            ctx.Entry(oldCustomer).CurrentValues.SetValues(customerWithRef);
-            ctx.SaveChanges();
+            _ctx.Entry(oldCustomer).CurrentValues.SetValues(customerWithRef);
+            _ctx.SaveChanges();
         }
 
         public List<CustomerType> GetCustomerTypes()
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.CustomerTypes.ToList();
+            return _ctx.CustomerTypes.ToList();
         }
 
         public void DeleteCustomer(Customer customer)
         {
-            using var ctx = new ApplicationContext();
-
-            ctx.Customers.Remove(customer);
-            ctx.SaveChanges();
+            _ctx.Customers.Remove(customer);
+            _ctx.SaveChanges();
         }
     }
 }

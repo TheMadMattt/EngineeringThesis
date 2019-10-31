@@ -13,6 +13,7 @@ using EngineeringThesis.Core.Services;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
 using EngineeringThesis.UI.View;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EngineeringThesis.UI
@@ -39,7 +40,10 @@ namespace EngineeringThesis.UI
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddDbContext<ApplicationContext>();
+            var connectionString = System.AppDomain.CurrentDomain.BaseDirectory;
+            connectionString += "\\Invoices.db";
+            serviceCollection.AddDbContext<ApplicationContext>(options => options.UseSqlite($@"Data Source={connectionString}"));
+            
             serviceCollection.AddScoped<NavigationService>();
 
             //Services

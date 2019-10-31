@@ -8,11 +8,15 @@ namespace EngineeringThesis.Core.Services
 {
     public class PaymentTypeService
     {
+        private readonly ApplicationContext _ctx;
+
+        public PaymentTypeService(ApplicationContext context)
+        {
+            _ctx = context;
+        }
         public List<PaymentType> GetPaymentTypes()
         {
-            using var ctx = new ApplicationContext();
-
-            return ctx.PaymentTypes.ToList();
+            return _ctx.PaymentTypes.ToList();
         }
     }
 }

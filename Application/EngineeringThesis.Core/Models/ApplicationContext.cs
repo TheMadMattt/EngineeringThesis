@@ -14,10 +14,7 @@ namespace EngineeringThesis.Core.Models
         public DbSet<CustomerType> CustomerTypes { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
-        public ApplicationContext() : base()
-        {
-            
-        }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
