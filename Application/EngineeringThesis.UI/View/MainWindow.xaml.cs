@@ -35,19 +35,28 @@ namespace EngineeringThesis.UI.View
 
         private async void AddInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            var invoiceWindow = await _navigationService.ShowDialogAsync<InvoiceWindow>();
+            await _navigationService.ShowDialogAsync<InvoiceWindow>();
         }
 
         private async void AddContractorButton_Click(object sender, RoutedEventArgs e)
         {
-            var addCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>();
-            CustomerDataGrid.ItemsSource = ViewModel.GetCustomers();
+            var customer = new Customer();
+            var addCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+            if (MainViewModel.IsNullOrEmpty(customer))
+            {
+                ViewModel.Customers.Add(customer);
+                CustomerDataGrid.Items.Refresh();
+            }
         }
 
         private async void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var customer = CustomerDataGrid.SelectedCells[0].Item as Customer;
-            var editCustomerWindow = await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+            if (CustomerDataGrid.SelectedCells[0].Item is Customer customer)
+            {
+                await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                CustomerDataGrid.Items.Refresh();
+            }
+            
         }
 
         private async void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)

@@ -85,5 +85,45 @@ namespace EngineeringThesis.Core.ViewModel
             CustomerWithRef.BankAccountNumber = Customer.BankAccountNumber;
             CustomerWithRef.Comments = Customer.Comments;
         }
+
+        public void BindData(Customer customer)
+        {
+            Customer = new CustomerDisplayModel();
+            if (!string.IsNullOrEmpty(customer.Name))
+            {
+                Customer.Name = customer.Name;
+            }
+            if (!string.IsNullOrEmpty(customer.ZipCode))
+            {
+                Customer.ZipCode = customer.ZipCode;
+            }
+            if (!string.IsNullOrEmpty(customer.City))
+            {
+                Customer.City = customer.City;
+            }
+            if (!string.IsNullOrEmpty(customer.Street))
+            {
+                Customer.Street = customer.Street;
+            }
+            if (!string.IsNullOrEmpty(customer.PhoneNumber))
+            {
+                Customer.PhoneNumber = customer.PhoneNumber;
+            }
+            if (!string.IsNullOrEmpty(customer.NIP))
+            {
+                Customer.NIP = customer.NIP;
+            }
+            if (!string.IsNullOrEmpty(customer.REGON))
+            {
+                Customer.REGON = customer.REGON;
+            }
+            if (!string.IsNullOrEmpty(customer.BankAccountNumber))
+            {
+                Customer.BankAccountNumber = customer.BankAccountNumber;
+            }
+
+            Customer.Comments = customer.Comments;
+            Customer.CustomerTypeId = customer.CustomerTypeId;
+        }
     }
 }

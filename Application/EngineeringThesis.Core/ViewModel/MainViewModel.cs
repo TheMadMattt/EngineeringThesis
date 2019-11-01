@@ -36,5 +36,12 @@ namespace EngineeringThesis.Core.ViewModel
         {
             _customerService.DeleteCustomer(customer);
         }
+
+        public static bool IsNullOrEmpty(Customer obj)
+        {
+            return !string.IsNullOrEmpty(obj.Name) && !string.IsNullOrEmpty(obj.ZipCode)
+                   && !string.IsNullOrEmpty(obj.City) && !string.IsNullOrEmpty(obj.Street)
+                   && !string.IsNullOrEmpty(obj.StreetNumber);
+        }
     }
 }

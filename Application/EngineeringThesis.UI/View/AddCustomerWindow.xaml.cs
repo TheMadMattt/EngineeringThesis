@@ -15,7 +15,7 @@ namespace EngineeringThesis.UI.View
     /// <summary>
     /// Interaction logic for AddCustomerWindow.xaml
     /// </summary>
-    public partial class AddCustomerWindow : Window, IActivable
+    public partial class AddCustomerWindow : IActivable
     {
         public AddCustomerViewModel ViewModel;
 
@@ -33,23 +33,17 @@ namespace EngineeringThesis.UI.View
             if (parameter is Customer customer)
             {
                 ViewModel.CustomerWithRef = customer;
-                ViewModel.Customer = new CustomerDisplayModel
+                if (!string.IsNullOrEmpty(customer.Name))
                 {
-                    Name = customer.Name,
-                    ZipCode = customer.ZipCode,
-                    City = customer.City,
-                    Street = customer.Street,
-                    PhoneNumber = customer.PhoneNumber,
-                    NIP = customer.NIP,
-                    REGON = customer.REGON,
-                    BankAccountNumber = customer.BankAccountNumber,
-                    Comments = customer.Comments,
-                    CustomerTypeId = customer.CustomerTypeId
-                };
-                ViewModel.SplitAddress(customer.StreetNumber);
-                ViewModel.IsUpdate = true;
-
-                PrepareControls();
+                    ViewModel.BindData(customer);
+                    ViewModel.SplitAddress(customer.StreetNumber);
+                    ViewModel.IsUpdate = true;
+                    PrepareControls();
+                }
+                else
+                {
+                    ViewModel.Customer = new CustomerDisplayModel();
+                }
             }
             else
             {
@@ -65,8 +59,8 @@ namespace EngineeringThesis.UI.View
             NoNIPCheckBox.IsChecked = ViewModel.Customer.NIP == null;
             NoREGONCheckBox.IsChecked = ViewModel.Customer.REGON == null;
             NoBankAccountCheckBox.IsChecked = ViewModel.Customer.BankAccountNumber == null;
-            CustomerTypeComboBox.SelectedItem =
-                ViewModel.CustomerTypes.Find(x => x.Id == ViewModel.Customer.CustomerTypeId);
+            CustomerTypeComboBox.SelectedItem = ViewModel.Customer.CustomerTypeId > 0 ? 
+                ViewModel.CustomerTypes.Find(x => x.Id == ViewModel.Customer.CustomerTypeId) : ViewModel.CustomerTypes[0];
         }
 
         private async void AddCustomerButton_Click(object sender, RoutedEventArgs e)
