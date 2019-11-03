@@ -229,7 +229,7 @@
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                             <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVAT}" Binding="{Binding VAT, StringFormat={}{0}%}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat=C2}" 
+                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
                             <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemGrossSum}" Binding="{Binding GrossSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>

@@ -39,7 +39,7 @@ namespace EngineeringThesis.Core.ViewModel
                 InvoiceItemWithRef.Name = InvoiceItem.Name;
                 InvoiceItemWithRef.PKWiU = InvoiceItem.PKWiU;
                 InvoiceItemWithRef.Unit = InvoiceItem.Unit;
-                InvoiceItemWithRef.NetPrice = InvoiceItem.NetPrice;
+                InvoiceItemWithRef.NetPrice = FormatCurrency(InvoiceItem.NetPrice);
                 InvoiceItemWithRef.Amount = InvoiceItem.Amount;
                 InvoiceItemWithRef.VAT = Convert.ToInt16(InvoiceItem.VAT);
                 InvoiceItemWithRef.NetSum = FormatCurrency(InvoiceItem.NetSum);
@@ -59,7 +59,7 @@ namespace EngineeringThesis.Core.ViewModel
             clone.NumberFormat.NumberDecimalSeparator = ",";
             clone.NumberFormat.NumberGroupSeparator = ".";
             
-            return decimal.Parse(number, clone).ToString("#,00");
+            return decimal.Parse(number, clone).ToString("#.00");
         }
     }
 }
