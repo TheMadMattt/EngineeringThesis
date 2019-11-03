@@ -138,8 +138,9 @@ namespace EngineeringThesis.UI.View
 
             if (!string.IsNullOrEmpty(GrossSumTextBlock.Text) && !string.IsNullOrEmpty(NetSumTextBlock.Text))
             {
-                var vatSum = Convert.ToDecimal(ViewModel.InvoiceItemWithRef.GrossSum) - Convert.ToDecimal(ViewModel.InvoiceItemWithRef.NetSum);
-                ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("#.00");
+                var vatSum = Convert.ToDecimal(ViewModel.InvoiceItem.GrossSum,CultureInfo.InvariantCulture) - Convert.ToDecimal(ViewModel.InvoiceItem.NetSum,CultureInfo.InvariantCulture);
+                ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("#.00", new CultureInfo("pl"));
+                var temp = ViewModel.InvoiceItemWithRef.VATSum;
             }
 
         }
