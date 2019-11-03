@@ -74,7 +74,7 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignLabel}" Foreground="{DynamicResource PrimaryHueDarkBrush}" 
                        Content="{x:Static resx:InvoiceItemWindow.NetPrice}"/>
-                    <mah:NumericUpDown Name="NetPriceTextBox" StringFormat="C2" Culture="pl" Value="{Binding InvoiceItem.NetPrice}" 
+                    <mah:NumericUpDown Name="NetPriceTextBox" StringFormat="C2" Value="{Binding InvoiceItem.NetPrice}" 
                                    ValueChanged="NetPriceTextBox_ValueChanged" Grid.Column="0" Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}"
                                    HideUpDownButtons="True" Margin="0,0,5,0"/>
                     <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignLabel}" Foreground="{DynamicResource PrimaryHueDarkBrush}" 

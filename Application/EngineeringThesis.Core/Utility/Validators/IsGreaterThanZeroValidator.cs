@@ -10,12 +10,20 @@ namespace EngineeringThesis.Core.Utility.Validators
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var number = double.TryParse(value.ToString(), out var doubleNumber);
-
-            if (doubleNumber > 0)
+            try
             {
-                return new ValidationResult(true, null);
+                var number = double.TryParse(value.ToString(), out var doubleNumber);
+
+                if (doubleNumber > 0)
+                {
+                    return new ValidationResult(true, null);
+                }
             }
+            catch (Exception e)
+            {
+                return new ValidationResult(false, "Wartość musi być większa od 0");
+            }
+            
 
             return new ValidationResult(false, "Wartość musi być większa od 0");
         }

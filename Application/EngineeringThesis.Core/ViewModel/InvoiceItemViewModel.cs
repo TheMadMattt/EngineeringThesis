@@ -55,11 +55,15 @@ namespace EngineeringThesis.Core.ViewModel
 
         public string FormatCurrency(string number)
         {
+            if (number.Contains("."))
+            {
+                number = number.Replace(".", ",");
+            }
             var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
             clone.NumberFormat.NumberDecimalSeparator = ",";
             clone.NumberFormat.NumberGroupSeparator = ".";
             
-            return decimal.Parse(number, clone).ToString("#.00");
+            return decimal.Parse(number, clone).ToString("#.00", new CultureInfo("pl"));
         }
     }
 }
