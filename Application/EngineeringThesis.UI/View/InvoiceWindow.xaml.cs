@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,23 +30,30 @@ namespace EngineeringThesis.UI.View
             ContractorComboBox.ItemsSource = ViewModel.GetContractors();
             SellerComboBox.ItemsSource = ViewModel.GetSellers();
             PaymentTypeComboBox.ItemsSource = ViewModel.GetPaymentTypes();
+            DataContext = ViewModel;
         }
 
         public Task ActivateAsync(object parameter)
         {
             if (parameter is Invoice invoice)
             {
-                ViewModel.Invoice = ViewModel.GetInvoice(invoice.Id);
-                BindInvoiceToControls();
-            }
-            else
-            {
-                ViewModel.Invoice = new Invoice();
-                var lastInvoice = ViewModel.GetLastInvoice();
-                ViewModel.Invoice.InvoiceNumber =
-                    ViewModel.CreateInvoiceNumber(lastInvoice.InvoiceNumber);
-                ViewModel.Invoice.InvoiceItems = new List<InvoiceItem>();
-                BindNewInvoiceToControls();
+                if (!string.IsNullOrEmpty(invoice.InvoiceNumber))
+                {
+                    ViewModel.InvoiceWithRef = invoice;
+                    ViewModel.BindData(invoice);
+                    BindInvoiceToControls();
+                }
+                else
+                {
+                    ViewModel.InvoiceWithRef = invoice;
+                    ViewModel.Invoice = new Invoice();
+                    var lastInvoice = ViewModel.GetLastInvoice();
+                    ViewModel.Invoice.InvoiceNumber =
+                        ViewModel.CreateInvoiceNumber(lastInvoice.InvoiceNumber);
+                    ViewModel.Invoice.InvoiceItems = new List<InvoiceItem>();
+                    BindNewInvoiceToControls();
+                }
+                
             }
             
 
@@ -61,21 +69,19 @@ namespace EngineeringThesis.UI.View
             PaymentDeadlineDatePicker.SelectedDate = DateTime.Today;
             IsPaidCheckBox.IsChecked = false;
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
+            TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
         }
 
         public void BindInvoiceToControls()
         {
             ContractorComboBox.SelectedItem = ViewModel.Contractors.Find(x => x.Id == ViewModel.Invoice.ContractorId);
             SellerComboBox.SelectedItem = ViewModel.Sellers.Find(x => x.Id == ViewModel.Invoice.SellerId);
-            InvoiceDatePicker.SelectedDate = ViewModel.Invoice.InvoiceDate;
             PaymentTypeComboBox.SelectedItem = ViewModel.PaymentTypes.Find(x => x.Id == ViewModel.Invoice.PaymentTypeId);
-            PaymentDeadlineDatePicker.SelectedDate = ViewModel.Invoice.PaymentDeadline;
             if (ViewModel.Invoice.PaymentDate.HasValue)
             {
                 IsPaidCheckBox.IsChecked = true;
-                PaidDatePicker.SelectedDate = ViewModel.Invoice.PaymentDate;
             }
-
+            TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
         }
 

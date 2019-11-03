@@ -38,7 +38,7 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Margin="5" Foreground="White" FontSize="15" Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"></Label>
+                <Label Name="TitleLabel" Grid.Column="0" Margin="5" Foreground="White" FontSize="15" Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"></Label>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                     <Button Name="MinimizeButton" Width="30px" Height="30px" Margin="0,0,5,0" Background="{x:Null}"
                                 Style="{StaticResource MaterialDesignIconButton}" Click="MinimizeButton_Click">
@@ -180,7 +180,7 @@
                             <RowDefinition Height="2*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <GroupBox Header="{x:Static resx:InvoiceWindow.InvoiceDate}" Grid.Row="0">
-                            <DatePicker Name="InvoiceDatePicker"></DatePicker>
+                            <DatePicker Name="InvoiceDatePicker" SelectedDate="{Binding Invoice.InvoiceDate}"></DatePicker>
                         </GroupBox>
                         <GroupBox Header="{x:Static resx:InvoiceWindow.Payments}" Grid.Row="1">
                             <Grid>
@@ -203,11 +203,11 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                                 <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:InvoiceWindow.Deadline}"></Label>
-                                <DatePicker Name="PaymentDeadlineDatePicker" Grid.Column="1" Grid.Row="1"></DatePicker>
+                                <DatePicker Name="PaymentDeadlineDatePicker" SelectedDate="{Binding Invoice.PaymentDeadline}" Grid.Column="1" Grid.Row="1"></DatePicker>
                                 <Label Grid.Column="0" Grid.Row="2" Content="{x:Static resx:InvoiceWindow.Paid}"></Label>
                                 <CheckBox Name="IsPaidCheckBox" IsChecked="False" Grid.Column="1" Grid.Row="2"></CheckBox>
                                 <Label Grid.Column="0" Grid.Row="3" Content="{x:Static resx:InvoiceWindow.When}"></Label>
-                                <DatePicker Name="PaidDatePicker" Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ElementName=IsPaidCheckBox, Path=IsChecked}"></DatePicker>
+                                <DatePicker Name="PaidDatePicker" SelectedDate="{Binding Invoice.PaymentDate}" Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ElementName=IsPaidCheckBox, Path=IsChecked}"></DatePicker>
                             </Grid>
                         </GroupBox>
                     </Grid>

@@ -71,7 +71,7 @@ namespace EngineeringThesis.UI.View
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
             {
                 var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
-                ViewModel.InvoiceItem.NetSum = sum.ToString("#,00");
+                ViewModel.InvoiceItem.NetSum = sum.ToString("#,00", CultureInfo.InvariantCulture);
                 NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
@@ -87,7 +87,7 @@ namespace EngineeringThesis.UI.View
         {
             if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
             {
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value); 
+                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
                 ViewModel.InvoiceItem.NetSum = sum.ToString("#,00");
                 NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
             }

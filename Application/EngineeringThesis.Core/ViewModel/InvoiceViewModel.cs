@@ -10,8 +10,9 @@ namespace EngineeringThesis.Core.ViewModel
         private readonly CustomerService _customerService;
         private readonly InvoiceService _invoiceService;
         private readonly PaymentTypeService _paymentTypeService;
+        private Invoice _invoice;
 
-        public Invoice Invoice;
+        public Invoice InvoiceWithRef;
         public List<PaymentType> PaymentTypes;
         public List<Customer> Contractors;
         public List<Customer> Sellers;
@@ -48,6 +49,22 @@ namespace EngineeringThesis.Core.ViewModel
             return _invoiceService.GetLastInvoice();
         }
 
+        public Invoice Invoice
+        {
+            get
+            {
+                if (_invoice != null)
+                {
+                    return _invoice;
+                }
+                else
+                {
+                    return _invoice = new Invoice();
+                }
+            }
+            set => SetProperty(ref _invoice, value);
+        }
+
         public string CreateInvoiceNumber(string lastInvoiceNumber)
         {
             string[] splitted = lastInvoiceNumber.Split("/");
@@ -68,6 +85,39 @@ namespace EngineeringThesis.Core.ViewModel
             return !string.IsNullOrEmpty(obj.Name) && obj.Amount > 0 && !string.IsNullOrEmpty(obj.Unit)
                    && !string.IsNullOrEmpty(obj.NetPrice) && obj.VAT > 0 && !string.IsNullOrEmpty(obj.VATSum)
                    && !string.IsNullOrEmpty(obj.NetSum) && !string.IsNullOrEmpty(obj.GrossSum);
+        }
+
+        public void BindData(Invoice invoice)
+        {
+            if (!string.IsNullOrEmpty(invoice.InvoiceNumber))
+            {
+                Invoice.InvoiceNumber = invoice.InvoiceNumber;
+            }
+            if (!string.IsNullOrEmpty(invoice.InvoiceDate.ToShortDateString()))
+            {
+                Invoice.InvoiceDate = invoice.InvoiceDate;
+            }
+            if (!string.IsNullOrEmpty(invoice.PaymentDeadline.ToShortDateString()))
+            {
+                Invoice.PaymentDeadline = invoice.PaymentDeadline;
+            }
+            if (!string.IsNullOrEmpty(invoice.PaymentDate?.ToShortDateString()))
+            {
+                Invoice.PaymentDate = invoice.PaymentDate;
+            }
+
+            if (invoice.InvoiceItems != null && invoice.InvoiceItems.Count > 0)
+            {
+                Invoice.InvoiceItems = invoice.InvoiceItems;
+            }
+            else
+            {
+                Invoice.InvoiceItems = new List<InvoiceItem>();
+            }
+            Invoice.ContractorId = invoice.ContractorId;
+            Invoice.SellerId = invoice.SellerId;
+            Invoice.PaymentTypeId = invoice.PaymentTypeId;
+            Invoice.Comments = invoice.Comments;
         }
     }
 }
