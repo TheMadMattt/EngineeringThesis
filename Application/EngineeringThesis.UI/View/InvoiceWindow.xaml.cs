@@ -327,5 +327,12 @@ namespace EngineeringThesis.UI.View
                 await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
             }
         }
+
+        private void CreatePDFBtn_Click(object sender, RoutedEventArgs e)
+        {
+            InvoiceTemplate invoiceTemplate = new InvoiceTemplate(ViewModel.Invoice);
+
+            invoiceTemplate.createPDF("Oryginał");
+        }
     }
 }

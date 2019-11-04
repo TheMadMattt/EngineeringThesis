@@ -132,6 +132,9 @@
   <data name="Contractor" xml:space="preserve">
     <value>Kontrahent</value>
   </data>
+  <data name="CreatePDF" xml:space="preserve">
+    <value>Utwórz PDF</value>
+  </data>
   <data name="Deadline" xml:space="preserve">
     <value>Termin: </value>
   </data>

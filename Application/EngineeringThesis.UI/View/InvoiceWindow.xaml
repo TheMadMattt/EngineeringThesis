@@ -291,6 +291,9 @@
                             <Button Name="EditingInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.EditInvoice}" Visibility="Collapsed" Click="EditingInvoiceBtn_Click">
                                 <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                             </Button>
+                            <Button Name="CreatePDFBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Click="CreatePDFBtn_Click">
+                                <materialDesign:PackIcon Kind="PdfBox" Foreground="White"></materialDesign:PackIcon>
+                            </Button>
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>

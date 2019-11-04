@@ -106,6 +106,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Utwórz PDF.
+        /// </summary>
+        public static string CreatePDF {
+            get {
+                return ResourceManager.GetString("CreatePDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Termin: .
         /// </summary>
         public static string Deadline {

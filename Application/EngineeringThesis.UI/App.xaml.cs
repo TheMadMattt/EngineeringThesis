@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using EngineeringThesis.Core.Models;
@@ -39,6 +40,8 @@ namespace EngineeringThesis.UI
             serviceCollection.AddDbContext<ApplicationContext>(options => options.UseSqlite($@"Data Source={connectionString}"));
             
             serviceCollection.AddScoped<NavigationService>();
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //Services
             serviceCollection.AddScoped(typeof(InvoiceService));
