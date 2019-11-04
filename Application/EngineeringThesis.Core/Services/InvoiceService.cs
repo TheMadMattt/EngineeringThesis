@@ -49,5 +49,13 @@ namespace EngineeringThesis.Core.Services
             _ctx.Invoices.Add(invoice);
             _ctx.SaveChanges();
         }
+
+        public void UpdateInvoice(Invoice invoice)
+        {
+            var oldInvoice = _ctx.Customers.Find(invoice.Id);
+
+            _ctx.Entry(oldInvoice).CurrentValues.SetValues(invoice);
+            _ctx.SaveChanges();
+        }
     }
 }

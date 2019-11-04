@@ -134,7 +134,15 @@ namespace EngineeringThesis.Core.ViewModel
 
         public void SaveInvoice()
         {
-            _invoiceService.SaveInvoice(InvoiceWithRef);
+            if (IsUpdate)
+            {
+                _invoiceService.UpdateInvoice(InvoiceWithRef);
+            }
+            else
+            {
+                _invoiceService.SaveInvoice(InvoiceWithRef);
+            }
+            
         }
     }
 }
