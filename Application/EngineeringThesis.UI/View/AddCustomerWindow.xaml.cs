@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Models.DisplayModels;
-using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
@@ -95,7 +95,7 @@ namespace EngineeringThesis.UI.View
                     ViewModel.SaveCustomer();
                 }
 
-                this.Close();
+                Close();
             }
             else
             {
@@ -107,7 +107,7 @@ namespace EngineeringThesis.UI.View
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ForceValidation()

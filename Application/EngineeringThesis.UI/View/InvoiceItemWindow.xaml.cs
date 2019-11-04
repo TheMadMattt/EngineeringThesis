@@ -140,7 +140,6 @@ namespace EngineeringThesis.UI.View
             {
                 var vatSum = Convert.ToDecimal(ViewModel.InvoiceItem.GrossSum,CultureInfo.InvariantCulture) - Convert.ToDecimal(ViewModel.InvoiceItem.NetSum,CultureInfo.InvariantCulture);
                 ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("#.00", new CultureInfo("pl"));
-                var temp = ViewModel.InvoiceItemWithRef.VATSum;
             }
 
         }

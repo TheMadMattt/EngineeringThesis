@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,9 +63,9 @@ namespace EngineeringThesis.UI.View
         {
             ContractorComboBox.SelectedItem = ViewModel.Contractors[0];
             SellerComboBox.SelectedItem = ViewModel.Sellers[0];
-            InvoiceDatePicker.SelectedDate = DateTime.Today;
+            ViewModel.Invoice.InvoiceDate = DateTime.Today;
             PaymentTypeComboBox.SelectedItem = ViewModel.PaymentTypes[0];
-            PaymentDeadlineDatePicker.SelectedDate = DateTime.Today;
+            ViewModel.Invoice.PaymentDeadline = DateTime.Today;
             IsPaidCheckBox.IsChecked = false;
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
             TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
@@ -146,7 +145,7 @@ namespace EngineeringThesis.UI.View
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
@@ -204,6 +203,16 @@ namespace EngineeringThesis.UI.View
         private void InvoiceItemAction_MouseLeave(object sender, MouseEventArgs e)
         {
             InvoiceItemAction.Opacity = 0.5;
+        }
+
+        private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0;
+        }
+
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            
         }
     }
 }

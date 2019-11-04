@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddItem" xml:space="preserve">
-    <value>Dodaj</value>
+    <value>Dodaj pozycję</value>
   </data>
   <data name="Address" xml:space="preserve">
     <value>Adres:</value>
@@ -136,10 +136,10 @@
     <value>Termin: </value>
   </data>
   <data name="DeleteItem" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usuń pozycję</value>
   </data>
   <data name="EditItem" xml:space="preserve">
-    <value>Edytuj</value>
+    <value>Edytuj pozycję</value>
   </data>
   <data name="Invoice" xml:space="preserve">
     <value>Faktura</value>
@@ -194,6 +194,9 @@
   </data>
   <data name="Regon" xml:space="preserve">
     <value>REGON:</value>
+  </data>
+  <data name="SaveInvoice" xml:space="preserve">
+    <value>Zapisz fakturę</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Sprzedawca</value>

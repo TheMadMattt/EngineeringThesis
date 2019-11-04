@@ -61,7 +61,7 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dodaj.
+        ///   Looks up a localized string similar to Dodaj pozycję.
         /// </summary>
         public static string AddItem {
             get {
@@ -115,7 +115,7 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuń.
+        ///   Looks up a localized string similar to Usuń pozycję.
         /// </summary>
         public static string DeleteItem {
             get {
@@ -124,7 +124,7 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edytuj.
+        ///   Looks up a localized string similar to Edytuj pozycję.
         /// </summary>
         public static string EditItem {
             get {
@@ -291,6 +291,15 @@ namespace EngineeringThesis.UI.Resources {
         public static string Regon {
             get {
                 return ResourceManager.GetString("Regon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapisz fakturę.
+        /// </summary>
+        public static string SaveInvoice {
+            get {
+                return ResourceManager.GetString("SaveInvoice", resourceCulture);
             }
         }
         
