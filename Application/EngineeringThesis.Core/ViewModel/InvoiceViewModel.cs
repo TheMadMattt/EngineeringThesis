@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
-using Humanizer;
 
 namespace EngineeringThesis.Core.ViewModel
 {
@@ -40,11 +39,6 @@ namespace EngineeringThesis.Core.ViewModel
             return PaymentTypes = _paymentTypeService.GetPaymentTypes();
         }
 
-        public Invoice GetInvoice(int id)
-        {
-            return _invoiceService.GetInvoice(id);
-        }
-
         public Invoice GetLastInvoice()
         {
             return _invoiceService.GetLastInvoice();
@@ -58,10 +52,8 @@ namespace EngineeringThesis.Core.ViewModel
                 {
                     return _invoice;
                 }
-                else
-                {
-                    return _invoice = new Invoice();
-                }
+
+                return _invoice = new Invoice();
             }
             set => SetProperty(ref _invoice, value);
         }

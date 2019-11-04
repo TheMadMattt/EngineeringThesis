@@ -33,11 +33,14 @@ namespace EngineeringThesis.Core.ViewModel
 
         public void SaveCustomer()
         {
-            _customerService.SaveCustomer(CustomerWithRef);
-        }
-        public void UpdateCustomer()
-        {
-            _customerService.UpdateCustomer(CustomerWithRef);
+            if (IsUpdate)
+            {
+                _customerService.UpdateCustomer(CustomerWithRef);
+            }
+            else
+            {
+                _customerService.SaveCustomer(CustomerWithRef);
+            }
         }
 
         public List<CustomerType> GetCustomerTypes()
