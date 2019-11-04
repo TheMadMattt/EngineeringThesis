@@ -138,6 +138,9 @@
   <data name="DeleteItem" xml:space="preserve">
     <value>Usuń pozycję</value>
   </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Edytuj fakturę</value>
+  </data>
   <data name="EditItem" xml:space="preserve">
     <value>Edytuj pozycję</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="SaveInvoice" xml:space="preserve">
     <value>Zapisz fakturę</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Sprzedawca</value>

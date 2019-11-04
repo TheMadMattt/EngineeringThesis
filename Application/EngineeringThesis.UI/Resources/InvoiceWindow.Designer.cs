@@ -124,6 +124,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edytuj fakturę.
+        /// </summary>
+        public static string EditInvoice {
+            get {
+                return ResourceManager.GetString("EditInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edytuj pozycję.
         /// </summary>
         public static string EditItem {
@@ -300,6 +309,15 @@ namespace EngineeringThesis.UI.Resources {
         public static string SaveInvoice {
             get {
                 return ResourceManager.GetString("SaveInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szukaj.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

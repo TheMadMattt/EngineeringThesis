@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Models.DisplayModels;
+using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
@@ -44,11 +45,23 @@ namespace EngineeringThesis.UI.View
                 {
                     ViewModel.Customer = new CustomerDisplayModel();
                 }
-            }
-            else
+            }else if (parameter is Utility.CustomerStruct customerStruct)
             {
-                ViewModel.CustomerWithRef = new Customer();
-                ViewModel.Customer = new CustomerDisplayModel();
+                ViewModel.CustomerWithRef = customerStruct.customer;
+                if (!string.IsNullOrEmpty(customerStruct.customer.Name))
+                {
+                    ViewModel.BindData(customerStruct.customer);
+                    ViewModel.SplitAddress(customerStruct.customer.StreetNumber);
+                    ViewModel.IsUpdate = true;
+                    PrepareControls();
+                }
+                else
+                {
+                    ViewModel.Customer = new CustomerDisplayModel();
+                    CustomerTypeComboBox.IsEnabled = false;
+                    CustomerTypeComboBox.SelectedItem = customerStruct.isContractor ? 
+                        ViewModel.CustomerTypes.Find(x => x.Id == 1) : ViewModel.CustomerTypes.Find(x => x.Id == 2);
+                }
             }
 
             return Task.CompletedTask;

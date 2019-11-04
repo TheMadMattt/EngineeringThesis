@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
+using Humanizer;
 
 namespace EngineeringThesis.Core.ViewModel
 {
@@ -65,6 +66,8 @@ namespace EngineeringThesis.Core.ViewModel
             set => SetProperty(ref _invoice, value);
         }
 
+        public bool IsUpdate { get; set; }
+
         public string CreateInvoiceNumber(string lastInvoiceNumber)
         {
             string[] splitted = lastInvoiceNumber.Split("/");
@@ -78,13 +81,6 @@ namespace EngineeringThesis.Core.ViewModel
             }
 
             return number + "/" + year;
-        }
-
-        public static bool IsNullOrEmpty(InvoiceItem obj)
-        {
-            return !string.IsNullOrEmpty(obj.Name) && obj.Amount > 0 && !string.IsNullOrEmpty(obj.Unit)
-                   && !string.IsNullOrEmpty(obj.NetPrice) && obj.VAT > 0 && !string.IsNullOrEmpty(obj.VATSum)
-                   && !string.IsNullOrEmpty(obj.NetSum) && !string.IsNullOrEmpty(obj.GrossSum);
         }
 
         public void BindData(Invoice invoice)
@@ -118,6 +114,27 @@ namespace EngineeringThesis.Core.ViewModel
             Invoice.SellerId = invoice.SellerId;
             Invoice.PaymentTypeId = invoice.PaymentTypeId;
             Invoice.Comments = invoice.Comments;
+        }
+
+        public void BindDataToRef()
+        {
+            InvoiceWithRef.InvoiceNumber = Invoice.InvoiceNumber;
+            InvoiceWithRef.InvoiceDate = Invoice.InvoiceDate;
+            InvoiceWithRef.PaymentDeadline = Invoice.PaymentDeadline;
+            InvoiceWithRef.PaymentDate = Invoice.PaymentDate;
+            InvoiceWithRef.InvoiceItems = Invoice.InvoiceItems;
+            InvoiceWithRef.ContractorId = Invoice.Contractor.Id;
+            InvoiceWithRef.Contractor = Invoice.Contractor;
+            InvoiceWithRef.SellerId = Invoice.Seller.Id;
+            InvoiceWithRef.Seller = Invoice.Seller;
+            InvoiceWithRef.PaymentType = Invoice.PaymentType;
+            InvoiceWithRef.PaymentTypeId = Invoice.PaymentTypeId;
+            InvoiceWithRef.Comments = Invoice.Comments;
+        }
+
+        public void SaveInvoice()
+        {
+            _invoiceService.SaveInvoice(InvoiceWithRef);
         }
     }
 }

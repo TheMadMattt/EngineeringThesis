@@ -43,5 +43,11 @@ namespace EngineeringThesis.Core.Services
             _ctx.Invoices.Remove(invoice);
             _ctx.SaveChanges();
         }
+
+        public void SaveInvoice(Invoice invoice)
+        {
+            _ctx.Invoices.Add(invoice);
+            _ctx.SaveChanges();
+        }
     }
 }

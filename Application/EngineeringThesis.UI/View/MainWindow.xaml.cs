@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
+using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
@@ -31,22 +33,36 @@ namespace EngineeringThesis.UI.View
             if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
             {
                 await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
+                if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+                {
+                    var index = ViewModel.Invoices.FindIndex(x => x.Id == invoice.Id);
+                    ViewModel.Invoices[index] = invoice;
+                    InvoiceDataGrid.Items.Refresh();
+                }
             }
-            
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żadna faktura nie została wybrana", "Zaznacz fakturę", "OK"));
+            }
+
         }
 
         private async void AddInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             var invoice = new Invoice();
             await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
-
+            if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+            {
+                ViewModel.Invoices.Add(invoice);
+                InvoiceDataGrid.Items.Refresh();
+            }
         }
 
         private async void AddContractorButton_Click(object sender, RoutedEventArgs e)
         {
             var customer = new Customer();
             await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-            if (MainViewModel.IsNullOrEmpty(customer))
+            if (Utility.IsNotCustomerNullOrEmpty(customer))
             {
                 ViewModel.Customers.Add(customer);
                 CustomerDataGrid.Items.Refresh();
