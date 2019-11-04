@@ -43,9 +43,11 @@ namespace EngineeringThesis.UI.View
                 }
                 else
                 {
+                    ViewModel.IsUpdate = false;
                     ViewModel.Customer = new CustomerDisplayModel();
                 }
-            }else if (parameter is Utility.CustomerStruct customerStruct)
+            }
+            else if (parameter is Utility.CustomerStruct customerStruct)
             {
                 ViewModel.CustomerWithRef = customerStruct.customer;
                 if (!string.IsNullOrEmpty(customerStruct.customer.Name))
@@ -64,7 +66,33 @@ namespace EngineeringThesis.UI.View
                 }
             }
 
+            SetControlsEnabled();
+
             return Task.CompletedTask;
+        }
+
+        private void SetControlsEnabled()
+        {
+            if (ViewModel.IsUpdate)
+            {
+                EditButton.Visibility = Visibility.Visible;
+                ButtonsGrid.Visibility = Visibility.Collapsed;
+                CustomerNameTextBox.IsEnabled = false;
+                CustomerTypeComboBox.IsEnabled = false;
+                CityTextBox.IsEnabled = false;
+                ZipCodeTextBox.IsEnabled = false;
+                StreetTextBox.IsEnabled = false;
+                StreetNumberTextBox.IsEnabled = false;
+                FlatNumberTextBox.IsEnabled = false;
+                PhoneNumberTextBox.IsEnabled = false;
+                NIPTextBox.IsEnabled = false;
+                NoNIPCheckBox.IsEnabled = false;
+                REGONTextBox.IsEnabled = false;
+                NoREGONCheckBox.IsEnabled = false;
+                BankAccountNumberTextBox.IsEnabled = false;
+                NoBankAccountCheckBox.IsEnabled = false;
+                CommentsTextBox.IsEnabled = false;
+            }
         }
 
         private void PrepareControls()
@@ -236,6 +264,28 @@ namespace EngineeringThesis.UI.View
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MaximizeWindowIcon.Kind = WindowState == WindowState.Normal ? PackIconKind.WindowMaximize : PackIconKind.WindowRestore;
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditButton.Visibility = Visibility.Collapsed;
+            ButtonsGrid.Visibility = Visibility.Visible;
+            CustomerNameTextBox.IsEnabled = true;
+            CustomerTypeComboBox.IsEnabled = true;
+            CityTextBox.IsEnabled = true;
+            ZipCodeTextBox.IsEnabled = true;
+            StreetTextBox.IsEnabled = true;
+            StreetNumberTextBox.IsEnabled = true;
+            FlatNumberTextBox.IsEnabled = true;
+            PhoneNumberTextBox.IsEnabled = true;
+            if (NoNIPCheckBox.IsChecked != null) NIPTextBox.IsEnabled = (bool) !NoNIPCheckBox.IsChecked;
+            NoNIPCheckBox.IsEnabled = true;
+            if (NoREGONCheckBox.IsChecked != null) REGONTextBox.IsEnabled = (bool) !NoREGONCheckBox.IsChecked;
+            NoREGONCheckBox.IsEnabled = true;
+            if (NoBankAccountCheckBox.IsChecked != null)
+                BankAccountNumberTextBox.IsEnabled = (bool) !NoBankAccountCheckBox.IsChecked;
+            NoBankAccountCheckBox.IsEnabled = true;
+            CommentsTextBox.IsEnabled = true;
         }
     }
 }

@@ -238,7 +238,7 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
+                    <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False"
                                   IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
                                   HorizontalScrollBarVisibility="Visible" Grid.Column="0" SelectedIndex="0" MouseDoubleClick="InvoiceItemsDataGrid_MouseDoubleClick">
                         <DataGrid.Columns>

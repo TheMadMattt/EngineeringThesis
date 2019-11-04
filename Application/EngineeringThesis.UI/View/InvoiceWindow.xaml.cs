@@ -79,6 +79,8 @@ namespace EngineeringThesis.UI.View
                 IsPaidCheckBox.IsEnabled = false;
                 PaidDatePicker.IsEnabled = false;
                 InvoiceItemsDataGrid.IsEnabled = false;
+                AddContractorBtn.IsEnabled = false;
+                AddSellerBtn.IsEnabled = false;
             }
         }
 
@@ -302,6 +304,8 @@ namespace EngineeringThesis.UI.View
             IsPaidCheckBox.IsEnabled = true;
             PaidDatePicker.IsEnabled = true;
             InvoiceItemsDataGrid.IsEnabled = true;
+            AddContractorBtn.IsEnabled = true;
+            AddSellerBtn.IsEnabled = true;
         }
 
         private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

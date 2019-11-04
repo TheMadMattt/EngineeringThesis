@@ -124,6 +124,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edycja.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nr lokalu.
         /// </summary>
         public static string FlatNumber {

@@ -138,6 +138,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Klient</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edycja</value>
+  </data>
   <data name="FlatNumber" xml:space="preserve">
     <value>Nr lokalu</value>
   </data>
