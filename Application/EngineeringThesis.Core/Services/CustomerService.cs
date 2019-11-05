@@ -49,5 +49,12 @@ namespace EngineeringThesis.Core.Services
             _ctx.Customers.Remove(customer);
             _ctx.SaveChanges();
         }
+
+        public Customer GetCustomer(int id)
+        {
+            return _ctx.Customers
+                .Include(x => x.CustomerType)
+                .FirstOrDefault(x => x.Id == id);
+        }
     }
 }

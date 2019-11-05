@@ -44,6 +44,23 @@ namespace EngineeringThesis.Core.ViewModel
             return _invoiceService.GetLastInvoice();
         }
 
+        public Invoice GetInvoice()
+        {
+            if (Invoice.Id > 0)
+            {
+                return _invoiceService.GetInvoice(Invoice.Id);
+            }
+
+            if (Invoice.ContractorId > 0 && Invoice.SellerId > 0)
+            {
+                Invoice.Contractor = _customerService.GetCustomer(Invoice.ContractorId);
+                Invoice.Seller = _customerService.GetCustomer(Invoice.SellerId);
+                return Invoice;
+            }
+
+            return null;
+        }
+
         public Invoice Invoice
         {
             get

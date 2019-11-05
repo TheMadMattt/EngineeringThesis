@@ -11,7 +11,9 @@ namespace EngineeringThesis.Core.Models
         public int InvoiceId { get; set; }
         [Required]
         public string Name { get; set; }
+#nullable enable
         public string? PKWiU { get; set; }
+#nullable disable
         public string Unit { get; set; }
         public string NetPrice { get; set; }
         public int Amount { get; set; }
@@ -19,7 +21,9 @@ namespace EngineeringThesis.Core.Models
         public string VATSum { get; set; }
         public string NetSum { get; set; }
         public string GrossSum { get; set; }
+#nullable enable
         public string? Comments { get; set; }
+#nullable disable
 
         [ForeignKey("InvoiceId")]
         public Invoice Invoice { get; set; }

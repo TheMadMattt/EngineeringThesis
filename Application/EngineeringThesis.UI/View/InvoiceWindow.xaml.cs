@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -330,9 +331,23 @@ namespace EngineeringThesis.UI.View
 
         private void CreatePDFBtn_Click(object sender, RoutedEventArgs e)
         {
-            InvoiceTemplate invoiceTemplate = new InvoiceTemplate(ViewModel.Invoice);
+            var invoice = ViewModel.GetInvoice();
+            if (invoice != null)
+            {
+                InvoiceTemplate invoiceTemplate = new InvoiceTemplate(invoice);
 
-            invoiceTemplate.createPDF("Oryginał");
+                var pdfFile = invoiceTemplate.CreatePdf("Oryginał");
+
+                if (pdfFile != null)
+                {
+                    Process process = new Process();
+                    var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
+                    Uri pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
+                    process.StartInfo.FileName = pdf.LocalPath;
+                    process.Start();
+                    process.WaitForExit();
+                }
+            }
         }
     }
 }

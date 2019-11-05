@@ -17,7 +17,9 @@ namespace EngineeringThesis.Core.Models
         public int PaymentTypeId { get; set; } //ENUM
         public DateTime PaymentDeadline { get; set; }
         public DateTime? PaymentDate { get; set; }
+#nullable enable
         public string? Comments { get; set; }
+#nullable disable
 
         [ForeignKey("ContractorId")]
         public Customer Contractor { get; set; }

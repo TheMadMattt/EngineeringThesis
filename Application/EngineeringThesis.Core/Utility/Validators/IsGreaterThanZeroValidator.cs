@@ -19,7 +19,7 @@ namespace EngineeringThesis.Core.Utility.Validators
                     return new ValidationResult(true, null);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new ValidationResult(false, "Wartość musi być większa od 0");
             }
