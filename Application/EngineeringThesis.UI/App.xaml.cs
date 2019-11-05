@@ -35,13 +35,13 @@ namespace EngineeringThesis.UI
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); //encodowanie czcionek
+
             var connectionString = AppDomain.CurrentDomain.BaseDirectory;
             connectionString += "\\Invoices.db";
             serviceCollection.AddDbContext<ApplicationContext>(options => options.UseSqlite($@"Data Source={connectionString}"));
             
             serviceCollection.AddScoped<NavigationService>();
-
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //Services
             serviceCollection.AddScoped(typeof(InvoiceService));

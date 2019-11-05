@@ -11,6 +11,7 @@ using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 
 namespace EngineeringThesis.UI.View
 {
@@ -340,12 +341,17 @@ namespace EngineeringThesis.UI.View
 
                 if (pdfFile != null)
                 {
-                    Process process = new Process();
                     var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
                     Uri pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
-                    process.StartInfo.FileName = pdf.LocalPath;
+
+                    var process = new Process
+                    {
+                        StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
+                        {
+                            CreateNoWindow = true, UseShellExecute = true
+                        }
+                    };
                     process.Start();
-                    process.WaitForExit();
                 }
             }
         }

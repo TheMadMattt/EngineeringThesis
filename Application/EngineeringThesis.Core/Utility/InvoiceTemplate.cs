@@ -41,7 +41,7 @@ namespace EngineeringThesis.Core.Utility
             {
                 System.IO.Directory.CreateDirectory(directory);
             }
-            var file = "Faktury/" + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
+            var file = @"Faktury\" + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
 
             Document document = new Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 10); // 10: Margins Left, Right, Top, Bottom
             PdfWriter.GetInstance(document, new FileStream(file, FileMode.Create));
