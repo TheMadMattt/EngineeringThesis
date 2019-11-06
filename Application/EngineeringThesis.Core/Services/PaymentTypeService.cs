@@ -16,5 +16,10 @@ namespace EngineeringThesis.Core.Services
         {
             return _ctx.PaymentTypes.ToList();
         }
+
+        public PaymentType GetPaymentType(int id)
+        {
+            return _ctx.PaymentTypes.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

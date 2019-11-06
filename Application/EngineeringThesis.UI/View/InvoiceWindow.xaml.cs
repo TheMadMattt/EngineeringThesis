@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Utility;
@@ -11,7 +12,6 @@ using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
 using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
 
 namespace EngineeringThesis.UI.View
 {
@@ -69,8 +69,10 @@ namespace EngineeringThesis.UI.View
             if (ViewModel.IsUpdate)
             {
                 AddItemBtn.Visibility = Visibility.Hidden;
-                EditItemBtn.Visibility = Visibility.Hidden;
+                EditItemBtn.Visibility = Visibility.Hidden; 
+                EditItemBtn.IsEnabled = false;
                 DeleteItemBtn.Visibility = Visibility.Hidden;
+                DeleteItemBtn.IsEnabled = false;
                 SaveInvoiceBtn.Visibility = Visibility.Hidden;
                 EditingInvoiceBtn.Visibility = Visibility.Visible;
                 ContractorComboBox.IsEnabled = false;
@@ -80,7 +82,6 @@ namespace EngineeringThesis.UI.View
                 PaymentDeadlineDatePicker.IsEnabled = false;
                 IsPaidCheckBox.IsEnabled = false;
                 PaidDatePicker.IsEnabled = false;
-                InvoiceItemsDataGrid.IsEnabled = false;
                 AddContractorBtn.IsEnabled = false;
                 AddSellerBtn.IsEnabled = false;
             }
@@ -96,6 +97,10 @@ namespace EngineeringThesis.UI.View
             IsPaidCheckBox.IsChecked = false;
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
             TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
+
+            ViewModel.Invoice.PaymentTypeId = ((PaymentType) PaymentTypeComboBox.SelectedItem).Id;
+            ViewModel.Invoice.ContractorId = ((Customer) ContractorComboBox.SelectedItem).Id;
+            ViewModel.Invoice.SellerId = ((Customer) SellerComboBox.SelectedItem).Id;
         }
 
         public void BindInvoiceToControls()
@@ -295,7 +300,9 @@ namespace EngineeringThesis.UI.View
         {
             AddItemBtn.Visibility = Visibility.Visible;
             EditItemBtn.Visibility = Visibility.Visible;
+            EditItemBtn.IsEnabled = true;
             DeleteItemBtn.Visibility = Visibility.Visible;
+            DeleteItemBtn.IsEnabled = true;
             SaveInvoiceBtn.Visibility = Visibility.Visible;
             EditingInvoiceBtn.Visibility = Visibility.Collapsed;
             ContractorComboBox.IsEnabled = true;
@@ -305,38 +312,73 @@ namespace EngineeringThesis.UI.View
             PaymentDeadlineDatePicker.IsEnabled = true;
             IsPaidCheckBox.IsEnabled = true;
             PaidDatePicker.IsEnabled = true;
-            InvoiceItemsDataGrid.IsEnabled = true;
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
         }
 
         private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
+            if (EditItemBtn.IsEnabled && DeleteItemBtn.IsEnabled)
             {
-                await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
-
-                if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
+                if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
                 {
-                    var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
-                    var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
-                    invoiceItemsList[index] = invoiceItem;
+                    await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
+
+                    if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
+                    {
+                        var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
+                        var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
+                        invoiceItemsList[index] = invoiceItem;
+                    }
+
+                    InvoiceItemsDataGrid.Items.Refresh();
                 }
-                InvoiceItemsDataGrid.Items.Refresh();
-            }
-            else
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+                else
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                        .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+                }
             }
         }
 
-        private void CreatePDFBtn_Click(object sender, RoutedEventArgs e)
+        private void ContractorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ContractorComboBox.SelectedItem is Customer customer)
+            {
+                ViewModel.Invoice.ContractorId = customer.Id;
+            }
+        }
+
+        private void SellerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SellerComboBox.SelectedItem is Customer customer)
+            {
+                ViewModel.Invoice.SellerId = customer.Id;
+            }
+        }
+
+        private void PaymentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PaymentTypeComboBox.SelectedItem is PaymentType paymentType)
+            {
+                ViewModel.Invoice.PaymentTypeId = paymentType.Id;
+            }
+        }
+
+        private void CreatePDF_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0;
+        }
+
+        private void CreatePDF_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var invoice = ViewModel.GetInvoice();
             if (invoice != null)
             {
                 InvoiceTemplate invoiceTemplate = new InvoiceTemplate(invoice);
 
+                /*try
+                {*/
                 var pdfFile = invoiceTemplate.CreatePdf("Oryginał");
 
                 if (pdfFile != null)
@@ -348,11 +390,18 @@ namespace EngineeringThesis.UI.View
                     {
                         StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
                         {
-                            CreateNoWindow = true, UseShellExecute = true
+                            CreateNoWindow = true,
+                            UseShellExecute = true
                         }
                     };
                     process.Start();
                 }
+                /*}
+                catch (Exception)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Nie udało się utworzyć pliku PDF, prawdopodobnie plik PDF jest " +
+                                                                                           "otwarty w innym oknie, zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
+                }*/
             }
         }
     }

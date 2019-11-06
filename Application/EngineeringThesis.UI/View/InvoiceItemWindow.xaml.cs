@@ -53,7 +53,7 @@ namespace EngineeringThesis.UI.View
                     ViewModel.InvoiceItem = new InvoiceItemDisplayModel();
                     ViewModel.InvoiceItemWithRef = invoiceItem;
                 }
-                
+
 
             }
             Title = !string.IsNullOrEmpty(ViewModel.InvoiceItem.Name) ? "Edycja produktu" : "Dodawanie produktu";
@@ -123,8 +123,16 @@ namespace EngineeringThesis.UI.View
             ForceValidation();
             if (ControlsHasError())
             {
-                UpdateInvoiceItem();
-                Close();
+                try
+                {
+                    UpdateInvoiceItem();
+                    Close();
+                }
+                catch (FormatException)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceItemDialogHost").For(new Information("Wystąpił błąd przy parsowaniu danych", "Uzupełnij wszystkie pola poprawnie", "OK"));
+                }
+                
             }
             else
             {
@@ -138,7 +146,8 @@ namespace EngineeringThesis.UI.View
 
             if (!string.IsNullOrEmpty(GrossSumTextBlock.Text) && !string.IsNullOrEmpty(NetSumTextBlock.Text))
             {
-                var vatSum = Convert.ToDecimal(ViewModel.InvoiceItem.GrossSum,CultureInfo.InvariantCulture) - Convert.ToDecimal(ViewModel.InvoiceItem.NetSum,CultureInfo.InvariantCulture);
+                var vatSum = Convert.ToDecimal(ViewModel.InvoiceItem.GrossSum, CultureInfo.InvariantCulture) -
+                             Convert.ToDecimal(ViewModel.InvoiceItem.NetSum, CultureInfo.InvariantCulture);
                 ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("#.00", new CultureInfo("pl"));
             }
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Models.DisplayModels;
 using EngineeringThesis.Core.Services;
 
 namespace EngineeringThesis.Core.ViewModel
 {
-    public class InvoiceItemViewModel: BaseViewModel
+    public class InvoiceItemViewModel : BaseViewModel
     {
         private readonly InvoiceItemService _invoiceItemService;
         private InvoiceItemDisplayModel _invoiceItem;
@@ -33,23 +34,15 @@ namespace EngineeringThesis.Core.ViewModel
 
         public void BindToRefObject()
         {
-            try
-            {
-                InvoiceItemWithRef.Name = InvoiceItem.Name;
-                InvoiceItemWithRef.PKWiU = InvoiceItem.PKWiU;
-                InvoiceItemWithRef.Unit = InvoiceItem.Unit;
-                InvoiceItemWithRef.NetPrice = FormatCurrency(InvoiceItem.NetPrice);
-                InvoiceItemWithRef.Amount = InvoiceItem.Amount;
-                InvoiceItemWithRef.VAT = Convert.ToInt16(InvoiceItem.VAT);
-                InvoiceItemWithRef.NetSum = FormatCurrency(InvoiceItem.NetSum);
-                InvoiceItemWithRef.GrossSum = FormatCurrency(InvoiceItem.GrossSum);
-                InvoiceItemWithRef.Comments = InvoiceItem.Comments;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            InvoiceItemWithRef.Name = InvoiceItem.Name;
+            InvoiceItemWithRef.PKWiU = InvoiceItem.PKWiU;
+            InvoiceItemWithRef.Unit = InvoiceItem.Unit;
+            InvoiceItemWithRef.NetPrice = FormatCurrency(InvoiceItem.NetPrice);
+            InvoiceItemWithRef.Amount = InvoiceItem.Amount;
+            InvoiceItemWithRef.VAT = Convert.ToInt16(InvoiceItem.VAT);
+            InvoiceItemWithRef.NetSum = FormatCurrency(InvoiceItem.NetSum);
+            InvoiceItemWithRef.GrossSum = FormatCurrency(InvoiceItem.GrossSum);
+            InvoiceItemWithRef.Comments = InvoiceItem.Comments;
         }
 
         public string FormatCurrency(string number)
@@ -61,7 +54,7 @@ namespace EngineeringThesis.Core.ViewModel
             var clone = (CultureInfo)CultureInfo.InvariantCulture.Clone();
             clone.NumberFormat.NumberDecimalSeparator = ",";
             clone.NumberFormat.NumberGroupSeparator = ".";
-            
+
             return decimal.Parse(number, clone).ToString("#.00", new CultureInfo("pl"));
         }
     }

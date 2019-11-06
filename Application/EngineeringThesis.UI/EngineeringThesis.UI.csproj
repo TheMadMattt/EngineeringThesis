@@ -12,6 +12,7 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.6.0" />
     <PackageReference Include="Forge.Forms" Version="1.1.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13.1" />
+    <PackageReference Include="LiczbyNaSlowaNetCore" Version="1.0.5" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
     <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />

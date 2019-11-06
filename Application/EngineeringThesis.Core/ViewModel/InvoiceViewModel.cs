@@ -50,15 +50,17 @@ namespace EngineeringThesis.Core.ViewModel
             {
                 return _invoiceService.GetInvoice(Invoice.Id);
             }
-
             if (Invoice.ContractorId > 0 && Invoice.SellerId > 0)
             {
                 Invoice.Contractor = _customerService.GetCustomer(Invoice.ContractorId);
                 Invoice.Seller = _customerService.GetCustomer(Invoice.SellerId);
-                return Invoice;
+            }
+            if (Invoice.PaymentTypeId > 0)
+            {
+                Invoice.PaymentType = _paymentTypeService.GetPaymentType(Invoice.PaymentTypeId);
             }
 
-            return null;
+            return Invoice;
         }
 
         public Invoice Invoice

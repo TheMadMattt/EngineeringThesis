@@ -11,6 +11,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
         mc:Ignorable="d"
         Title="{x:Static resx:InvoiceWindow.Invoice}" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
     <WindowChrome.WindowChrome>
@@ -20,14 +21,17 @@
     </WindowChrome.WindowChrome>
     <Window.CommandBindings>
         <CommandBinding Command="Save" CanExecute="SaveCommand_CanExecute" Executed="SaveCommand_Executed"></CommandBinding>
+        <CommandBinding Command="Print" CanExecute="CreatePDF_CanExecute" Executed="CreatePDF_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="CenterAlignment">
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
         <Style TargetType="{x:Type TextBlock}" x:Key="WrapCenterColumn">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
     </Window.Resources>
     <materialDesign:DialogHost Identifier="InvoiceDialogHost">
@@ -59,8 +63,8 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -80,8 +84,8 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox Name="ContractorComboBox" VerticalAlignment="Top" SelectedIndex="0" Grid.Column="0" Margin="0,0,10,0" 
-                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" StaysOpenOnEdit="True"
-                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsEditable="True">
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" StaysOpenOnEdit="True" 
+                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsEditable="True" SelectionChanged="ContractorComboBox_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>
@@ -146,8 +150,8 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox Name="SellerComboBox" VerticalAlignment="Top" SelectedIndex="0" Grid.Column="0" Margin="0,0,10,0"
-                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsEditable="True">
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsEditable="True" SelectionChanged="SellerComboBox_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>
@@ -220,7 +224,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Column="0" Grid.Row="0" Content="{x:Static resx:InvoiceWindow.Payment}"></Label>
-                                <ComboBox Name="PaymentTypeComboBox" Grid.Column="1" Grid.Row="0" SelectedIndex="0">
+                                <ComboBox Name="PaymentTypeComboBox" Grid.Column="1" Grid.Row="0" SelectedIndex="0" SelectionChanged="PaymentTypeComboBox_SelectionChanged" >
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>
@@ -238,33 +242,36 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False"
+                    <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
                                   IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
                                   HorizontalScrollBarVisibility="Visible" Grid.Column="0" SelectedIndex="0" MouseDoubleClick="InvoiceItemsDataGrid_MouseDoubleClick">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" 
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" MaxWidth="300"
+                                                    ElementStyle="{StaticResource WrapCenterColumn}"/>
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemPKWiU}" Binding="{Binding PKWiU}"  
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemPKWiU}" Binding="{Binding PKWiU}"  
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemUnit}" Binding="{Binding Unit}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemUnit}" Binding="{Binding Unit}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetPrice}" Binding="{Binding NetPrice, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetPrice}" Binding="{Binding NetPrice, StringFormat={}{0:C2} zł}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemAmount}" Binding="{Binding Amount}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemAmount}" Binding="{Binding Amount}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVAT}" Binding="{Binding VAT, StringFormat={}{0}%}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVAT}" Binding="{Binding VAT, StringFormat={}{0}%}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemNetSum}" Binding="{Binding NetSum, StringFormat={}{0:C2} zł}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemGrossSum}" Binding="{Binding GrossSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemGrossSum}" Binding="{Binding GrossSum, StringFormat={}{0:C2} zł}" 
+                                <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVATSum}" Binding="{Binding VATSum, StringFormat={}{0:C2} zł}" 
                                         ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemVATSum}" Binding="{Binding VATSum, StringFormat={}{0:C2} zł}" 
-                                        ElementStyle="{StaticResource CenterAlignment}"/>
-                            <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemComments}" Binding="{Binding Comments}" 
-                                        ElementStyle="{StaticResource WrapCenterColumn}" MaxWidth="200"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <materialDesign:PopupBox
+                            </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Comments}" Margin="5" Foreground="Gray"/>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                        <materialDesign:PopupBox
                             Name="InvoiceItemAction"
                             Opacity="0.5"
                             Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
@@ -291,7 +298,7 @@
                             <Button Name="EditingInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.EditInvoice}" Visibility="Collapsed" Click="EditingInvoiceBtn_Click">
                                 <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="CreatePDFBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Click="CreatePDFBtn_Click">
+                            <Button Name="CreatePDFBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Command="Print">
                                 <materialDesign:PackIcon Kind="PdfBox" Foreground="White"></materialDesign:PackIcon>
                             </Button>
                         </StackPanel>
