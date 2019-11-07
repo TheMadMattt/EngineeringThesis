@@ -24,6 +24,7 @@ namespace EngineeringThesis.Core.Utility
         private readonly PdfPCell _blankCell;
         private readonly PdfPCell _formattedCellToRight;
         private string _grossSum;
+        private CultureInfo _culture;
 
         public InvoiceTemplate(Invoice invoice)
         {
@@ -36,6 +37,10 @@ namespace EngineeringThesis.Core.Utility
             _fontMini = new iTextSharp.text.Font(regularFont, 7);
             _bigFontBold = new iTextSharp.text.Font(boldFont, 14);
             _bigFont = new iTextSharp.text.Font(regularFont, 14);
+
+            _culture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            _culture.NumberFormat.NumberDecimalSeparator = ",";
+            _culture.NumberFormat.NumberGroupSeparator = ".";
 
             _blankCell = new PdfPCell
             {
@@ -94,7 +99,7 @@ namespace EngineeringThesis.Core.Utility
 
             document.Add(CreateInvoiceSummary());
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 8; i++)
             {
                 document.Add(newLine);
             }
@@ -108,9 +113,9 @@ namespace EngineeringThesis.Core.Utility
 
         private IElement CreateCustomersSignature()
         {
-            PdfPTable table = new PdfPTable(2);
+            PdfPTable table = new PdfPTable(3);
 
-            int[] colWidth = { 20, 20 };
+            int[] colWidth = { 20, 50 ,20 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
 
@@ -136,6 +141,10 @@ namespace EngineeringThesis.Core.Utility
             dotCell.Phrase = dots;
             table.AddCell(dotCell);
 
+            PdfPCell emptyCell = formattedCellToLeft;
+            emptyCell.Phrase = new Phrase("", _bigFont);
+            table.AddCell(emptyCell);
+
             dotCell = formattedCellToRight;
             dotCell.Phrase = dots;
             table.AddCell(dotCell);
@@ -143,6 +152,9 @@ namespace EngineeringThesis.Core.Utility
             PdfPCell contractorCell = formattedCellToLeft;
             contractorCell.Phrase = new Phrase("Podpis osoby upoważnionej \n do odbioru faktury VAT", _defaultFont);
             table.AddCell(contractorCell);
+
+            emptyCell.Phrase = new Phrase("", _bigFont);
+            table.AddCell(emptyCell);
 
             PdfPCell sellerCell = formattedCellToRight;
             sellerCell.Phrase = new Phrase("Podpis osoby upoważnionej \n do wystawienia faktury VAT", _defaultFont);
@@ -219,7 +231,8 @@ namespace EngineeringThesis.Core.Utility
             PdfPCell bankAccountCell = formattedCell;
             if (Invoice.Seller.BankAccountNumber != null)
             {
-                bankAccountCell.Phrase = new Phrase(Invoice.Seller.BankAccountNumber, _defaultFont);
+                var bankAccount = decimal.Parse(Invoice.Seller.BankAccountNumber);
+                bankAccountCell.Phrase = new Phrase($"{bankAccount:## #### #### #### #### #### ####}", _defaultFont);
             }
             else
             {
@@ -568,7 +581,7 @@ namespace EngineeringThesis.Core.Utility
             decimal sum = 0;
             foreach (var invoiceItem in invoiceItems)
             {
-                sum += Convert.ToDecimal(invoiceItem.GrossSum);
+                sum += Convert.ToDecimal(invoiceItem.GrossSum, _culture);
             }
 
             return sum.ToString("#.00", new CultureInfo("pl"));
@@ -579,7 +592,7 @@ namespace EngineeringThesis.Core.Utility
             decimal sum = 0;
             foreach (var invoiceItem in invoiceItems)
             {
-                sum += Convert.ToDecimal(invoiceItem.VATSum);
+                sum += Convert.ToDecimal(invoiceItem.VATSum, _culture);
             }
 
             return sum.ToString("#.00", new CultureInfo("pl"));
@@ -590,7 +603,7 @@ namespace EngineeringThesis.Core.Utility
             decimal sum = 0;
             foreach (var invoiceItem in invoiceItems)
             {
-                sum += Convert.ToDecimal(invoiceItem.NetSum);
+                sum += Convert.ToDecimal(invoiceItem.NetSum, _culture);
             }
 
             return sum.ToString("#.00", new CultureInfo("pl"));
@@ -604,7 +617,7 @@ namespace EngineeringThesis.Core.Utility
                 Currency = Currency.PLN
             };
 
-            return NumberToText.Convert(Convert.ToDecimal(_grossSum), options);
+            return NumberToText.Convert(Convert.ToDecimal(_grossSum, _culture), options);
         }
     }
 }
