@@ -40,9 +40,7 @@ namespace EngineeringThesis.UI
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); //encodowanie czcionek
 
-            var connectionString = AppDomain.CurrentDomain.BaseDirectory;
-            connectionString += "\\Invoices.db";
-            serviceCollection.AddDbContext<ApplicationContext>(options => options.UseSqlite($@"Data Source={connectionString}"));
+            serviceCollection.AddDbContext<ApplicationContext>();
             
             serviceCollection.AddScoped<NavigationService>();
 

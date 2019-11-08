@@ -10,6 +10,8 @@ using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
 using MaterialDesignThemes.Wpf;
+using Xceed.Wpf.Toolkit;
+using WindowState = System.Windows.WindowState;
 
 namespace EngineeringThesis.UI.View
 {
@@ -190,6 +192,7 @@ namespace EngineeringThesis.UI.View
                 var binding = NIPTextBox?.GetBindingExpression(TextBox.TextProperty);
                 Validation.ClearInvalid(binding);
             }
+            EnableControls(sender, NIPTextBox);
         }
 
         private void NoREGONCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -199,6 +202,7 @@ namespace EngineeringThesis.UI.View
                 var binding = REGONTextBox?.GetBindingExpression(TextBox.TextProperty);
                 Validation.ClearInvalid(binding);
             }
+            EnableControls(sender, REGONTextBox);
         }
 
         private void NoBankAccountCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -208,6 +212,7 @@ namespace EngineeringThesis.UI.View
                 var binding = BankAccountNumberTextBox?.GetBindingExpression(TextBox.TextProperty);
                 Validation.ClearInvalid(binding);
             }
+            EnableControls(sender, BankAccountNumberTextBox);
         }
 
         private void ToolbarGrid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -278,6 +283,28 @@ namespace EngineeringThesis.UI.View
                 BankAccountNumberTextBox.IsEnabled = (bool) !NoBankAccountCheckBox.IsChecked;
             NoBankAccountCheckBox.IsEnabled = true;
             CommentsTextBox.IsEnabled = true;
+        }
+
+        private void NoNIPCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            EnableControls(sender, NIPTextBox);
+        }
+
+        private void NoREGONCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            EnableControls(sender, REGONTextBox);
+        }
+
+        private void NoBankAccountCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            EnableControls(sender, BankAccountNumberTextBox);
+        }
+
+        private void EnableControls(object sender, MaskedTextBox textBox)
+        {
+            var isChecked = ((CheckBox)sender).IsChecked;
+            if (isChecked != null)
+                textBox.IsEnabled = (bool)!isChecked;
         }
     }
 }

@@ -209,7 +209,14 @@
                             <RowDefinition Height="2*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <GroupBox Header="{x:Static resx:InvoiceWindow.InvoiceDate}" Grid.Row="0">
-                            <DatePicker Name="InvoiceDatePicker" SelectedDate="{Binding Invoice.InvoiceDate}" SelectedDateChanged="InvoiceDatePicker_SelectedDateChanged" Margin="0,0,0,10"></DatePicker>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DatePicker Name="InvoiceDatePicker" Grid.Row="0" SelectedDate="{Binding Invoice.InvoiceDate}" SelectedDateChanged="InvoiceDatePicker_SelectedDateChanged" Margin="0,0,0,15"></DatePicker>
+                                <CheckBox Name="IsProformaCheckBox" Grid.Row="1" IsChecked="{Binding Invoice.IsProformaInvoice}" Content="{x:Static resx:InvoiceWindow.ProformaInvoice}"></CheckBox>
+                            </Grid>
                         </GroupBox>
                         <GroupBox Header="{x:Static resx:InvoiceWindow.Payments}" Grid.Row="1">
                             <Grid>

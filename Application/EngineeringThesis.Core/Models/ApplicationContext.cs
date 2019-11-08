@@ -11,7 +11,13 @@ namespace EngineeringThesis.Core.Models
         public DbSet<CustomerType> CustomerTypes { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connectionString = System.AppDomain.CurrentDomain.BaseDirectory;
+            connectionString += "\\Invoices.db";
+            optionsBuilder
+                .UseSqlite($@"Data Source={connectionString}");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -100,8 +106,8 @@ namespace EngineeringThesis.Core.Models
                     ContractorId = 2,
                     SellerId = 1,
                     PaymentTypeId = 2,
-                    PaymentDeadline = new DateTime(2019,11,11),
-                    PaymentDate = new DateTime(2019,10,19)
+                    PaymentDeadline = new DateTime(2020,11,11),
+                    PaymentDate = new DateTime(2020,10,19)
                 },
                 new Invoice
                 {

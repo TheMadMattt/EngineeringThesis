@@ -198,6 +198,9 @@
   <data name="Payments" xml:space="preserve">
     <value>Płatności</value>
   </data>
+  <data name="ProformaInvoice" xml:space="preserve">
+    <value>Faktura proforma</value>
+  </data>
   <data name="Regon" xml:space="preserve">
     <value>REGON:</value>
   </data>

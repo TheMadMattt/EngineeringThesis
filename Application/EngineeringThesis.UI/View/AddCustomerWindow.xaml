@@ -132,7 +132,7 @@
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                     </xctk:MaskedTextBox>
                     <CheckBox Name="NoNIPCheckBox" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" 
-                          VerticalAlignment="Center" Checked="NoNIPCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoNIPNumber}"/>
+                          VerticalAlignment="Center" Checked="NoNIPCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoNIPNumber}" Unchecked="NoNIPCheckBox_Unchecked"/>
                 </Grid>
                 <Grid Grid.Row="6" Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -146,7 +146,7 @@
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                     </xctk:MaskedTextBox>
                     <CheckBox Name="NoREGONCheckBox" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" 
-                          VerticalAlignment="Center" Checked="NoREGONCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoREGONNumber}"/>
+                          VerticalAlignment="Center" Checked="NoREGONCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoREGONNumber}" Unchecked="NoREGONCheckBox_Unchecked"/>
                 </Grid>
                 <Grid Grid.Row="7" Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -160,7 +160,7 @@
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                     </xctk:MaskedTextBox>
                     <CheckBox Name="NoBankAccountCheckBox" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" 
-                          VerticalAlignment="Center" Checked="NoBankAccountCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoBankAccountNumber}"/>
+                          VerticalAlignment="Center" Checked="NoBankAccountCheckBox_Checked" Content="{x:Static resx:AddCustomerWindow.NoBankAccountNumber}" Unchecked="NoBankAccountCheckBox_Unchecked"/>
                 </Grid>
                 <TextBox Name="CommentsTextBox" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="8" Margin="0,20,0,0" Text="{Binding Customer.Comments}"
                  materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.Comments}" FontSize="15" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"

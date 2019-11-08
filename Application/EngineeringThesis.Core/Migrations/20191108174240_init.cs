@@ -75,6 +75,7 @@ namespace EngineeringThesis.Core.Migrations
                     PaymentTypeId = table.Column<int>(nullable: false),
                     PaymentDeadline = table.Column<DateTime>(nullable: false),
                     PaymentDate = table.Column<DateTime>(nullable: true),
+                    IsProformaInvoice = table.Column<bool>(nullable: false),
                     Comments = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -176,23 +177,23 @@ namespace EngineeringThesis.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "Invoices",
-                columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 1, null, 2, new DateTime(2019, 10, 18, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
+                columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "IsProformaInvoice", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
+                values: new object[] { 1, null, 2, new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", false, new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
-                columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 2, null, 4, new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "02/2019", null, new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3 });
+                columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "IsProformaInvoice", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
+                values: new object[] { 2, null, 4, new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "02/2019", false, null, new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3 });
 
             migrationBuilder.InsertData(
                 table: "InvoiceItems",
                 columns: new[] { "Id", "Amount", "Comments", "GrossSum", "InvoiceId", "Name", "NetPrice", "NetSum", "PKWiU", "Unit", "VAT", "VATSum" },
-                values: new object[] { 2, 1, null, "1845", 1, "Smartfon", "1500", "1500", null, "szt", 23, "345" });
+                values: new object[] { 2, 1, null, "1845", 1, "Smartfon", "1500,00", "1500,00", null, "szt", 23, "345,00" });
 
             migrationBuilder.InsertData(
                 table: "InvoiceItems",
                 columns: new[] { "Id", "Amount", "Comments", "GrossSum", "InvoiceId", "Name", "NetPrice", "NetSum", "PKWiU", "Unit", "VAT", "VATSum" },
-                values: new object[] { 1, 1, null, "2460", 1, "Tablet", "2000", "2000", null, "szt", 23, "460" });
+                values: new object[] { 1, 1, null, "2460,00", 1, "Tablet", "2000,00", "2000,00", null, "szt", 23, "460,00" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CustomerTypeId",

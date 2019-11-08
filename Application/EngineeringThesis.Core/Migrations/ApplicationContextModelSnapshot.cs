@@ -167,6 +167,9 @@ namespace EngineeringThesis.Core.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsProformaInvoice")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("TEXT");
 
@@ -194,8 +197,9 @@ namespace EngineeringThesis.Core.Migrations
                         {
                             Id = 1,
                             ContractorId = 2,
-                            InvoiceDate = new DateTime(2019, 10, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            InvoiceDate = new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             InvoiceNumber = "01/2019",
+                            IsProformaInvoice = false,
                             PaymentDate = new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDeadline = new DateTime(2019, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 2,
@@ -207,6 +211,7 @@ namespace EngineeringThesis.Core.Migrations
                             ContractorId = 4,
                             InvoiceDate = new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "02/2019",
+                            IsProformaInvoice = false,
                             PaymentDeadline = new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 3,
                             SellerId = 3
@@ -267,24 +272,24 @@ namespace EngineeringThesis.Core.Migrations
                             GrossSum = "1845",
                             InvoiceId = 1,
                             Name = "Smartfon",
-                            NetPrice = "1500",
-                            NetSum = "1500",
+                            NetPrice = "1500,00",
+                            NetSum = "1500,00",
                             Unit = "szt",
                             VAT = 23,
-                            VATSum = "345"
+                            VATSum = "345,00"
                         },
                         new
                         {
                             Id = 1,
                             Amount = 1,
-                            GrossSum = "2460",
+                            GrossSum = "2460,00",
                             InvoiceId = 1,
                             Name = "Tablet",
-                            NetPrice = "2000",
-                            NetSum = "2000",
+                            NetPrice = "2000,00",
+                            NetSum = "2000,00",
                             Unit = "szt",
                             VAT = 23,
-                            VATSum = "460"
+                            VATSum = "460,00"
                         });
                 });
 

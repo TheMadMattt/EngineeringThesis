@@ -17,6 +17,7 @@ namespace EngineeringThesis.Core.Models
         public int PaymentTypeId { get; set; } //ENUM
         public DateTime PaymentDeadline { get; set; }
         public DateTime? PaymentDate { get; set; }
+        public bool IsProformaInvoice { get; set; } = false;
 #nullable enable
         public string? Comments { get; set; }
 #nullable disable

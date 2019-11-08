@@ -100,9 +100,9 @@ namespace EngineeringThesis.UI.View
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
             TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
 
-            ViewModel.Invoice.PaymentTypeId = ((PaymentType)PaymentTypeComboBox.SelectedItem).Id;
-            ViewModel.Invoice.ContractorId = ((Customer)ContractorComboBox.SelectedItem).Id;
-            ViewModel.Invoice.SellerId = ((Customer)SellerComboBox.SelectedItem).Id;
+            ViewModel.Invoice.PaymentTypeId = ((PaymentType) PaymentTypeComboBox.SelectedItem).Id;
+            ViewModel.Invoice.ContractorId = ((Customer) ContractorComboBox.SelectedItem).Id;
+            ViewModel.Invoice.SellerId = ((Customer) SellerComboBox.SelectedItem).Id;
         }
 
         public void BindInvoiceToControls()
@@ -121,12 +121,12 @@ namespace EngineeringThesis.UI.View
             if (InvoiceItemsDataGrid.SelectedItem != null)
             {
                 var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
-                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
+                    "Czy napewno chcesz usunąć: " + ((InvoiceItem) InvoiceItemsDataGrid.SelectedItem).Name,
                     "Usuwanie produktu", "Tak", "Nie"));
                 if (result.Action != null)
                     if (result.Action.Equals("positive"))
                     {
-                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
+                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem) InvoiceItemsDataGrid.SelectedItem);
                         InvoiceItemsDataGrid.Items.Refresh();
                     }
             }
@@ -242,7 +242,7 @@ namespace EngineeringThesis.UI.View
                     if (PaymentTypeComboBox.SelectedItem is PaymentType paymentType)
                         ViewModel.Invoice.PaymentType = paymentType;
 
-                    if (IsPaidCheckBox.IsChecked != null && (bool)!IsPaidCheckBox.IsChecked)
+                    if (IsPaidCheckBox.IsChecked != null && (bool) !IsPaidCheckBox.IsChecked)
                         ViewModel.Invoice.PaymentDate = null;
 
                     ViewModel.BindDataToRef();
@@ -309,7 +309,7 @@ namespace EngineeringThesis.UI.View
             PaymentTypeComboBox.IsEnabled = true;
             PaymentDeadlineDatePicker.IsEnabled = true;
             IsPaidCheckBox.IsEnabled = true;
-            PaidDatePicker.IsEnabled = IsPaidCheckBox.IsChecked != null && (bool)IsPaidCheckBox.IsChecked;
+            PaidDatePicker.IsEnabled = IsPaidCheckBox.IsChecked != null && (bool) IsPaidCheckBox.IsChecked;
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
         }
@@ -369,24 +369,25 @@ namespace EngineeringThesis.UI.View
 
                 /*try
                 {*/
-                    var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original);
-                    invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy);
+                var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original);
+                invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy);
 
-                    if (pdfFile != null)
+                if (pdfFile != null)
+                {
+                    var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
+                    var pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
+
+                    var process = new Process
                     {
-                        var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
-                        var pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
-
-                        var process = new Process
+                        StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
                         {
-                            StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
-                            {
-                                CreateNoWindow = true,
-                                UseShellExecute = true
-                            }
-                        };
-                        process.Start();
-                    }
+                            CreateNoWindow = true,
+                            UseShellExecute = true
+                        }
+                    };
+                    process.Start();
+                }
+
                 /*}
                 catch (Exception)
                 {
@@ -410,9 +411,9 @@ namespace EngineeringThesis.UI.View
 
         private void PaidDatePickerEnable(object sender)
         {
-            var isChecked = ((CheckBox)sender).IsChecked;
+            var isChecked = ((CheckBox) sender).IsChecked;
             if (isChecked != null)
-                PaidDatePicker.IsEnabled = (bool)isChecked;
+                PaidDatePicker.IsEnabled = (bool) isChecked;
         }
 
         private async void PaymentDeadlineDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -439,11 +440,9 @@ namespace EngineeringThesis.UI.View
                         new Information("Termin płatności nie może być wcześniejszy niż data wystawienia faktury",
                             "Wprowadź prawidłową datę",
                             "OK"));
-                    if (PaymentDeadlineDatePicker.SelectedDate != null)
-                    {
-                        InvoiceDatePicker.SelectedDate = null;
-                    }
+                    if (PaymentDeadlineDatePicker.SelectedDate != null) InvoiceDatePicker.SelectedDate = null;
                 }
+
                 InvoiceDialogHost.IsOpen = false;
             }
         }
@@ -453,18 +452,27 @@ namespace EngineeringThesis.UI.View
             if (ViewModel != null)
             {
                 var comparePaymentDeadline = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice.PaymentDeadline);
+                var comparePaymentDate = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice?.PaymentDate);
 
                 InvoiceDialogHost.IsOpen = false;
                 if (comparePaymentDeadline > 0)
                 {
                     await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
-                        new Information("Termin płatności nie może być wcześniejszy niż data wystawienia faktury", "Wprowadź prawidłową datę",
+                        new Information("Termin płatności nie może być wcześniejszy niż data wystawienia faktury",
+                            "Wprowadź prawidłową datę",
                             "OK"));
-                    if (InvoiceDatePicker.SelectedDate != null)
-                    {
-                        PaymentDeadlineDatePicker.SelectedDate = null;
-                    }
+                    if (InvoiceDatePicker.SelectedDate != null) PaymentDeadlineDatePicker.SelectedDate = null;
                 }
+
+                if (comparePaymentDate < 0)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Data płatności nie może być wcześniejsza niż data wystawienia faktury",
+                            "Wprowadź prawidłową datę",
+                            "OK"));
+                    PaidDatePicker.SelectedDate = null;
+                }
+
                 InvoiceDialogHost.IsOpen = false;
             }
         }
@@ -473,14 +481,24 @@ namespace EngineeringThesis.UI.View
         {
             if (ViewModel != null)
             {
-                var comparePaymentDeadline = ViewModel.Invoice.PaymentDate?.CompareTo(ViewModel.Invoice.PaymentDeadline);
+                var comparePaymentDeadline =
+                    ViewModel.Invoice.PaymentDate?.CompareTo(ViewModel.Invoice.PaymentDeadline);
                 var compareInvoiceDate = ViewModel.Invoice.PaymentDate?.CompareTo(ViewModel.Invoice.InvoiceDate);
 
                 InvoiceDialogHost.IsOpen = false;
-                if (compareInvoiceDate < 0 || comparePaymentDeadline > 0)
+                if (comparePaymentDeadline > 0)
                 {
                     await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
                         new Information("Data płatności nie może być późniejsza niż termin płatności",
+                            "Wprowadź prawidłową datę",
+                            "OK"));
+                    PaidDatePicker.SelectedDate = null;
+                }
+
+                if (compareInvoiceDate < 0)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Data płatności nie może być wcześniejsza niż data wystawienia",
                             "Wprowadź prawidłową datę",
                             "OK"));
                     PaidDatePicker.SelectedDate = null;

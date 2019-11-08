@@ -304,6 +304,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faktura proforma.
+        /// </summary>
+        public static string ProformaInvoice {
+            get {
+                return ResourceManager.GetString("ProformaInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to REGON:.
         /// </summary>
         public static string Regon {

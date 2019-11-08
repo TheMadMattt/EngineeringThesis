@@ -124,6 +124,7 @@ namespace EngineeringThesis.Core.ViewModel
             Invoice.ContractorId = invoice.ContractorId;
             Invoice.SellerId = invoice.SellerId;
             Invoice.PaymentTypeId = invoice.PaymentTypeId;
+            Invoice.IsProformaInvoice = invoice.IsProformaInvoice;
             Invoice.Comments = invoice.Comments;
         }
 
@@ -140,6 +141,7 @@ namespace EngineeringThesis.Core.ViewModel
             InvoiceWithRef.Seller = Invoice.Seller;
             InvoiceWithRef.PaymentType = Invoice.PaymentType;
             InvoiceWithRef.PaymentTypeId = Invoice.PaymentTypeId;
+            InvoiceWithRef.IsProformaInvoice = Invoice.IsProformaInvoice;
             InvoiceWithRef.Comments = Invoice.Comments;
         }
 
