@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineeringThesis.Core.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20191108174240_init")]
-    partial class init
+    [Migration("20191108213809_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,13 +68,13 @@ namespace EngineeringThesis.Core.Migrations
                         new
                         {
                             Id = 1,
-                            BankAccountNumber = "154987526365212554788",
+                            BankAccountNumber = "15498752636521255478888888",
                             City = "Cieszyn",
                             CustomerTypeId = 2,
-                            NIP = "1234567890",
+                            NIP = "123-456-78-90",
                             Name = "Mateusz Polok",
                             PhoneNumber = "668055060",
-                            REGON = "123456789",
+                            REGON = "123-45-67-89",
                             Street = "Filasiewicza",
                             StreetNumber = "48",
                             ZipCode = "43-400"
@@ -82,13 +82,13 @@ namespace EngineeringThesis.Core.Migrations
                         new
                         {
                             Id = 2,
-                            BankAccountNumber = "758492113124142414103",
+                            BankAccountNumber = "15498752632341255478888888",
                             City = "Wrocław",
                             CustomerTypeId = 1,
-                            NIP = "0987654321",
+                            NIP = "098-765-43-21",
                             Name = "Bartosz Prokopowicz",
                             PhoneNumber = "123456789",
-                            REGON = "987654321",
+                            REGON = "987-65-43-21",
                             Street = "Sienkiewicza",
                             StreetNumber = "102/1",
                             ZipCode = "50-348"
@@ -96,13 +96,13 @@ namespace EngineeringThesis.Core.Migrations
                         new
                         {
                             Id = 3,
-                            BankAccountNumber = "238672113564142894103",
+                            BankAccountNumber = "32493456636521255478888888",
                             City = "Wrocław",
                             CustomerTypeId = 2,
-                            NIP = "1083657321",
+                            NIP = "108-365-73-21",
                             Name = "Bartłomiej Blicharski",
                             PhoneNumber = "223656089",
-                            REGON = "923654621",
+                            REGON = "923-65-46-21",
                             Street = "Sienkiewicza",
                             StreetNumber = "102/1",
                             ZipCode = "50-348"
@@ -110,13 +110,13 @@ namespace EngineeringThesis.Core.Migrations
                         new
                         {
                             Id = 4,
-                            BankAccountNumber = "758126713125672490103",
+                            BankAccountNumber = "38493452632341255478888888",
                             City = "Wrocław",
                             CustomerTypeId = 1,
-                            NIP = "5687894001",
+                            NIP = "568-789-40-01",
                             Name = "Sebastian Stanclik",
                             PhoneNumber = "623256780",
-                            REGON = "923654521",
+                            REGON = "923-65-45-21",
                             Street = "Sienkiewicza",
                             StreetNumber = "102/1",
                             ZipCode = "50-348"
@@ -202,8 +202,8 @@ namespace EngineeringThesis.Core.Migrations
                             InvoiceDate = new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             InvoiceNumber = "01/2019",
                             IsProformaInvoice = false,
-                            PaymentDate = new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PaymentDeadline = new DateTime(2019, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDate = new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDeadline = new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 2,
                             SellerId = 1
                         },

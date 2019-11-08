@@ -87,7 +87,7 @@ namespace EngineeringThesis.Core.Models.DisplayModels
             }
         }
         private string _nip;
-        [RegularExpression("^(\\d{3}\\-\\d{2}\\-\\d{2}\\-\\d{3})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
+        [RegularExpression("^(\\d{3}\\-\\d{3}\\-\\d{2}\\-\\d{2})$", ErrorMessageResourceType = typeof(Resources.CustomerDisplayModel), ErrorMessageResourceName = "NotEnoughNumbers")]
         [AllowNull]
         public string NIP
         {

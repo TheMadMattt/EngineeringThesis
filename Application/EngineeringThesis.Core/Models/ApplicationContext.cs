@@ -48,9 +48,9 @@ namespace EngineeringThesis.Core.Models
                     Street = "Filasiewicza", 
                     StreetNumber = "48",
                     PhoneNumber = "668055060", 
-                    NIP = "1234567890", 
-                    REGON = "123456789",
-                    BankAccountNumber = "154987526365212554788",
+                    NIP = "123-456-78-90", 
+                    REGON = "123-45-67-89",
+                    BankAccountNumber = "15498752636521255478888888",
                     CustomerTypeId = 2
                 },
                 new Customer
@@ -62,9 +62,9 @@ namespace EngineeringThesis.Core.Models
                     Street = "Sienkiewicza",
                     StreetNumber = "102/1",
                     PhoneNumber = "123456789",
-                    NIP = "0987654321",
-                    REGON = "987654321",
-                    BankAccountNumber = "758492113124142414103",
+                    NIP = "098-765-43-21",
+                    REGON = "987-65-43-21",
+                    BankAccountNumber = "15498752632341255478888888",
                     CustomerTypeId = 1
                 },
                 new Customer
@@ -76,9 +76,9 @@ namespace EngineeringThesis.Core.Models
                     Street = "Sienkiewicza",
                     StreetNumber = "102/1",
                     PhoneNumber = "223656089",
-                    NIP = "1083657321",
-                    REGON = "923654621",
-                    BankAccountNumber = "238672113564142894103",
+                    NIP = "108-365-73-21",
+                    REGON = "923-65-46-21",
+                    BankAccountNumber = "32493456636521255478888888",
                     CustomerTypeId = 2
                 },
                 new Customer
@@ -90,9 +90,9 @@ namespace EngineeringThesis.Core.Models
                     Street = "Sienkiewicza",
                     StreetNumber = "102/1",
                     PhoneNumber = "623256780",
-                    NIP = "5687894001",
-                    REGON = "923654521",
-                    BankAccountNumber = "758126713125672490103",
+                    NIP = "568-789-40-01",
+                    REGON = "923-65-45-21",
+                    BankAccountNumber = "38493452632341255478888888",
                     CustomerTypeId = 1
                 }
             );

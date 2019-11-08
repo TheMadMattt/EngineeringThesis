@@ -126,7 +126,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <xctk:MaskedTextBox Name="NIPTextBox" materialDesign:HintAssist.Hint="{x:Static resx:AddCustomerWindow.NIP}" Grid.Column="0" Margin="0,0,10,0"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="000\-00\-00\-000"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Mask="000\-000\-00\-00"
                                 IsEnabled="{qc:Binding '!$P', P={Binding ElementName=NoNIPCheckBox, Path=IsChecked}}"
                                 Text="{Binding Customer.NIP, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}">

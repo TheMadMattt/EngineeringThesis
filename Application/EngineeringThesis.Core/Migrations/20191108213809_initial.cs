@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EngineeringThesis.Core.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -158,27 +158,27 @@ namespace EngineeringThesis.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "BankAccountNumber", "City", "Comments", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
-                values: new object[] { 2, "758492113124142414103", "Wrocław", null, 1, "0987654321", "Bartosz Prokopowicz", "123456789", "987654321", "Sienkiewicza", "102/1", "50-348" });
+                values: new object[] { 2, "15498752632341255478888888", "Wrocław", null, 1, "098-765-43-21", "Bartosz Prokopowicz", "123456789", "987-65-43-21", "Sienkiewicza", "102/1", "50-348" });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "BankAccountNumber", "City", "Comments", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
-                values: new object[] { 4, "758126713125672490103", "Wrocław", null, 1, "5687894001", "Sebastian Stanclik", "623256780", "923654521", "Sienkiewicza", "102/1", "50-348" });
+                values: new object[] { 4, "38493452632341255478888888", "Wrocław", null, 1, "568-789-40-01", "Sebastian Stanclik", "623256780", "923-65-45-21", "Sienkiewicza", "102/1", "50-348" });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "BankAccountNumber", "City", "Comments", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
-                values: new object[] { 1, "154987526365212554788", "Cieszyn", null, 2, "1234567890", "Mateusz Polok", "668055060", "123456789", "Filasiewicza", "48", "43-400" });
+                values: new object[] { 1, "15498752636521255478888888", "Cieszyn", null, 2, "123-456-78-90", "Mateusz Polok", "668055060", "123-45-67-89", "Filasiewicza", "48", "43-400" });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "BankAccountNumber", "City", "Comments", "CustomerTypeId", "NIP", "Name", "PhoneNumber", "REGON", "Street", "StreetNumber", "ZipCode" },
-                values: new object[] { 3, "238672113564142894103", "Wrocław", null, 2, "1083657321", "Bartłomiej Blicharski", "223656089", "923654621", "Sienkiewicza", "102/1", "50-348" });
+                values: new object[] { 3, "32493456636521255478888888", "Wrocław", null, 2, "108-365-73-21", "Bartłomiej Blicharski", "223656089", "923-65-46-21", "Sienkiewicza", "102/1", "50-348" });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "IsProformaInvoice", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 1, null, 2, new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", false, new DateTime(2019, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
+                values: new object[] { 1, null, 2, new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", false, new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
