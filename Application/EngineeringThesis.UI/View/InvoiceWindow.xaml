@@ -11,9 +11,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:qc="http://QuickConverter.CodePlex.com/"
         mc:Ignorable="d"
-        Title="{x:Static resx:InvoiceWindow.Invoice}" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
+        Title="{x:Static resx:InvoiceWindow.Invoice}" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="0"
@@ -22,6 +21,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="Save" CanExecute="SaveCommand_CanExecute" Executed="SaveCommand_Executed"></CommandBinding>
         <CommandBinding Command="Print" CanExecute="CreatePDF_CanExecute" Executed="CreatePDF_Executed"></CommandBinding>
+        <CommandBinding Command="Replace" CanExecute="CreatePDF_CanExecute" Executed="CreateCorrectionPDF_Executed"></CommandBinding>
     </Window.CommandBindings>
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="CenterAlignment">
@@ -65,6 +65,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -251,7 +252,7 @@
                 <Grid Grid.Row="1">
                     <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
                                   IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
-                                  HorizontalScrollBarVisibility="Visible" Grid.Column="0" SelectedIndex="0" MouseDoubleClick="InvoiceItemsDataGrid_MouseDoubleClick">
+                                  HorizontalScrollBarVisibility="Auto" Grid.Column="0" SelectedIndex="0" MouseDoubleClick="InvoiceItemsDataGrid_MouseDoubleClick">
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" MaxWidth="300"
                                                     ElementStyle="{StaticResource WrapCenterColumn}"/>
@@ -278,9 +279,18 @@
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
                         </DataGrid>
-                        <materialDesign:PopupBox
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="CommentsTextBox" TextWrapping="Wrap" Grid.Column="0" AcceptsReturn="True" Margin="5" Text="{Binding Invoice.Comments}"
+                             materialDesign:HintAssist.Hint="{x:Static resx:InvoiceItemWindow.Comments}" FontSize="15" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"></TextBox>
+                    <materialDesign:PopupBox
                             Name="InvoiceItemAction"
-                            Opacity="0.5"
+                            Grid.Column="1"
                             Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                             PlacementMode="TopAndAlignCentres"
                             VerticalAlignment="Bottom"
@@ -288,7 +298,7 @@
                             ToolTipService.Placement="Left"
                             ToolTip="{x:Static resx:InvoiceWindow.Options}"
                             Width="50px" PopupMode="Click" StaysOpen="False"
-                            Height="50px" MouseEnter="InvoiceItemAction_MouseEnter" MouseLeave="InvoiceItemAction_MouseLeave">
+                            Height="50px">
                         <StackPanel Name="StackPanel">
                             <Button Name="AddItemBtn" Margin="0,0,0,10" Click="AddItemBtn_Click" ToolTip="{x:Static resx:InvoiceWindow.AddItem}">
                                 <materialDesign:PackIcon Kind="Add" Foreground="White"></materialDesign:PackIcon>
@@ -305,7 +315,10 @@
                             <Button Name="EditingInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.EditInvoice}" Visibility="Collapsed" Click="EditingInvoiceBtn_Click">
                                 <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="CreatePDFBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Command="Print">
+                            <Button Name="CreatePdfBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Command="Print">
+                                <materialDesign:PackIcon Kind="PdfBox" Foreground="White"></materialDesign:PackIcon>
+                            </Button>
+                            <Button Name="CreateCorrectionPdfBtn" ToolTip="{x:Static resx:InvoiceWindow.CreateCorrectionPDF}" Command="Replace">
                                 <materialDesign:PackIcon Kind="PdfBox" Foreground="White"></materialDesign:PackIcon>
                             </Button>
                         </StackPanel>

@@ -51,7 +51,9 @@ namespace EngineeringThesis.Core.Utility
         public enum InvoiceTypeTemplateEnum
         {
             Original,
-            Copy
+            Copy,
+            Proforma,
+            Correction
         }
     }
 }

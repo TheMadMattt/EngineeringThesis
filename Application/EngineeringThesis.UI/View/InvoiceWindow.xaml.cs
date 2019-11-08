@@ -86,6 +86,8 @@ namespace EngineeringThesis.UI.View
                 PaidDatePicker.IsEnabled = false;
                 AddContractorBtn.IsEnabled = false;
                 AddSellerBtn.IsEnabled = false;
+                CommentsTextBox.IsEnabled = false;
+                IsProformaCheckBox.IsEnabled = false;
             }
         }
 
@@ -100,9 +102,9 @@ namespace EngineeringThesis.UI.View
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
             TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
 
-            ViewModel.Invoice.PaymentTypeId = ((PaymentType) PaymentTypeComboBox.SelectedItem).Id;
-            ViewModel.Invoice.ContractorId = ((Customer) ContractorComboBox.SelectedItem).Id;
-            ViewModel.Invoice.SellerId = ((Customer) SellerComboBox.SelectedItem).Id;
+            ViewModel.Invoice.PaymentTypeId = ((PaymentType)PaymentTypeComboBox.SelectedItem).Id;
+            ViewModel.Invoice.ContractorId = ((Customer)ContractorComboBox.SelectedItem).Id;
+            ViewModel.Invoice.SellerId = ((Customer)SellerComboBox.SelectedItem).Id;
         }
 
         public void BindInvoiceToControls()
@@ -121,12 +123,12 @@ namespace EngineeringThesis.UI.View
             if (InvoiceItemsDataGrid.SelectedItem != null)
             {
                 var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
-                    "Czy napewno chcesz usunąć: " + ((InvoiceItem) InvoiceItemsDataGrid.SelectedItem).Name,
+                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
                     "Usuwanie produktu", "Tak", "Nie"));
                 if (result.Action != null)
                     if (result.Action.Equals("positive"))
                     {
-                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem) InvoiceItemsDataGrid.SelectedItem);
+                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
                         InvoiceItemsDataGrid.Items.Refresh();
                     }
             }
@@ -213,17 +215,6 @@ namespace EngineeringThesis.UI.View
                 : PackIconKind.WindowRestore;
         }
 
-        private void InvoiceItemAction_MouseEnter(object sender, MouseEventArgs e)
-        {
-            InvoiceItemAction.Opacity = 1;
-            AddItemBtn.Opacity = 1;
-        }
-
-        private void InvoiceItemAction_MouseLeave(object sender, MouseEventArgs e)
-        {
-            InvoiceItemAction.Opacity = 0.5;
-        }
-
         private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0;
@@ -242,7 +233,7 @@ namespace EngineeringThesis.UI.View
                     if (PaymentTypeComboBox.SelectedItem is PaymentType paymentType)
                         ViewModel.Invoice.PaymentType = paymentType;
 
-                    if (IsPaidCheckBox.IsChecked != null && (bool) !IsPaidCheckBox.IsChecked)
+                    if (IsPaidCheckBox.IsChecked != null && (bool)!IsPaidCheckBox.IsChecked)
                         ViewModel.Invoice.PaymentDate = null;
 
                     ViewModel.BindDataToRef();
@@ -309,9 +300,11 @@ namespace EngineeringThesis.UI.View
             PaymentTypeComboBox.IsEnabled = true;
             PaymentDeadlineDatePicker.IsEnabled = true;
             IsPaidCheckBox.IsEnabled = true;
-            PaidDatePicker.IsEnabled = IsPaidCheckBox.IsChecked != null && (bool) IsPaidCheckBox.IsChecked;
+            PaidDatePicker.IsEnabled = IsPaidCheckBox.IsChecked != null && (bool)IsPaidCheckBox.IsChecked;
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
+            CommentsTextBox.IsEnabled = true;
+            IsProformaCheckBox.IsEnabled = true;
         }
 
         private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -367,35 +360,45 @@ namespace EngineeringThesis.UI.View
             {
                 var invoiceTemplate = new InvoiceTemplate(invoice);
 
-                /*try
-                {*/
-                var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original);
-                invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy);
-
-                if (pdfFile != null)
+                try
                 {
-                    var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
-                    var pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
-
-                    var process = new Process
+                    string pdfFile;
+                    if (IsProformaCheckBox.IsChecked == true)
                     {
-                        StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
-                        {
-                            CreateNoWindow = true,
-                            UseShellExecute = true
-                        }
-                    };
-                    process.Start();
-                }
+                        pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original, Utility.InvoiceTypeTemplateEnum.Proforma);
+                        invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy, Utility.InvoiceTypeTemplateEnum.Proforma);
+                    }
+                    else
+                    {
+                        pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original, Utility.InvoiceTypeTemplateEnum.Original);
+                        invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy, Utility.InvoiceTypeTemplateEnum.Original);
+                    }
 
-                /*}
+
+                    if (pdfFile != null)
+                    {
+                        var filePath = AppDomain.CurrentDomain.BaseDirectory + pdfFile;
+                        var pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
+
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
+                            {
+                                CreateNoWindow = true,
+                                UseShellExecute = true
+                            }
+                        };
+                        process.Start();
+                    }
+
+                }
                 catch (Exception)
                 {
                     await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
                         new Information("Nie udało się utworzyć pliku PDF, " +
                                         "prawdopodobnie plik PDF jest otwarty w innym oknie, " +
                                         "zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
-                }*/
+                }
             }
         }
 
@@ -411,9 +414,9 @@ namespace EngineeringThesis.UI.View
 
         private void PaidDatePickerEnable(object sender)
         {
-            var isChecked = ((CheckBox) sender).IsChecked;
+            var isChecked = ((CheckBox)sender).IsChecked;
             if (isChecked != null)
-                PaidDatePicker.IsEnabled = (bool) isChecked;
+                PaidDatePicker.IsEnabled = (bool)isChecked;
         }
 
         private async void PaymentDeadlineDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -505,6 +508,45 @@ namespace EngineeringThesis.UI.View
                 }
 
                 InvoiceDialogHost.IsOpen = false;
+            }
+        }
+
+        private async void CreateCorrectionPDF_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var invoice = ViewModel.GetInvoice();
+            if (invoice != null)
+            {
+                var invoiceTemplate = new InvoiceTemplate(invoice);
+
+                try
+                {
+                    var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original, Utility.InvoiceTypeTemplateEnum.Correction);
+                    invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy, Utility.InvoiceTypeTemplateEnum.Correction);
+
+                    if (pdfFile != null)
+                    {
+                        var filePath = AppDomain.CurrentDomain.BaseDirectory + pdfFile;
+                        var pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
+
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
+                            {
+                                CreateNoWindow = true,
+                                UseShellExecute = true
+                            }
+                        };
+                        process.Start();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Nie udało się utworzyć pliku PDF, " +
+                                        "prawdopodobnie plik PDF jest otwarty w innym oknie, " +
+                                        "zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
+                }
             }
         }
     }

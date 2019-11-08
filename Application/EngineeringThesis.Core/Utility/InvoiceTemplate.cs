@@ -57,7 +57,7 @@ namespace EngineeringThesis.Core.Utility
             };
         }
 
-        public string CreatePdf(Utility.InvoiceTypeTemplateEnum invoiceType)
+        public string CreatePdf(Utility.InvoiceTypeTemplateEnum invoiceType, Utility.InvoiceTypeTemplateEnum invoiceTitleEnum)
         {
             var directory = "Faktury";
             var invoiceDirectory = directory + "/" + Invoice.InvoiceNumber.Replace("/", "-") + @"\";
@@ -80,11 +80,47 @@ namespace EngineeringThesis.Core.Utility
             string file;
             if (invoiceType == Utility.InvoiceTypeTemplateEnum.Original)
             {
-               file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
+                if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Proforma)
+                {
+                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-proforma" + ".pdf";
+                }
+                else if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Correction)
+                {
+                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-korekta" + ".pdf";
+                }
+                else
+                {
+                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
+                }
+               
             }
             else
             {
-                file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + " - Kopia" + ".pdf";
+                if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Proforma)
+                {
+                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-proforma-Kopia" + ".pdf";
+                }
+                else if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Correction)
+                {
+                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-korekta-Kopia" + ".pdf";
+                }
+                else
+                {
+                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-Kopia" + ".pdf";
+                }
+            }
+
+            string invoiceTitle;
+            if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Proforma)
+            {
+                invoiceTitle = " FAKTURA pro forma nr " + Invoice.InvoiceNumber;
+            }else if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Correction)
+            {
+                invoiceTitle = " Korekta do FAKTURY VAT nr " + Invoice.InvoiceNumber;
+            }
+            else
+            {
+                invoiceTitle = " FAKTURA VAT nr " + Invoice.InvoiceNumber;
             }
             
 
@@ -95,8 +131,8 @@ namespace EngineeringThesis.Core.Utility
 
             //create invoice title
             document.Add(invoiceType == Utility.InvoiceTypeTemplateEnum.Original
-                ? CreateTitle("Oryginał")
-                : CreateTitle("Kopia"));
+                ? CreateTitle("Oryginał", invoiceTitle)
+                : CreateTitle("Kopia", invoiceTitle));
 
 
             document.Add(newLine);
@@ -120,7 +156,7 @@ namespace EngineeringThesis.Core.Utility
 
             document.Add(newLine);
 
-            document.Add(CreateInvoiceSummary());
+            document.Add(CreateInvoiceSummary(invoiceTitleEnum));
 
             for (int i = 0; i < 8; i++)
             {
@@ -186,7 +222,7 @@ namespace EngineeringThesis.Core.Utility
             return table;
         }
 
-        private IElement CreateInvoiceSummary()
+        private IElement CreateInvoiceSummary(Utility.InvoiceTypeTemplateEnum invoiceTitle)
         {
             PdfPTable table = new PdfPTable(2);
 
@@ -252,17 +288,30 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(bankAccountCellName);
 
             PdfPCell bankAccountCell = formattedCell;
-            if (Invoice.Seller.BankAccountNumber != null)
-            {
-                decimal.TryParse(Invoice.Seller.BankAccountNumber, out var accountNumber);
-                bankAccountCell.Phrase = new Phrase($"{accountNumber:## #### #### #### #### #### ####}", _defaultFont);
-            }
-            else
-            {
-                bankAccountCell.Phrase = new Phrase("Brak", _defaultFont);
-            }
+            bankAccountCell.Phrase = Invoice.Seller.BankAccountNumber != null ? new Phrase(Invoice.Seller.BankAccountNumber, _defaultFont) : new Phrase("Brak", _defaultFont);
             table.AddCell(bankAccountCell);
 
+            blank.Phrase = new Phrase(" ", _defaultFont);
+            table.AddCell(blank);
+            table.AddCell(blank);
+
+            if (invoiceTitle == Utility.InvoiceTypeTemplateEnum.Correction)
+            {
+                PdfPCell commentsCellName = formattedCell;
+                commentsCellName.Phrase = new Phrase("Uwagi do faktury: ", _fontBold);
+                table.AddCell(commentsCellName);
+
+                PdfPCell commentsCell = formattedCell;
+                if (Invoice.Comments != null)
+                {
+                    commentsCell.Phrase = new Phrase(Invoice.Comments, _defaultFont);
+                }
+                else
+                {
+                    commentsCell.Phrase = new Phrase("Brak", _defaultFont);
+                }
+                table.AddCell(commentsCell);
+            }
 
             return table;
         }
@@ -562,15 +611,13 @@ namespace EngineeringThesis.Core.Utility
             return table;
         }
 
-        private IElement CreateTitle(string invoiceType)
+        private IElement CreateTitle(string invoiceType, string invoiceTitle)
         {
             PdfPTable table = new PdfPTable(1);
 
             int[] colWidth = { 100 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
-
-            string invoiceTitle = " FAKTURA VAT nr " + Invoice.InvoiceNumber;
 
             PdfPCell invoiceTitleCell = new PdfPCell(new Phrase(invoiceTitle, _bigFontBold))
             {
