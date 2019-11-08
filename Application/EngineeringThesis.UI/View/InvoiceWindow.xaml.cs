@@ -11,6 +11,7 @@ using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
+using iTextSharp.text.pdf;
 using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.UI.View
@@ -22,6 +23,7 @@ namespace EngineeringThesis.UI.View
     {
         private readonly NavigationService _navigationService;
         public InvoiceViewModel ViewModel;
+
         public InvoiceWindow(NavigationService navigationService, InvoiceViewModel viewModel)
         {
             InitializeComponent();
@@ -60,7 +62,7 @@ namespace EngineeringThesis.UI.View
 
                 SetControlsEditing();
             }
-            
+
             return Task.CompletedTask;
         }
 
@@ -69,7 +71,7 @@ namespace EngineeringThesis.UI.View
             if (ViewModel.IsUpdate)
             {
                 AddItemBtn.Visibility = Visibility.Hidden;
-                EditItemBtn.Visibility = Visibility.Hidden; 
+                EditItemBtn.Visibility = Visibility.Hidden;
                 EditItemBtn.IsEnabled = false;
                 DeleteItemBtn.Visibility = Visibility.Hidden;
                 DeleteItemBtn.IsEnabled = false;
@@ -98,20 +100,18 @@ namespace EngineeringThesis.UI.View
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
             TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
 
-            ViewModel.Invoice.PaymentTypeId = ((PaymentType) PaymentTypeComboBox.SelectedItem).Id;
-            ViewModel.Invoice.ContractorId = ((Customer) ContractorComboBox.SelectedItem).Id;
-            ViewModel.Invoice.SellerId = ((Customer) SellerComboBox.SelectedItem).Id;
+            ViewModel.Invoice.PaymentTypeId = ((PaymentType)PaymentTypeComboBox.SelectedItem).Id;
+            ViewModel.Invoice.ContractorId = ((Customer)ContractorComboBox.SelectedItem).Id;
+            ViewModel.Invoice.SellerId = ((Customer)SellerComboBox.SelectedItem).Id;
         }
 
         public void BindInvoiceToControls()
         {
             ContractorComboBox.SelectedItem = ViewModel.Contractors.Find(x => x.Id == ViewModel.Invoice.ContractorId);
             SellerComboBox.SelectedItem = ViewModel.Sellers.Find(x => x.Id == ViewModel.Invoice.SellerId);
-            PaymentTypeComboBox.SelectedItem = ViewModel.PaymentTypes.Find(x => x.Id == ViewModel.Invoice.PaymentTypeId);
-            if (ViewModel.Invoice.PaymentDate.HasValue)
-            {
-                IsPaidCheckBox.IsChecked = true;
-            }
+            PaymentTypeComboBox.SelectedItem =
+                ViewModel.PaymentTypes.Find(x => x.Id == ViewModel.Invoice.PaymentTypeId);
+            if (ViewModel.Invoice.PaymentDate.HasValue) IsPaidCheckBox.IsChecked = true;
             TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
         }
@@ -120,33 +120,32 @@ namespace EngineeringThesis.UI.View
         {
             if (InvoiceItemsDataGrid.SelectedItem != null)
             {
-                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning("Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
+                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
+                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
                     "Usuwanie produktu", "Tak", "Nie"));
                 if (result.Action != null)
-                {
                     if (result.Action.Equals("positive"))
                     {
                         ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
                         InvoiceItemsDataGrid.Items.Refresh();
                     }
-                }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
             }
         }
 
         private async void AddItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            InvoiceItem invoiceItem = new InvoiceItem();
+            var invoiceItem = new InvoiceItem();
             await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
             if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
             {
                 ViewModel.Invoice.InvoiceItems.Add(invoiceItem);
                 InvoiceItemsDataGrid.Items.Refresh();
             }
-            
         }
 
         private async void EditItemBtn_Click(object sender, RoutedEventArgs e)
@@ -161,18 +160,19 @@ namespace EngineeringThesis.UI.View
                     var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
                     invoiceItemsList[index] = invoiceItem;
                 }
+
                 InvoiceItemsDataGrid.Items.Refresh();
             }
             else
             {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
             }
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
-
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -199,23 +199,18 @@ namespace EngineeringThesis.UI.View
             if (e.ClickCount == 2)
             {
                 if (WindowState == WindowState.Maximized)
-                {
                     WindowState = WindowState.Normal;
-                }
-                else if (WindowState == WindowState.Normal)
-                {
-                    WindowState = WindowState.Maximized;
-                }
+                else if (WindowState == WindowState.Normal) WindowState = WindowState.Maximized;
             }
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+
+            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            MaximizeWindowIcon.Kind = WindowState == WindowState.Normal ? PackIconKind.WindowMaximize : PackIconKind.WindowRestore;
+            MaximizeWindowIcon.Kind = WindowState == WindowState.Normal
+                ? PackIconKind.WindowMaximize
+                : PackIconKind.WindowRestore;
         }
 
         private void InvoiceItemAction_MouseEnter(object sender, MouseEventArgs e)
@@ -237,46 +232,49 @@ namespace EngineeringThesis.UI.View
         private async void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (ContractorComboBox.SelectedIndex >= 0 && SellerComboBox.SelectedIndex >= 0)
-            {
-                if (ContractorComboBox.SelectedItem is Customer contractor)
+                try
                 {
-                    ViewModel.Invoice.Contractor = contractor;
-                }
+                    if (ContractorComboBox.SelectedItem is Customer contractor)
+                        ViewModel.Invoice.Contractor = contractor;
 
-                if (SellerComboBox.SelectedItem is Customer seller)
+                    if (SellerComboBox.SelectedItem is Customer seller) ViewModel.Invoice.Seller = seller;
+
+                    if (PaymentTypeComboBox.SelectedItem is PaymentType paymentType)
+                        ViewModel.Invoice.PaymentType = paymentType;
+
+                    if (IsPaidCheckBox.IsChecked != null && (bool)!IsPaidCheckBox.IsChecked)
+                        ViewModel.Invoice.PaymentDate = null;
+
+                    ViewModel.BindDataToRef();
+                    ViewModel.SaveInvoice();
+                    Close();
+                }
+                catch (Exception)
                 {
-                    ViewModel.Invoice.Seller = seller;
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new ErrorInfo(
+                        "Wystąpił błąd przy zapisywaniu faktury. " +
+                        "Sprawdź czy wszystkie dane zostały wpisane poprawnie i spróbuj ponownie",
+                        "Błąd zapisywania faktury", "OK"));
                 }
-
-                if (PaymentTypeComboBox.SelectedItem is PaymentType paymentType)
-                {
-                    ViewModel.Invoice.PaymentType = paymentType;
-                }
-
-                ViewModel.BindDataToRef();
-                ViewModel.SaveInvoice();
-                Close();
-            }
-            else if(ContractorComboBox.SelectedIndex < 0)
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden kontrahent nie został wybrany", "Wybierz kontrahenta", "OK"));
-            }else if (SellerComboBox.SelectedIndex < 0)
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Żaden sprzedawca nie został wybrany", "Wybierz sprzedawcę", "OK"));
-            }
+            else if (ContractorComboBox.SelectedIndex < 0)
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden kontrahent nie został wybrany", "Wybierz kontrahenta", "OK"));
+            else if (SellerComboBox.SelectedIndex < 0)
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden sprzedawca nie został wybrany", "Wybierz sprzedawcę", "OK"));
         }
 
         private async void AddContractorBtn_Click(object sender, RoutedEventArgs e)
         {
             var contractor = new Utility.CustomerStruct
             {
-                customer = new Customer(),
-                isContractor = true
+                Customer = new Customer(),
+                IsContractor = true
             };
             await _navigationService.ShowDialogAsync<AddCustomerWindow>(contractor);
-            if (Utility.IsNotCustomerNullOrEmpty(contractor.customer))
+            if (Utility.IsNotCustomerNullOrEmpty(contractor.Customer))
             {
-                ViewModel.Contractors.Add(contractor.customer);
+                ViewModel.Contractors.Add(contractor.Customer);
                 ContractorComboBox.Items.Refresh();
             }
         }
@@ -285,13 +283,13 @@ namespace EngineeringThesis.UI.View
         {
             var seller = new Utility.CustomerStruct
             {
-                customer = new Customer(),
-                isContractor = false
+                Customer = new Customer(),
+                IsContractor = false
             };
             await _navigationService.ShowDialogAsync<AddCustomerWindow>(seller);
-            if (Utility.IsNotCustomerNullOrEmpty(seller.customer))
+            if (Utility.IsNotCustomerNullOrEmpty(seller.Customer))
             {
-                ViewModel.Sellers.Add(seller.customer);
+                ViewModel.Sellers.Add(seller.Customer);
                 SellerComboBox.Items.Refresh();
             }
         }
@@ -311,7 +309,7 @@ namespace EngineeringThesis.UI.View
             PaymentTypeComboBox.IsEnabled = true;
             PaymentDeadlineDatePicker.IsEnabled = true;
             IsPaidCheckBox.IsEnabled = true;
-            PaidDatePicker.IsEnabled = true;
+            PaidDatePicker.IsEnabled = IsPaidCheckBox.IsChecked != null && (bool)IsPaidCheckBox.IsChecked;
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
         }
@@ -343,26 +341,18 @@ namespace EngineeringThesis.UI.View
 
         private void ContractorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ContractorComboBox.SelectedItem is Customer customer)
-            {
-                ViewModel.Invoice.ContractorId = customer.Id;
-            }
+            if (ContractorComboBox.SelectedItem is Customer customer) ViewModel.Invoice.ContractorId = customer.Id;
         }
 
         private void SellerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SellerComboBox.SelectedItem is Customer customer)
-            {
-                ViewModel.Invoice.SellerId = customer.Id;
-            }
+            if (SellerComboBox.SelectedItem is Customer customer) ViewModel.Invoice.SellerId = customer.Id;
         }
 
         private void PaymentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PaymentTypeComboBox.SelectedItem is PaymentType paymentType)
-            {
                 ViewModel.Invoice.PaymentTypeId = paymentType.Id;
-            }
         }
 
         private void CreatePDF_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -370,38 +360,133 @@ namespace EngineeringThesis.UI.View
             e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0;
         }
 
-        private void CreatePDF_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void CreatePDF_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var invoice = ViewModel.GetInvoice();
             if (invoice != null)
             {
-                InvoiceTemplate invoiceTemplate = new InvoiceTemplate(invoice);
+                var invoiceTemplate = new InvoiceTemplate(invoice);
 
-                /*try
-                {*/
-                var pdfFile = invoiceTemplate.CreatePdf("Oryginał");
-
-                if (pdfFile != null)
+                try
                 {
-                    var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
-                    Uri pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
+                    var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original);
+                    invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy);
 
-                    var process = new Process
+                    if (pdfFile != null)
                     {
-                        StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
+                        var filePath = AppDomain.CurrentDomain.BaseDirectory + "/" + pdfFile;
+                        var pdf = new Uri(filePath, UriKind.RelativeOrAbsolute);
+
+                        var process = new Process
                         {
-                            CreateNoWindow = true,
-                            UseShellExecute = true
-                        }
-                    };
-                    process.Start();
+                            StartInfo = new ProcessStartInfo(@pdf.AbsolutePath)
+                            {
+                                CreateNoWindow = true,
+                                UseShellExecute = true
+                            }
+                        };
+                        process.Start();
+                    }
                 }
-                /*}
                 catch (Exception)
                 {
-                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Information("Nie udało się utworzyć pliku PDF, prawdopodobnie plik PDF jest " +
-                                                                                           "otwarty w innym oknie, zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
-                }*/
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Nie udało się utworzyć pliku PDF, " +
+                                        "prawdopodobnie plik PDF jest otwarty w innym oknie, " +
+                                        "zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
+                }
+            }
+        }
+
+        private void IsPaidCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            PaidDatePickerEnable(sender);
+        }
+
+        private void IsPaidCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PaidDatePickerEnable(sender);
+        }
+
+        private void PaidDatePickerEnable(object sender)
+        {
+            var isChecked = ((CheckBox)sender).IsChecked;
+            if (isChecked != null)
+                PaidDatePicker.IsEnabled = (bool)isChecked;
+        }
+
+        private async void PaymentDeadlineDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                var comparePaymentDate = ViewModel.Invoice.PaymentDeadline.CompareTo(ViewModel.Invoice?.PaymentDate);
+
+                InvoiceDialogHost.IsOpen = false;
+                if (comparePaymentDate < 0)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Data płatności nie może być późniejsza niż termin płatności",
+                            "Wprowadź prawidłową datę",
+                            "OK"));
+                    PaidDatePicker.SelectedDate = null;
+                }
+
+                var compareInvoiceDate = ViewModel.Invoice.PaymentDeadline.CompareTo(ViewModel.Invoice.InvoiceDate);
+
+                if (compareInvoiceDate < 0)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Termin płatności nie może być wcześniejszy niż data wystawienia faktury",
+                            "Wprowadź prawidłową datę",
+                            "OK"));
+                    if (PaymentDeadlineDatePicker.SelectedDate != null)
+                    {
+                        InvoiceDatePicker.SelectedDate = null;
+                    }
+                }
+                InvoiceDialogHost.IsOpen = false;
+            }
+        }
+
+        private async void InvoiceDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                var comparePaymentDeadline = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice.PaymentDeadline);
+
+                InvoiceDialogHost.IsOpen = false;
+                if (comparePaymentDeadline > 0)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Termin płatności nie może być wcześniejszy niż data wystawienia faktury", "Wprowadź prawidłową datę",
+                            "OK"));
+                    if (InvoiceDatePicker.SelectedDate != null)
+                    {
+                        PaymentDeadlineDatePicker.SelectedDate = null;
+                    }
+                }
+                InvoiceDialogHost.IsOpen = false;
+            }
+        }
+
+        private async void PaidDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                var comparePaymentDeadline = ViewModel.Invoice.PaymentDate?.CompareTo(ViewModel.Invoice.PaymentDeadline);
+                var compareInvoiceDate = ViewModel.Invoice.PaymentDate?.CompareTo(ViewModel.Invoice.InvoiceDate);
+
+                InvoiceDialogHost.IsOpen = false;
+                if (compareInvoiceDate < 0 || comparePaymentDeadline > 0)
+                {
+                    await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
+                        new Information("Data płatności nie może być późniejsza niż termin płatności",
+                            "Wprowadź prawidłową datę",
+                            "OK"));
+                    PaidDatePicker.SelectedDate = null;
+                }
+
+                InvoiceDialogHost.IsOpen = false;
             }
         }
     }

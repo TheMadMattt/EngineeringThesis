@@ -44,8 +44,14 @@ namespace EngineeringThesis.Core.Utility
 
         public struct CustomerStruct
         {
-            public Customer customer;
-            public bool isContractor;
+            public Customer Customer;
+            public bool IsContractor;
+        }
+
+        public enum InvoiceTypeTemplateEnum
+        {
+            Original,
+            Copy
         }
     }
 }

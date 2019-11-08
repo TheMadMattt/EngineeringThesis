@@ -57,16 +57,36 @@ namespace EngineeringThesis.Core.Utility
             };
         }
 
-        public string CreatePdf(string title)
+        public string CreatePdf(Utility.InvoiceTypeTemplateEnum invoiceType)
         {
             var directory = "Faktury";
+            var invoiceDirectory = directory + @"\" + Invoice.InvoiceNumber.Replace("/", "-") + @"\";
             var newLine = new Paragraph("\n");
             bool exists = System.IO.Directory.Exists(directory);
             if (!exists)
             {
                 System.IO.Directory.CreateDirectory(directory);
             }
-            var file = @"Faktury\" + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
+            exists = System.IO.Directory.Exists(directory);
+            if (exists)
+            {
+                bool existsInvoice = Directory.Exists(invoiceDirectory);
+                if (!existsInvoice)
+                {
+                    Directory.CreateDirectory(invoiceDirectory);
+                }
+            }
+
+            string file;
+            if (invoiceType == Utility.InvoiceTypeTemplateEnum.Original)
+            {
+               file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
+            }
+            else
+            {
+                file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + " - Kopia" + ".pdf";
+            }
+            
 
             Document document = new Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 10); // 10: Margins Left, Right, Top, Bottom
             PdfWriter.GetInstance(document, new FileStream(file, FileMode.Create));
@@ -74,7 +94,15 @@ namespace EngineeringThesis.Core.Utility
             document.Open();
 
             //create invoice title
-            document.Add(CreateTitle(title));
+            if (invoiceType == Utility.InvoiceTypeTemplateEnum.Original)
+            {
+                document.Add(CreateTitle("Oryginał"));
+            }
+            else
+            {
+                document.Add(CreateTitle("Kopia"));
+            }
+            
 
             document.Add(newLine);
 

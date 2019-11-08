@@ -34,7 +34,7 @@
             <Setter Property="Foreground" Value="Black"/>
         </Style>
     </Window.Resources>
-    <materialDesign:DialogHost Identifier="InvoiceDialogHost">
+    <materialDesign:DialogHost Identifier="InvoiceDialogHost" Name="InvoiceDialogHost">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40px"></RowDefinition>
@@ -209,7 +209,7 @@
                             <RowDefinition Height="2*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <GroupBox Header="{x:Static resx:InvoiceWindow.InvoiceDate}" Grid.Row="0">
-                            <DatePicker Name="InvoiceDatePicker" SelectedDate="{Binding Invoice.InvoiceDate}"></DatePicker>
+                            <DatePicker Name="InvoiceDatePicker" SelectedDate="{Binding Invoice.InvoiceDate}" SelectedDateChanged="InvoiceDatePicker_SelectedDateChanged" Margin="0,0,0,10"></DatePicker>
                         </GroupBox>
                         <GroupBox Header="{x:Static resx:InvoiceWindow.Payments}" Grid.Row="1">
                             <Grid>
@@ -232,11 +232,11 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                                 <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:InvoiceWindow.Deadline}"></Label>
-                                <DatePicker Name="PaymentDeadlineDatePicker" SelectedDate="{Binding Invoice.PaymentDeadline}" Grid.Column="1" Grid.Row="1"></DatePicker>
+                                <DatePicker Name="PaymentDeadlineDatePicker" SelectedDate="{Binding Invoice.PaymentDeadline}" Grid.Column="1" Grid.Row="1" SelectedDateChanged="PaymentDeadlineDatePicker_SelectedDateChanged"></DatePicker>
                                 <Label Grid.Column="0" Grid.Row="2" Content="{x:Static resx:InvoiceWindow.Paid}"></Label>
-                                <CheckBox Name="IsPaidCheckBox" IsChecked="False" Grid.Column="1" Grid.Row="2"></CheckBox>
+                                <CheckBox Name="IsPaidCheckBox" IsChecked="False" Grid.Column="1" Grid.Row="2" Checked="IsPaidCheckBox_Checked" Unchecked="IsPaidCheckBox_Unchecked"></CheckBox>
                                 <Label Grid.Column="0" Grid.Row="3" Content="{x:Static resx:InvoiceWindow.When}"></Label>
-                                <DatePicker Name="PaidDatePicker" SelectedDate="{Binding Invoice.PaymentDate}" Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ElementName=IsPaidCheckBox, Path=IsChecked}"></DatePicker>
+                                <DatePicker Name="PaidDatePicker" SelectedDate="{Binding Invoice.PaymentDate}" Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ElementName=IsPaidCheckBox, Path=IsChecked}" SelectedDateChanged="PaidDatePicker_SelectedDateChanged"></DatePicker>
                             </Grid>
                         </GroupBox>
                     </Grid>
