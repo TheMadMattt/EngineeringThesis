@@ -24,7 +24,7 @@ namespace EngineeringThesis.Core.Utility
         private readonly PdfPCell _blankCell;
         private readonly PdfPCell _formattedCellToRight;
         private string _grossSum;
-        private CultureInfo _culture;
+        private readonly CultureInfo _culture;
 
         public InvoiceTemplate(Invoice invoice)
         {
@@ -60,7 +60,7 @@ namespace EngineeringThesis.Core.Utility
         public string CreatePdf(Utility.InvoiceTypeTemplateEnum invoiceType)
         {
             var directory = "Faktury";
-            var invoiceDirectory = directory + @"\" + Invoice.InvoiceNumber.Replace("/", "-") + @"\";
+            var invoiceDirectory = directory + "/" + Invoice.InvoiceNumber.Replace("/", "-") + @"\";
             var newLine = new Paragraph("\n");
             bool exists = System.IO.Directory.Exists(directory);
             if (!exists)
@@ -88,21 +88,16 @@ namespace EngineeringThesis.Core.Utility
             }
             
 
-            Document document = new Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 10); // 10: Margins Left, Right, Top, Bottom
+            Document document = new Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 10);
             PdfWriter.GetInstance(document, new FileStream(file, FileMode.Create));
 
             document.Open();
 
             //create invoice title
-            if (invoiceType == Utility.InvoiceTypeTemplateEnum.Original)
-            {
-                document.Add(CreateTitle("Oryginał"));
-            }
-            else
-            {
-                document.Add(CreateTitle("Kopia"));
-            }
-            
+            document.Add(invoiceType == Utility.InvoiceTypeTemplateEnum.Original
+                ? CreateTitle("Oryginał")
+                : CreateTitle("Kopia"));
+
 
             document.Add(newLine);
 
@@ -259,8 +254,8 @@ namespace EngineeringThesis.Core.Utility
             PdfPCell bankAccountCell = formattedCell;
             if (Invoice.Seller.BankAccountNumber != null)
             {
-                var bankAccount = decimal.Parse(Invoice.Seller.BankAccountNumber);
-                bankAccountCell.Phrase = new Phrase($"{bankAccount:## #### #### #### #### #### ####}", _defaultFont);
+                decimal.TryParse(Invoice.Seller.BankAccountNumber, out var accountNumber);
+                bankAccountCell.Phrase = new Phrase($"{accountNumber:## #### #### #### #### #### ####}", _defaultFont);
             }
             else
             {

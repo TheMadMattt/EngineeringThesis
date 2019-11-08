@@ -28,6 +28,9 @@ namespace EngineeringThesis.UI
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
+            var ctx = ServiceProvider.GetRequiredService<ApplicationContext>();
+            ctx.Database.Migrate();
+
             var navigationService = ServiceProvider.GetRequiredService<NavigationService>();
 
             await navigationService.ShowAsync<MainWindow>();

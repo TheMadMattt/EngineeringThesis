@@ -367,8 +367,8 @@ namespace EngineeringThesis.UI.View
             {
                 var invoiceTemplate = new InvoiceTemplate(invoice);
 
-                try
-                {
+                /*try
+                {*/
                     var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original);
                     invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy);
 
@@ -387,14 +387,14 @@ namespace EngineeringThesis.UI.View
                         };
                         process.Start();
                     }
-                }
+                /*}
                 catch (Exception)
                 {
                     await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
                         new Information("Nie udało się utworzyć pliku PDF, " +
                                         "prawdopodobnie plik PDF jest otwarty w innym oknie, " +
                                         "zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
-                }
+                }*/
             }
         }
 
