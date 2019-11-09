@@ -88,7 +88,8 @@ namespace EngineeringThesis.UI.View
                 AddContractorBtn.IsEnabled = false;
                 AddSellerBtn.IsEnabled = false;
                 CommentsTextBox.IsEnabled = false;
-                if (InvoiceItemsDataGrid.ContextMenu != null) InvoiceItemsDataGrid.ContextMenu.IsEnabled = false;
+                EditMenuItem.IsEnabled = false;
+                DeleteMenuItem.IsEnabled = false;
             }
         }
 
@@ -349,7 +350,8 @@ namespace EngineeringThesis.UI.View
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
             CommentsTextBox.IsEnabled = true;
-            if (InvoiceItemsDataGrid.ContextMenu != null) InvoiceItemsDataGrid.ContextMenu.IsEnabled = true;
+            EditMenuItem.IsEnabled = true;
+            DeleteMenuItem.IsEnabled = true;
         }
 
         private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
