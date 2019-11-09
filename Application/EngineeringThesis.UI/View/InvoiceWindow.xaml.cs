@@ -77,6 +77,7 @@ namespace EngineeringThesis.UI.View
                 DeleteItemBtn.IsEnabled = false;
                 SaveInvoiceBtn.Visibility = Visibility.Hidden;
                 EditingInvoiceBtn.Visibility = Visibility.Visible;
+                EditingInvoiceBtn.IsEnabled = true;
                 ContractorComboBox.IsEnabled = false;
                 SellerComboBox.IsEnabled = false;
                 InvoiceDatePicker.IsEnabled = false;
@@ -294,6 +295,7 @@ namespace EngineeringThesis.UI.View
             DeleteItemBtn.IsEnabled = true;
             SaveInvoiceBtn.Visibility = Visibility.Visible;
             EditingInvoiceBtn.Visibility = Visibility.Collapsed;
+            EditingInvoiceBtn.IsEnabled = false;
             ContractorComboBox.IsEnabled = true;
             SellerComboBox.IsEnabled = true;
             InvoiceDatePicker.IsEnabled = true;
@@ -421,7 +423,7 @@ namespace EngineeringThesis.UI.View
 
         private async void PaymentDeadlineDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ViewModel != null)
+            if (ViewModel != null && !EditingInvoiceBtn.IsEnabled)
             {
                 var comparePaymentDate = ViewModel.Invoice.PaymentDeadline.CompareTo(ViewModel.Invoice?.PaymentDate);
 
@@ -452,7 +454,7 @@ namespace EngineeringThesis.UI.View
 
         private async void InvoiceDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ViewModel != null)
+            if (ViewModel != null && !EditingInvoiceBtn.IsEnabled)
             {
                 var comparePaymentDeadline = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice.PaymentDeadline);
                 var comparePaymentDate = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice?.PaymentDate);
@@ -467,7 +469,7 @@ namespace EngineeringThesis.UI.View
                     if (InvoiceDatePicker.SelectedDate != null) PaymentDeadlineDatePicker.SelectedDate = null;
                 }
 
-                if (comparePaymentDate < 0)
+                if (comparePaymentDate > 0)
                 {
                     await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
                         new Information("Data płatności nie może być wcześniejsza niż data wystawienia faktury",
@@ -482,7 +484,7 @@ namespace EngineeringThesis.UI.View
 
         private async void PaidDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ViewModel != null)
+            if (ViewModel != null && !EditingInvoiceBtn.IsEnabled)
             {
                 var comparePaymentDeadline =
                     ViewModel.Invoice.PaymentDate?.CompareTo(ViewModel.Invoice.PaymentDeadline);
