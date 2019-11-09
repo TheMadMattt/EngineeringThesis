@@ -75,7 +75,7 @@ namespace EngineeringThesis.UI.View
                 EditItemBtn.IsEnabled = false;
                 DeleteItemBtn.Visibility = Visibility.Hidden;
                 DeleteItemBtn.IsEnabled = false;
-                SaveInvoiceBtn.Visibility = Visibility.Hidden;
+                SaveInvoiceBtn.Visibility = Visibility.Collapsed;
                 EditingInvoiceBtn.Visibility = Visibility.Visible;
                 EditingInvoiceBtn.IsEnabled = true;
                 ContractorComboBox.IsEnabled = false;
@@ -88,7 +88,6 @@ namespace EngineeringThesis.UI.View
                 AddContractorBtn.IsEnabled = false;
                 AddSellerBtn.IsEnabled = false;
                 CommentsTextBox.IsEnabled = false;
-                IsProformaCheckBox.IsEnabled = false;
             }
         }
 
@@ -306,7 +305,6 @@ namespace EngineeringThesis.UI.View
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
             CommentsTextBox.IsEnabled = true;
-            IsProformaCheckBox.IsEnabled = true;
         }
 
         private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -364,17 +362,38 @@ namespace EngineeringThesis.UI.View
 
                 try
                 {
-                    string pdfFile;
+                    Utility.InvoiceTemplateStruct templateOriginal = new Utility.InvoiceTemplateStruct
+                    {
+                        CommentsCheckBox = CommentsCheckBox.IsChecked == true,
+                        InvoicePersonCheckBox = InvoicePersonCheckBox.IsChecked == true,
+                        PickupPersonCheckBox = PickupPersonCheckBox.IsChecked == true
+                    };
+                    Utility.InvoiceTemplateStruct templateCopy = new Utility.InvoiceTemplateStruct
+                    {
+                        CommentsCheckBox = CommentsCheckBox.IsChecked == true,
+                        InvoicePersonCheckBox = InvoicePersonCheckBox.IsChecked == true,
+                        PickupPersonCheckBox = PickupPersonCheckBox.IsChecked == true
+                    };
+
                     if (IsProformaCheckBox.IsChecked == true)
                     {
-                        pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original, Utility.InvoiceTypeTemplateEnum.Proforma);
-                        invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy, Utility.InvoiceTypeTemplateEnum.Proforma);
+                        templateOriginal.InvoiceType = Utility.InvoiceTypeTemplateEnum.Original;
+                        templateOriginal.InvoiceTitle = Utility.InvoiceTypeTemplateEnum.Proforma;
+
+                        templateCopy.InvoiceType = Utility.InvoiceTypeTemplateEnum.Copy;
+                        templateCopy.InvoiceTitle = Utility.InvoiceTypeTemplateEnum.Proforma;
                     }
                     else
                     {
-                        pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original, Utility.InvoiceTypeTemplateEnum.Original);
-                        invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy, Utility.InvoiceTypeTemplateEnum.Original);
+                        templateOriginal.InvoiceType = Utility.InvoiceTypeTemplateEnum.Original;
+                        templateOriginal.InvoiceTitle = Utility.InvoiceTypeTemplateEnum.Original;
+
+                        templateCopy.InvoiceType = Utility.InvoiceTypeTemplateEnum.Copy;
+                        templateCopy.InvoiceTitle = Utility.InvoiceTypeTemplateEnum.Original;
                     }
+
+                    var pdfFile = invoiceTemplate.CreatePdf(templateOriginal);
+                    invoiceTemplate.CreatePdf(templateCopy);
 
 
                     if (pdfFile != null)
@@ -522,8 +541,25 @@ namespace EngineeringThesis.UI.View
 
                 try
                 {
-                    var pdfFile = invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Original, Utility.InvoiceTypeTemplateEnum.Correction);
-                    invoiceTemplate.CreatePdf(Utility.InvoiceTypeTemplateEnum.Copy, Utility.InvoiceTypeTemplateEnum.Correction);
+                    Utility.InvoiceTemplateStruct templateOriginal = new Utility.InvoiceTemplateStruct
+                    {
+                        CommentsCheckBox = CommentsCheckBox.IsChecked == true,
+                        InvoicePersonCheckBox = InvoicePersonCheckBox.IsChecked == true,
+                        PickupPersonCheckBox = PickupPersonCheckBox.IsChecked == true,
+                        InvoiceTitle = Utility.InvoiceTypeTemplateEnum.Correction,
+                        InvoiceType = Utility.InvoiceTypeTemplateEnum.Original
+                    };
+                    Utility.InvoiceTemplateStruct templateCopy = new Utility.InvoiceTemplateStruct
+                    {
+                        CommentsCheckBox = CommentsCheckBox.IsChecked == true,
+                        InvoicePersonCheckBox = InvoicePersonCheckBox.IsChecked == true,
+                        PickupPersonCheckBox = PickupPersonCheckBox.IsChecked == true,
+                        InvoiceTitle = Utility.InvoiceTypeTemplateEnum.Correction,
+                        InvoiceType = Utility.InvoiceTypeTemplateEnum.Copy
+                    };
+
+                    var pdfFile = invoiceTemplate.CreatePdf(templateOriginal);
+                    invoiceTemplate.CreatePdf(templateCopy);
 
                     if (pdfFile != null)
                     {

@@ -97,6 +97,24 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uwagi.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czy dodać do faktury uwagi?.
+        /// </summary>
+        public static string CommentsCheckBox {
+            get {
+                return ResourceManager.GetString("CommentsCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrahent.
         /// </summary>
         public static string Contractor {
@@ -174,6 +192,15 @@ namespace EngineeringThesis.UI.Resources {
         public static string InvoiceDate {
             get {
                 return ResourceManager.GetString("InvoiceDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czy dodać do faktury kto wystawił?.
+        /// </summary>
+        public static string InvoicePersonCheckBox {
+            get {
+                return ResourceManager.GetString("InvoicePersonCheckBox", resourceCulture);
             }
         }
         
@@ -309,6 +336,15 @@ namespace EngineeringThesis.UI.Resources {
         public static string Payments {
             get {
                 return ResourceManager.GetString("Payments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czy dodać do faktury osobę odpowiedzialną za odbiór?.
+        /// </summary>
+        public static string PickupPersonCheckBox {
+            get {
+                return ResourceManager.GetString("PickupPersonCheckBox", resourceCulture);
             }
         }
         

@@ -129,6 +129,12 @@
   <data name="Business" xml:space="preserve">
     <value>Firma:</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Uwagi</value>
+  </data>
+  <data name="CommentsCheckBox" xml:space="preserve">
+    <value>Czy dodać do faktury uwagi?</value>
+  </data>
   <data name="Contractor" xml:space="preserve">
     <value>Kontrahent</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="InvoiceDate" xml:space="preserve">
     <value>Data wystawienia</value>
+  </data>
+  <data name="InvoicePersonCheckBox" xml:space="preserve">
+    <value>Czy dodać do faktury kto wystawił?</value>
   </data>
   <data name="ItemAmount" xml:space="preserve">
     <value>Ilość</value>
@@ -200,6 +209,9 @@
   </data>
   <data name="Payments" xml:space="preserve">
     <value>Płatności</value>
+  </data>
+  <data name="PickupPersonCheckBox" xml:space="preserve">
+    <value>Czy dodać do faktury osobę odpowiedzialną za odbiór?</value>
   </data>
   <data name="ProformaInvoice" xml:space="preserve">
     <value>Faktura proforma</value>

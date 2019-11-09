@@ -55,6 +55,15 @@ namespace EngineeringThesis.Core.Utility
             Proforma,
             Correction
         }
+
+        public struct InvoiceTemplateStruct
+        {
+            public InvoiceTypeTemplateEnum InvoiceType;
+            public InvoiceTypeTemplateEnum InvoiceTitle;
+            public bool CommentsCheckBox;
+            public bool InvoicePersonCheckBox;
+            public bool PickupPersonCheckBox;
+        }
     }
 }
 

@@ -15,7 +15,8 @@ namespace EngineeringThesis.Core.Utility
 {
     public class InvoiceTemplate
     {
-        public Invoice Invoice;
+        private readonly Invoice _invoice;
+        private Utility.InvoiceTemplateStruct _template;
         private readonly iTextSharp.text.Font _defaultFont;
         private readonly iTextSharp.text.Font _fontBold;
         private readonly iTextSharp.text.Font _fontMini;
@@ -28,7 +29,7 @@ namespace EngineeringThesis.Core.Utility
 
         public InvoiceTemplate(Invoice invoice)
         {
-            Invoice = invoice;
+            _invoice = invoice;
 
             BaseFont regularFont = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
             BaseFont boldFont = BaseFont.CreateFont(BaseFont.TIMES_BOLD, BaseFont.CP1250, BaseFont.EMBEDDED);
@@ -57,10 +58,11 @@ namespace EngineeringThesis.Core.Utility
             };
         }
 
-        public string CreatePdf(Utility.InvoiceTypeTemplateEnum invoiceType, Utility.InvoiceTypeTemplateEnum invoiceTitleEnum)
+        public string CreatePdf(Utility.InvoiceTemplateStruct template)
         {
+            _template = template;
             var directory = "Faktury";
-            var invoiceDirectory = directory + "/" + Invoice.InvoiceNumber.Replace("/", "-") + @"\";
+            var invoiceDirectory = directory + "/" + _invoice.InvoiceNumber.Replace("/", "-") + @"\";
             var newLine = new Paragraph("\n");
             bool exists = System.IO.Directory.Exists(directory);
             if (!exists)
@@ -78,51 +80,52 @@ namespace EngineeringThesis.Core.Utility
             }
 
             string file;
-            if (invoiceType == Utility.InvoiceTypeTemplateEnum.Original)
+            if (_template.InvoiceType == Utility.InvoiceTypeTemplateEnum.Original)
             {
-                if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Proforma)
+                if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Proforma)
                 {
-                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-proforma" + ".pdf";
+                    file = invoiceDirectory + _invoice.InvoiceNumber.Replace("/", "-") + "-proforma" + ".pdf";
                 }
-                else if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Correction)
+                else if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Correction)
                 {
-                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-korekta" + ".pdf";
+                    file = invoiceDirectory + _invoice.InvoiceNumber.Replace("/", "-") + "-korekta" + ".pdf";
                 }
                 else
                 {
-                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
+                    file = invoiceDirectory + _invoice.InvoiceNumber.Replace("/", "-") + ".pdf";
                 }
-               
+
             }
             else
             {
-                if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Proforma)
+                if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Proforma)
                 {
-                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-proforma-Kopia" + ".pdf";
+                    file = invoiceDirectory + _invoice.InvoiceNumber.Replace("/", "-") + "-proforma-Kopia" + ".pdf";
                 }
-                else if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Correction)
+                else if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Correction)
                 {
-                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-korekta-Kopia" + ".pdf";
+                    file = invoiceDirectory + _invoice.InvoiceNumber.Replace("/", "-") + "-korekta-Kopia" + ".pdf";
                 }
                 else
                 {
-                    file = invoiceDirectory + Invoice.InvoiceNumber.Replace("/", "-") + "-Kopia" + ".pdf";
+                    file = invoiceDirectory + _invoice.InvoiceNumber.Replace("/", "-") + "-Kopia" + ".pdf";
                 }
             }
 
             string invoiceTitle;
-            if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Proforma)
+            if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Proforma)
             {
-                invoiceTitle = " FAKTURA pro forma nr " + Invoice.InvoiceNumber;
-            }else if (invoiceTitleEnum == Utility.InvoiceTypeTemplateEnum.Correction)
+                invoiceTitle = " FAKTURA pro forma nr " + _invoice.InvoiceNumber;
+            }
+            else if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Correction)
             {
-                invoiceTitle = " Korekta do FAKTURY VAT nr " + Invoice.InvoiceNumber;
+                invoiceTitle = " Korekta do FAKTURY VAT nr " + _invoice.InvoiceNumber;
             }
             else
             {
-                invoiceTitle = " FAKTURA VAT nr " + Invoice.InvoiceNumber;
+                invoiceTitle = " FAKTURA VAT nr " + _invoice.InvoiceNumber;
             }
-            
+
 
             Document document = new Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 10);
             PdfWriter.GetInstance(document, new FileStream(file, FileMode.Create));
@@ -130,7 +133,7 @@ namespace EngineeringThesis.Core.Utility
             document.Open();
 
             //create invoice title
-            document.Add(invoiceType == Utility.InvoiceTypeTemplateEnum.Original
+            document.Add(_template.InvoiceType == Utility.InvoiceTypeTemplateEnum.Original
                 ? CreateTitle("Oryginał", invoiceTitle)
                 : CreateTitle("Kopia", invoiceTitle));
 
@@ -150,13 +153,13 @@ namespace EngineeringThesis.Core.Utility
             //create invoice items
             document.Add(CreateInvoiceItemsTable());
 
-            document.Add(CreateInvoiceItems(Invoice.InvoiceItems.ToList()));
+            document.Add(CreateInvoiceItems(_invoice.InvoiceItems.ToList()));
 
-            document.Add(CreateInvoiceItemsSummary(Invoice.InvoiceItems.ToList()));
+            document.Add(CreateInvoiceItemsSummary(_invoice.InvoiceItems.ToList()));
 
             document.Add(newLine);
 
-            document.Add(CreateInvoiceSummary(invoiceTitleEnum));
+            document.Add(CreateInvoiceSummary(_template.InvoiceTitle));
 
             for (int i = 0; i < 8; i++)
             {
@@ -174,7 +177,7 @@ namespace EngineeringThesis.Core.Utility
         {
             PdfPTable table = new PdfPTable(3);
 
-            int[] colWidth = { 20, 50 ,20 };
+            int[] colWidth = { 20, 50, 20 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
 
@@ -226,7 +229,7 @@ namespace EngineeringThesis.Core.Utility
         {
             PdfPTable table = new PdfPTable(2);
 
-            int[] colWidth = { 20,70 };
+            int[] colWidth = { 20, 70 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
 
@@ -265,46 +268,76 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(paymentTypeCellName);
 
             PdfPCell paymentTypeCell = formattedCell;
-            paymentTypeCell.Phrase = new Phrase(Invoice.PaymentType.Name, _defaultFont);
+            paymentTypeCell.Phrase = new Phrase(_invoice.PaymentType.Name, _defaultFont);
             table.AddCell(paymentTypeCell);
 
-            PdfPCell paymentDateCellName = formattedCell;
-            paymentDateCellName.Phrase = new Phrase("Zapłacono: ", _defaultFont);
-            table.AddCell(paymentDateCellName);
-
-            PdfPCell paymentDateCell = formattedCell;
-            if (Invoice.PaymentDate != null)
+            if (_invoice.PaymentDate != null)
             {
-                paymentDateCell.Phrase = new Phrase(Invoice.PaymentDate.Value.ToString("dd.MM.yyyy"), _defaultFont);
+                PdfPCell paymentDateCellName = formattedCell;
+                paymentDateCellName.Phrase = new Phrase("Zapłacono: ", _defaultFont);
+                table.AddCell(paymentDateCellName);
+
+                PdfPCell paymentDateCell = formattedCell;
+
+                paymentDateCell.Phrase = new Phrase(_invoice.PaymentDate?.ToString("dd.MM.yyyy"), _defaultFont);
+
+                table.AddCell(paymentDateCell);
             }
             else
             {
-                paymentDateCell.Phrase = new Phrase("Nie zapłacono", _defaultFont);
+                PdfPCell paymentDateCellName = formattedCell;
+                paymentDateCellName.Phrase = new Phrase("Termin płatności: ", _defaultFont);
+                table.AddCell(paymentDateCellName);
+
+                PdfPCell paymentDateCell = formattedCell;
+                paymentDateCell.Phrase = new Phrase("Termin zapłaty upływa dnia: " + _invoice.PaymentDeadline.ToString("dd.MM.yyyy"), _defaultFont);
+                table.AddCell(paymentDateCell);
             }
-            table.AddCell(paymentDateCell);
 
             PdfPCell bankAccountCellName = formattedCell;
             bankAccountCellName.Phrase = new Phrase("Numer konta bankowego: ", _defaultFont);
             table.AddCell(bankAccountCellName);
 
             PdfPCell bankAccountCell = formattedCell;
-            bankAccountCell.Phrase = Invoice.Seller.BankAccountNumber != null ? new Phrase(Invoice.Seller.BankAccountNumber, _defaultFont) : new Phrase("Brak", _defaultFont);
+            bankAccountCell.Phrase = _invoice.Seller.BankAccountNumber != null ? new Phrase(_invoice.Seller.BankAccountNumber, _defaultFont) : new Phrase("Brak", _defaultFont);
             table.AddCell(bankAccountCell);
 
             blank.Phrase = new Phrase(" ", _defaultFont);
             table.AddCell(blank);
             table.AddCell(blank);
 
-            if (invoiceTitle == Utility.InvoiceTypeTemplateEnum.Correction)
+            if (_template.InvoicePersonCheckBox)
+            {
+                PdfPCell invoicePersonCellName = formattedCell;
+                invoicePersonCellName.Phrase = new Phrase("Wystawił/a: ", _fontBold);
+                table.AddCell(invoicePersonCellName);
+
+                PdfPCell invoicePersonCell = formattedCell;
+                invoicePersonCell.Phrase = new Phrase(_invoice.Seller.Name, _defaultFont);
+                table.AddCell(invoicePersonCell);
+            }
+
+            if (_template.PickupPersonCheckBox)
+            {
+                PdfPCell pickupPersonCellName = formattedCell;
+                pickupPersonCellName.Phrase = new Phrase("Osoba odpowiedzialna za odbiór: ", _fontBold);
+                table.AddCell(pickupPersonCellName);
+
+                PdfPCell pickupPersonCell = formattedCell;
+                pickupPersonCell.Phrase = new Phrase(_invoice.Contractor.Name, _defaultFont);
+                table.AddCell(pickupPersonCell);
+            }
+
+            if (_template.CommentsCheckBox)
             {
                 PdfPCell commentsCellName = formattedCell;
                 commentsCellName.Phrase = new Phrase("Uwagi do faktury: ", _fontBold);
                 table.AddCell(commentsCellName);
 
                 PdfPCell commentsCell = formattedCell;
-                if (Invoice.Comments != null)
+                if (_invoice.Comments != null)
                 {
-                    commentsCell.Phrase = new Phrase(Invoice.Comments, _defaultFont);
+                    commentsCell.Phrase = new Phrase(_invoice.Comments, _defaultFont);
                 }
                 else
                 {
@@ -345,19 +378,19 @@ namespace EngineeringThesis.Core.Utility
             };
             table.AddCell(sumCellName);
 
-            var sumNet = CalculateNetSum(Invoice.InvoiceItems.ToList());
+            var sumNet = CalculateNetSum(_invoice.InvoiceItems.ToList());
             PdfPCell sumNetCell = formattedCellCentered;
             sumNetCell.Phrase = new Phrase(sumNet, _fontBold);
             table.AddCell(sumNetCell);
 
             table.AddCell(_blankCell);
 
-            var vatSum = CalculateVatSum(Invoice.InvoiceItems.ToList());
+            var vatSum = CalculateVatSum(_invoice.InvoiceItems.ToList());
             PdfPCell vatSumCell = formattedCellCentered;
             vatSumCell.Phrase = new Phrase(vatSum, _fontBold);
             table.AddCell(vatSumCell);
 
-            _grossSum = CalculateGrossSum(Invoice.InvoiceItems.ToList());
+            _grossSum = CalculateGrossSum(_invoice.InvoiceItems.ToList());
             PdfPCell grossSumCell = formattedCellCentered;
             grossSumCell.Phrase = new Phrase(_grossSum, _fontBold);
             table.AddCell(grossSumCell);
@@ -433,7 +466,7 @@ namespace EngineeringThesis.Core.Utility
         private IElement CreateInvoiceItemsTable()
         {
             PdfPTable table = new PdfPTable(10);
-            int[] colWidth = { 7, 30, 10,7, 10, 10, 10, 7, 10, 10 };
+            int[] colWidth = { 7, 30, 10, 7, 10, 10, 10, 7, 10, 10 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
 
@@ -508,7 +541,7 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(sellerNameCellName);
 
             PdfPCell sellerNameCell = formattedCell;
-            sellerNameCell.Phrase = new Phrase(Invoice.Seller.Name, _fontBold);
+            sellerNameCell.Phrase = new Phrase(_invoice.Seller.Name, _fontBold);
             table.AddCell(sellerNameCell);
 
             table.AddCell(_blankCell);
@@ -518,7 +551,7 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(customerNameCellName);
 
             PdfPCell customerNameCell = formattedCell;
-            customerNameCell.Phrase = new Phrase(Invoice.Contractor.Name, _fontBold);
+            customerNameCell.Phrase = new Phrase(_invoice.Contractor.Name, _fontBold);
             table.AddCell(customerNameCell);
 
             table.AddCell(_blankCell);
@@ -527,7 +560,7 @@ namespace EngineeringThesis.Core.Utility
             sellerAddressCellName.Phrase = new Phrase("Adres:  ", _defaultFont);
             table.AddCell(sellerAddressCellName);
 
-            var sellerAddress = CreateAddress(Invoice.Seller);
+            var sellerAddress = CreateAddress(_invoice.Seller);
             PdfPCell sellerAddressCell = formattedCell;
             sellerAddressCell.Phrase = new Phrase(sellerAddress, _defaultFont);
             table.AddCell(sellerAddressCell);
@@ -538,7 +571,7 @@ namespace EngineeringThesis.Core.Utility
             customerAddressCellName.Phrase = new Phrase("Adres: ", _defaultFont);
             table.AddCell(customerAddressCellName);
 
-            var customerAddress = CreateAddress(Invoice.Contractor);
+            var customerAddress = CreateAddress(_invoice.Contractor);
             PdfPCell customerAddressCell = formattedCell;
             customerAddressCell.Phrase = new Phrase(customerAddress, _defaultFont);
             table.AddCell(customerAddressCell);
@@ -550,7 +583,7 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(sellerNIPCellName);
 
             PdfPCell sellerNIPCell = formattedCell;
-            sellerNIPCell.Phrase = new Phrase(Invoice.Seller.NIP, _defaultFont);
+            sellerNIPCell.Phrase = new Phrase(_invoice.Seller.NIP, _defaultFont);
             table.AddCell(sellerNIPCell);
 
             table.AddCell(_blankCell);
@@ -560,7 +593,7 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(customerNIPCellName);
 
             PdfPCell customerNIPCell = formattedCell;
-            customerNIPCell.Phrase = new Phrase(Invoice.Contractor.NIP, _defaultFont);
+            customerNIPCell.Phrase = new Phrase(_invoice.Contractor.NIP, _defaultFont);
             table.AddCell(customerNIPCell);
 
             table.AddCell(_blankCell);
@@ -572,24 +605,24 @@ namespace EngineeringThesis.Core.Utility
         {
             PdfPTable table = new PdfPTable(2);
 
-            int[] colWidth = {70, 15};
+            int[] colWidth = { 70, 15 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
 
             PdfPCell invoiceDateCellName = _formattedCellToRight;
-            invoiceDateCellName.Phrase = new Phrase("Data wystawienia: ", _defaultFont);
+            invoiceDateCellName.Phrase = new Phrase("Data sprzedaży: ", _defaultFont);
             table.AddCell(invoiceDateCellName);
 
             PdfPCell invoiceDateCell = _formattedCellToRight;
-            invoiceDateCell.Phrase = new Phrase(Invoice.InvoiceDate.ToString("dd.MM.yyyy"), _defaultFont);
+            invoiceDateCell.Phrase = new Phrase(_invoice.InvoiceDate.ToString("dd.MM.yyyy"), _defaultFont);
             table.AddCell(invoiceDateCell);
 
             PdfPCell invoicePaymentDateCellName = _formattedCellToRight;
-            invoicePaymentDateCellName.Phrase = new Phrase("Termin płatności: ", _defaultFont);
+            invoicePaymentDateCellName.Phrase = new Phrase("Data wystawienia: ", _defaultFont);
             table.AddCell(invoicePaymentDateCellName);
 
             PdfPCell invoicePaymentDateCell = _formattedCellToRight;
-            invoicePaymentDateCell.Phrase = new Phrase(Invoice.PaymentDeadline.ToString("dd.MM.yyyy"), _defaultFont);
+            invoicePaymentDateCell.Phrase = new Phrase(_invoice.InvoiceDate.ToString("dd.MM.yyyy"), _defaultFont);
             table.AddCell(invoicePaymentDateCell);
 
             PdfPCell invoiceNumberCellName = _formattedCellToRight;
@@ -597,7 +630,7 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(invoiceNumberCellName);
 
             PdfPCell invoiceNumberCell = _formattedCellToRight;
-            invoiceNumberCell.Phrase = new Phrase(Invoice.InvoiceNumber, _defaultFont);
+            invoiceNumberCell.Phrase = new Phrase(_invoice.InvoiceNumber, _defaultFont);
             table.AddCell(invoiceNumberCell);
 
             PdfPCell invoicePlaceCellName = _formattedCellToRight;
@@ -605,7 +638,7 @@ namespace EngineeringThesis.Core.Utility
             table.AddCell(invoicePlaceCellName);
 
             PdfPCell invoicePlaceDateCell = _formattedCellToRight;
-            invoicePlaceDateCell.Phrase = new Phrase(Invoice.Seller.City, _defaultFont);
+            invoicePlaceDateCell.Phrase = new Phrase(_invoice.Seller.City, _defaultFont);
             table.AddCell(invoicePlaceDateCell);
 
             return table;
