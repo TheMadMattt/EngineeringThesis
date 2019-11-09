@@ -104,6 +104,10 @@ namespace EngineeringThesis.UI.View
             NoBankAccountCheckBox.IsChecked = ViewModel.Customer.BankAccountNumber == null;
             CustomerTypeComboBox.SelectedItem = ViewModel.Customer.CustomerTypeId > 0 ? 
                 ViewModel.CustomerTypes.Find(x => x.Id == ViewModel.Customer.CustomerTypeId) : ViewModel.CustomerTypes[0];
+            if (ViewModel.IsUpdate)
+            {
+                CustomerTypeComboBox.IsEnabled = false;
+            }
         }
 
         private async void AddCustomerButton_Click(object sender, RoutedEventArgs e)
@@ -128,6 +132,7 @@ namespace EngineeringThesis.UI.View
 
                 ViewModel.BindToRefObject();
                 ViewModel.CustomerWithRef.CustomerTypeId = ((CustomerType) CustomerTypeComboBox.SelectedItem).Id;
+                ViewModel.CustomerWithRef.CustomerType = ((CustomerType) CustomerTypeComboBox.SelectedItem);
                 ViewModel.SaveCustomer();
 
                 Close();
@@ -268,7 +273,6 @@ namespace EngineeringThesis.UI.View
             EditButton.Visibility = Visibility.Collapsed;
             ButtonsGrid.Visibility = Visibility.Visible;
             CustomerNameTextBox.IsEnabled = true;
-            CustomerTypeComboBox.IsEnabled = true;
             CityTextBox.IsEnabled = true;
             ZipCodeTextBox.IsEnabled = true;
             StreetTextBox.IsEnabled = true;

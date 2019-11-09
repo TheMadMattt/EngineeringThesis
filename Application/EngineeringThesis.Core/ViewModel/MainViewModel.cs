@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 
@@ -9,7 +10,8 @@ namespace EngineeringThesis.Core.ViewModel
         private readonly InvoiceService _invoiceService;
         private readonly CustomerService _customerService;
         public List<Invoice> Invoices;
-        public List<Customer> Customers;
+        public List<Customer> Contractors;
+        public List<Customer> Sellers;
 
         public MainViewModel(InvoiceService invoiceService, CustomerService customerService)
         {
@@ -22,9 +24,9 @@ namespace EngineeringThesis.Core.ViewModel
             return Invoices = _invoiceService.GetInvoices();
         }
 
-        public List<Customer> GetCustomers()
+        public List<Customer> GetContractors()
         {
-            return Customers = _customerService.GetContractors();
+            return Contractors = _customerService.GetContractors();
         }
 
         public void DeleteInvoice(Invoice invoice)
@@ -35,6 +37,11 @@ namespace EngineeringThesis.Core.ViewModel
         public void DeleteCustomer(Customer customer)
         {
             _customerService.DeleteCustomer(customer);
+        }
+
+        public IEnumerable GetSellers()
+        {
+            return Sellers = _customerService.GetSellers();
         }
     }
 }

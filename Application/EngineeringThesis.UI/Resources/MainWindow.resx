@@ -123,6 +123,9 @@
   <data name="AddInvoice" xml:space="preserve">
     <value>Dodaj fakturę</value>
   </data>
+  <data name="AddSeller" xml:space="preserve">
+    <value>Dodaj sprzedawcę</value>
+  </data>
   <data name="Comments" xml:space="preserve">
     <value>Uwagi</value>
   </data>
@@ -150,6 +153,18 @@
   <data name="DeleteInvoice" xml:space="preserve">
     <value>Usuń fakturę</value>
   </data>
+  <data name="DeleteSeller" xml:space="preserve">
+    <value>Usuń sprzedawcę</value>
+  </data>
+  <data name="EditContractor" xml:space="preserve">
+    <value>Edytuj kontrahenta</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Edytuj fakturę</value>
+  </data>
+  <data name="EditSeller" xml:space="preserve">
+    <value>Edytuj sprzedawcę</value>
+  </data>
   <data name="Invoice" xml:space="preserve">
     <value>Faktura</value>
   </data>
@@ -173,5 +188,8 @@
   </data>
   <data name="SellerName" xml:space="preserve">
     <value>Sprzedawca</value>
+  </data>
+  <data name="Sellers" xml:space="preserve">
+    <value>Sprzedawcy</value>
   </data>
 </root>

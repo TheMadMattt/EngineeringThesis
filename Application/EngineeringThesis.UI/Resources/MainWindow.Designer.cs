@@ -79,6 +79,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj sprzedawcę.
+        /// </summary>
+        public static string AddSeller {
+            get {
+                return ResourceManager.GetString("AddSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uwagi.
         /// </summary>
         public static string Comments {
@@ -160,6 +169,42 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuń sprzedawcę.
+        /// </summary>
+        public static string DeleteSeller {
+            get {
+                return ResourceManager.GetString("DeleteSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edytuj kontrahenta.
+        /// </summary>
+        public static string EditContractor {
+            get {
+                return ResourceManager.GetString("EditContractor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edytuj fakturę.
+        /// </summary>
+        public static string EditInvoice {
+            get {
+                return ResourceManager.GetString("EditInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edytuj sprzedawcę.
+        /// </summary>
+        public static string EditSeller {
+            get {
+                return ResourceManager.GetString("EditSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faktura.
         /// </summary>
         public static string Invoice {
@@ -228,6 +273,15 @@ namespace EngineeringThesis.UI.Resources {
         public static string SellerName {
             get {
                 return ResourceManager.GetString("SellerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sprzedawcy.
+        /// </summary>
+        public static string Sellers {
+            get {
+                return ResourceManager.GetString("Sellers", resourceCulture);
             }
         }
     }

@@ -279,7 +279,13 @@
                                 <TextBlock Text="{Binding Comments}" Margin="5" Foreground="Gray"/>
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
-                        </DataGrid>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu Margin="0">
+                                <MenuItem Name="EditMenuItem" Header="{x:Static resx:InvoiceWindow.EditItem}" Icon="{materialDesign:PackIcon Edit}" Click="EditMenuItem_Click"/>
+                                <MenuItem Name="DeleteMenuItem" Header="{x:Static resx:InvoiceWindow.DeleteItem}" Icon="{materialDesign:PackIcon Delete}" Click="DeleteMenuItem_Click"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>

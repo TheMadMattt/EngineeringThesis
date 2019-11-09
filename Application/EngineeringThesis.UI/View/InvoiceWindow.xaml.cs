@@ -88,6 +88,7 @@ namespace EngineeringThesis.UI.View
                 AddContractorBtn.IsEnabled = false;
                 AddSellerBtn.IsEnabled = false;
                 CommentsTextBox.IsEnabled = false;
+                if (InvoiceItemsDataGrid.ContextMenu != null) InvoiceItemsDataGrid.ContextMenu.IsEnabled = false;
             }
         }
 
@@ -164,6 +165,49 @@ namespace EngineeringThesis.UI.View
                 }
 
                 InvoiceItemsDataGrid.Items.Refresh();
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+            }
+        }
+
+        private async void EditMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
+            {
+                await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
+
+                if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
+                {
+                    var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
+                    var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
+                    invoiceItemsList[index] = invoiceItem;
+                }
+
+                InvoiceItemsDataGrid.Items.Refresh();
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+            }
+        }
+
+        private async void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (InvoiceItemsDataGrid.SelectedItem != null)
+            {
+                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
+                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
+                    "Usuwanie produktu", "Tak", "Nie"));
+                if (result.Action != null)
+                    if (result.Action.Equals("positive"))
+                    {
+                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
+                        InvoiceItemsDataGrid.Items.Refresh();
+                    }
             }
             else
             {
@@ -305,6 +349,7 @@ namespace EngineeringThesis.UI.View
             AddContractorBtn.IsEnabled = true;
             AddSellerBtn.IsEnabled = true;
             CommentsTextBox.IsEnabled = true;
+            if (InvoiceItemsDataGrid.ContextMenu != null) InvoiceItemsDataGrid.ContextMenu.IsEnabled = true;
         }
 
         private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
