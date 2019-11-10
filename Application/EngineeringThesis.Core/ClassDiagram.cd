@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="EngineeringThesis.Core.Models.Customer">
-    <Position X="3.5" Y="0.75" Width="1.5" />
+    <Position X="3.5" Y="0.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AgBCEAAAAAAAAAAIAAAIQAQAAAAAAAABBAIAAAAAIAI=</HashCode>
       <FileName>Models\Customer.cs</FileName>
@@ -11,29 +11,26 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="EngineeringThesis.Core.Models.CustomerType">
-    <Position X="3.5" Y="4.5" Width="1.5" />
+    <Position X="3.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\CustomerType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EngineeringThesis.Core.Models.Invoice">
-    <Position X="7" Y="0.75" Width="1.5" />
+    <Position X="6.5" Y="0.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAgECAAgAEgAQAAAAAIAAAQCAAAAAAAAAKAA=</HashCode>
       <FileName>Models\Invoice.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="PaymentType" />
       <Property Name="Contractor" />
       <Property Name="Seller" />
+      <Property Name="PaymentType" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="InvoiceItems" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EngineeringThesis.Core.Models.InvoiceItem">
-    <Position X="9.75" Y="0.75" Width="1.5" />
+    <Position X="9.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACIgAAAgAAAAAAIAAAAAaAAAAACCAAAAAAAAAAISA=</HashCode>
       <FileName>Models\InvoiceItem.cs</FileName>
@@ -43,7 +40,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="EngineeringThesis.Core.Models.PaymentType">
-    <Position X="7" Y="4.5" Width="1.5" />
+    <Position X="6.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\PaymentType.cs</FileName>
