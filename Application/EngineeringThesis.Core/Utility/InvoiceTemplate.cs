@@ -196,28 +196,63 @@ namespace EngineeringThesis.Core.Utility
                 Border = 0
             };
 
-            PdfPCell dotCell = formattedCellToLeft;
-            dotCell.Phrase = dots;
-            table.AddCell(dotCell);
-
+            PdfPCell dotCell;
             PdfPCell emptyCell = formattedCellToLeft;
+            if (_template.PickupPersonCheckBox)
+            {
+                dotCell = formattedCellToLeft;
+                dotCell.Phrase = dots;
+                table.AddCell(dotCell);
+            }
+            else
+            {
+                emptyCell.Phrase = new Phrase("", _bigFont);
+                table.AddCell(emptyCell);
+            }
+            
+
             emptyCell.Phrase = new Phrase("", _bigFont);
             table.AddCell(emptyCell);
 
-            dotCell = formattedCellToRight;
-            dotCell.Phrase = dots;
-            table.AddCell(dotCell);
+            if (_template.InvoicePersonCheckBox)
+            {
+                dotCell = formattedCellToRight;
+                dotCell.Phrase = dots;
+                table.AddCell(dotCell);
+            }
+            else
+            {
+                emptyCell.Phrase = new Phrase("", _bigFont);
+                table.AddCell(emptyCell);
+            }
 
-            PdfPCell contractorCell = formattedCellToLeft;
-            contractorCell.Phrase = new Phrase("Podpis osoby upoważnionej \n do odbioru faktury VAT", _defaultFont);
-            table.AddCell(contractorCell);
+            if (_template.PickupPersonCheckBox)
+            {
+                PdfPCell contractorCell = formattedCellToLeft;
+                contractorCell.Phrase = new Phrase("Podpis osoby upoważnionej \n do odbioru faktury VAT", _defaultFont);
+                table.AddCell(contractorCell);
+            }
+            else
+            {
+                emptyCell.Phrase = new Phrase("", _bigFont);
+                table.AddCell(emptyCell);
+            }
 
             emptyCell.Phrase = new Phrase("", _bigFont);
             table.AddCell(emptyCell);
 
-            PdfPCell sellerCell = formattedCellToRight;
-            sellerCell.Phrase = new Phrase("Podpis osoby upoważnionej \n do wystawienia faktury VAT", _defaultFont);
-            table.AddCell(sellerCell);
+            if (_template.InvoicePersonCheckBox)
+            {
+                PdfPCell sellerCell = formattedCellToRight;
+                sellerCell.Phrase = new Phrase("Podpis osoby upoważnionej \n do wystawienia faktury VAT", _defaultFont);
+                table.AddCell(sellerCell);
+            }
+            else
+            {
+                emptyCell.Phrase = new Phrase("", _bigFont);
+                table.AddCell(emptyCell);
+            }
+            
 
             return table;
         }
@@ -302,28 +337,6 @@ namespace EngineeringThesis.Core.Utility
             blank.Phrase = new Phrase(" ", _defaultFont);
             table.AddCell(blank);
             table.AddCell(blank);
-
-            if (_template.InvoicePersonCheckBox)
-            {
-                PdfPCell invoicePersonCellName = formattedCell;
-                invoicePersonCellName.Phrase = new Phrase("Wystawił/a: ", _fontBold);
-                table.AddCell(invoicePersonCellName);
-
-                PdfPCell invoicePersonCell = formattedCell;
-                invoicePersonCell.Phrase = new Phrase(_invoice.Seller.Name, _defaultFont);
-                table.AddCell(invoicePersonCell);
-            }
-
-            if (_template.PickupPersonCheckBox)
-            {
-                PdfPCell pickupPersonCellName = formattedCell;
-                pickupPersonCellName.Phrase = new Phrase("Osoba odpowiedzialna za odbiór: ", _fontBold);
-                table.AddCell(pickupPersonCellName);
-
-                PdfPCell pickupPersonCell = formattedCell;
-                pickupPersonCell.Phrase = new Phrase(_invoice.Contractor.Name, _defaultFont);
-                table.AddCell(pickupPersonCell);
-            }
 
             if (_template.CommentsCheckBox)
             {
