@@ -101,7 +101,7 @@ namespace EngineeringThesis.UI.View
             ViewModel.Invoice.PaymentDeadline = DateTime.Today;
             IsPaidCheckBox.IsChecked = false;
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
-            TitleLabel.Content = "Faktura " + ViewModel.Invoice.InvoiceNumber;
+            TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
 
             ViewModel.Invoice.PaymentTypeId = ((PaymentType)PaymentTypeComboBox.SelectedItem).Id;
             ViewModel.Invoice.ContractorId = ((Customer)ContractorComboBox.SelectedItem).Id;
@@ -524,6 +524,22 @@ namespace EngineeringThesis.UI.View
                 var comparePaymentDeadline = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice.PaymentDeadline);
                 var comparePaymentDate = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice?.PaymentDate);
 
+                if (InvoiceDatePicker.SelectedDate != null)
+                {
+                    if (ViewModel.InvoiceYear < InvoiceDatePicker.SelectedDate.Value.Year)
+                    {
+                        ViewModel.InvoiceYear = InvoiceDatePicker.SelectedDate.Value.Year;
+                        ViewModel.InvoiceNumber = 1;
+                        ViewModel.Invoice.InvoiceNumber = ViewModel.InvoiceNumber + "/" + ViewModel.InvoiceYear;
+                        TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
+                    }else if (InvoiceDatePicker.SelectedDate.Value.Year == DateTime.Now.Year)
+                    {
+                        ViewModel.Invoice.InvoiceNumber =
+                            ViewModel.CreateInvoiceNumber(ViewModel.LastInvoice.InvoiceNumber);
+                        TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
+                    }
+                }
+
                 InvoiceDialogHost.IsOpen = false;
                 if (comparePaymentDeadline > 0)
                 {
@@ -534,7 +550,7 @@ namespace EngineeringThesis.UI.View
                     if (InvoiceDatePicker.SelectedDate != null) PaymentDeadlineDatePicker.SelectedDate = null;
                 }
 
-                if (comparePaymentDate > 0)
+                if (comparePaymentDate > 0 && ViewModel.Invoice.PaymentDate != null)
                 {
                     await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(
                         new Information("Data płatności nie może być wcześniejsza niż data wystawienia faktury",

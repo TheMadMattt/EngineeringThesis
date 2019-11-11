@@ -13,9 +13,12 @@ namespace EngineeringThesis.Core.ViewModel
         private Invoice _invoice;
 
         public Invoice InvoiceWithRef;
+        public Invoice LastInvoice;
         public List<PaymentType> PaymentTypes;
         public List<Customer> Contractors;
         public List<Customer> Sellers;
+        public int InvoiceYear;
+        public int InvoiceNumber;
         public InvoiceViewModel(CustomerService customerService, InvoiceService invoiceService, 
                                 PaymentTypeService paymentTypeService)
         {
@@ -41,7 +44,7 @@ namespace EngineeringThesis.Core.ViewModel
 
         public Invoice GetLastInvoice()
         {
-            return _invoiceService.GetLastInvoice();
+            return LastInvoice = _invoiceService.GetLastInvoice();
         }
 
         public Invoice GetInvoice()
@@ -82,16 +85,17 @@ namespace EngineeringThesis.Core.ViewModel
         public string CreateInvoiceNumber(string lastInvoiceNumber)
         {
             string[] splitted = lastInvoiceNumber.Split("/");
-            var number = Convert.ToInt32(splitted[0]);
-            var year = Convert.ToInt32(splitted[1]);
+            InvoiceNumber = Convert.ToInt32(splitted[0]);
+            InvoiceYear = Convert.ToInt32(splitted[1]);
 
-            number += 1;
-            if (!year.Equals(DateTime.Today.Year))
+            InvoiceNumber += 1;
+            if (InvoiceYear < DateTime.Today.Year)
             {
-                year += 1;
+                InvoiceYear += 1;
+                InvoiceNumber = 1;
             }
 
-            return number + "/" + year;
+            return InvoiceNumber + "/" + InvoiceYear;
         }
 
         public void BindData(Invoice invoice)

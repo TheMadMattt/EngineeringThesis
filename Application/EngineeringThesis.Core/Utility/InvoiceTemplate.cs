@@ -112,7 +112,7 @@ namespace EngineeringThesis.Core.Utility
             string invoiceTitle;
             if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Proforma)
             {
-                invoiceTitle = " FAKTURA pro forma nr " + _invoice.InvoiceNumber;
+                invoiceTitle = " FAKTURA PRO FORMA nr " + _invoice.InvoiceNumber;
             }
             else if (_template.InvoiceTitle == Utility.InvoiceTypeTemplateEnum.Correction)
             {
