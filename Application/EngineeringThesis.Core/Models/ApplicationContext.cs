@@ -13,7 +13,7 @@ namespace EngineeringThesis.Core.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = System.AppDomain.CurrentDomain.BaseDirectory;
+            var connectionString = AppDomain.CurrentDomain.BaseDirectory;
             connectionString += "\\Invoices.db";
             optionsBuilder
                 .UseSqlite($@"Data Source={connectionString}");

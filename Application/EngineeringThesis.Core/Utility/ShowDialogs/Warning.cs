@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Forge.Forms;
+﻿using Forge.Forms;
 using Forge.Forms.Annotations;
-using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.Core.Utility.ShowDialogs
 {
@@ -20,20 +16,20 @@ namespace EngineeringThesis.Core.Utility.ShowDialogs
 
         public Warning(string message)
         {
-            this.Message = message;
+            Message = message;
         }
 
         public Warning(string message, string title)
         {
-            this.Message = message;
-            this.Title = title;
+            Message = message;
+            Title = title;
         }
 
         public Warning(string message, string title, string positiveAction)
         {
-            this.Message = message;
-            this.Title = title;
-            this.PositiveAction = positiveAction;
+            Message = message;
+            Title = title;
+            PositiveAction = positiveAction;
         }
 
         public Warning(
@@ -42,10 +38,10 @@ namespace EngineeringThesis.Core.Utility.ShowDialogs
             string positiveAction,
             string negativeAction)
         {
-            this.Message = message;
-            this.Title = title;
-            this.PositiveAction = positiveAction;
-            this.NegativeAction = negativeAction;
+            Message = message;
+            Title = title;
+            PositiveAction = positiveAction;
+            NegativeAction = negativeAction;
         }
     }
 }

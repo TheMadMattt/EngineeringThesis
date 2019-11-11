@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Models.DisplayModels;
-using EngineeringThesis.Core.Services;
 
 namespace EngineeringThesis.Core.ViewModel
 {
     public class InvoiceItemViewModel : BaseViewModel
     {
-        private readonly InvoiceItemService _invoiceItemService;
         private InvoiceItemDisplayModel _invoiceItem;
         public InvoiceItem InvoiceItemWithRef;
 
-        public InvoiceItemViewModel(InvoiceItemService invoiceItemService)
-        {
-            _invoiceItemService = invoiceItemService;
-        }
+        public InvoiceItemViewModel() {}
 
         public InvoiceItemDisplayModel InvoiceItem
         {

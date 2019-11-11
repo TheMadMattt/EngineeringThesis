@@ -11,7 +11,6 @@ using EngineeringThesis.Core.Utility;
 using EngineeringThesis.Core.Utility.ShowDialogs;
 using EngineeringThesis.Core.ViewModel;
 using EngineeringThesis.UI.Navigation;
-using iTextSharp.text.pdf;
 using MaterialDesignThemes.Wpf;
 
 namespace EngineeringThesis.UI.View

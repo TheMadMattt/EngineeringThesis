@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Security;
-using System.Text;
-using System.Windows.Media;
 using EngineeringThesis.Core.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -17,11 +14,11 @@ namespace EngineeringThesis.Core.Utility
     {
         private readonly Invoice _invoice;
         private Utility.InvoiceTemplateStruct _template;
-        private readonly iTextSharp.text.Font _defaultFont;
-        private readonly iTextSharp.text.Font _fontBold;
-        private readonly iTextSharp.text.Font _fontMini;
-        private readonly iTextSharp.text.Font _bigFontBold;
-        private readonly iTextSharp.text.Font _bigFont;
+        private readonly Font _defaultFont;
+        private readonly Font _fontBold;
+        private readonly Font _fontMini;
+        private readonly Font _bigFontBold;
+        private readonly Font _bigFont;
         private readonly PdfPCell _blankCell;
         private readonly PdfPCell _formattedCellToRight;
         private string _grossSum;
@@ -33,11 +30,11 @@ namespace EngineeringThesis.Core.Utility
 
             BaseFont regularFont = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
             BaseFont boldFont = BaseFont.CreateFont(BaseFont.TIMES_BOLD, BaseFont.CP1250, BaseFont.EMBEDDED);
-            _defaultFont = new iTextSharp.text.Font(regularFont, 9);
-            _fontBold = new iTextSharp.text.Font(boldFont, 9);
-            _fontMini = new iTextSharp.text.Font(regularFont, 7);
-            _bigFontBold = new iTextSharp.text.Font(boldFont, 14);
-            _bigFont = new iTextSharp.text.Font(regularFont, 14);
+            _defaultFont = new Font(regularFont, 9);
+            _fontBold = new Font(boldFont, 9);
+            _fontMini = new Font(regularFont, 7);
+            _bigFontBold = new Font(boldFont, 14);
+            _bigFont = new Font(regularFont, 14);
 
             _culture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
             _culture.NumberFormat.NumberDecimalSeparator = ",";
@@ -64,12 +61,12 @@ namespace EngineeringThesis.Core.Utility
             var directory = "Faktury";
             var invoiceDirectory = directory + "/" + _invoice.InvoiceNumber.Replace("/", "-") + @"\";
             var newLine = new Paragraph("\n");
-            bool exists = System.IO.Directory.Exists(directory);
+            bool exists = Directory.Exists(directory);
             if (!exists)
             {
-                System.IO.Directory.CreateDirectory(directory);
+                Directory.CreateDirectory(directory);
             }
-            exists = System.IO.Directory.Exists(directory);
+            exists = Directory.Exists(directory);
             if (exists)
             {
                 bool existsInvoice = Directory.Exists(invoiceDirectory);
@@ -127,7 +124,7 @@ namespace EngineeringThesis.Core.Utility
             }
 
 
-            Document document = new Document(iTextSharp.text.PageSize.A4, 50, 50, 70, 10);
+            Document document = new Document(PageSize.A4, 50, 50, 70, 10);
             PdfWriter.GetInstance(document, new FileStream(file, FileMode.Create));
 
             document.Open();
@@ -155,11 +152,11 @@ namespace EngineeringThesis.Core.Utility
 
             document.Add(CreateInvoiceItems(_invoice.InvoiceItems.ToList()));
 
-            document.Add(CreateInvoiceItemsSummary(_invoice.InvoiceItems.ToList()));
+            document.Add(CreateInvoiceItemsSummary());
 
             document.Add(newLine);
 
-            document.Add(CreateInvoiceSummary(_template.InvoiceTitle));
+            document.Add(CreateInvoiceSummary());
 
             for (int i = 0; i < 8; i++)
             {
@@ -225,7 +222,7 @@ namespace EngineeringThesis.Core.Utility
             return table;
         }
 
-        private IElement CreateInvoiceSummary(Utility.InvoiceTypeTemplateEnum invoiceTitle)
+        private IElement CreateInvoiceSummary()
         {
             PdfPTable table = new PdfPTable(2);
 
@@ -349,7 +346,7 @@ namespace EngineeringThesis.Core.Utility
             return table;
         }
 
-        private IElement CreateInvoiceItemsSummary(List<InvoiceItem> invoiceItems)
+        private IElement CreateInvoiceItemsSummary()
         {
             PdfPTable table = new PdfPTable(10);
 
