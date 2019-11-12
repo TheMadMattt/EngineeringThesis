@@ -46,5 +46,12 @@
       <FileName>Models\PaymentType.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="EngineeringThesis.Core.Models.LastInvoiceNumber">
+    <Position X="9.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LastInvoiceNumber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
