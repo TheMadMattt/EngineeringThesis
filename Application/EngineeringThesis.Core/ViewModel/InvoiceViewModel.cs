@@ -95,7 +95,31 @@ namespace EngineeringThesis.Core.ViewModel
                 InvoiceNumber = 1;
             }
 
-            return InvoiceNumber + "/" + InvoiceYear;
+            var newLastInvoiceNumber = InvoiceNumber + "/" + InvoiceYear;
+
+            return newLastInvoiceNumber;
+        }
+
+        public void SaveLastInvoiceNumber(string newLastInvoiceNumber)
+        {
+            var lastInvoiceYear = Convert.ToInt32(newLastInvoiceNumber.Split("/")[1]);
+            var lastNumber = _invoiceService.FindLastInvoiceNumber(lastInvoiceYear.ToString());
+
+            if(lastNumber != null)
+            {
+                lastNumber.InvoiceNumber = newLastInvoiceNumber;
+
+                _invoiceService.UpdateLastInvoiceNumber(lastNumber);
+            }
+            else
+            {
+                var newLastNumber = new LastInvoiceNumber
+                {
+                    InvoiceNumber = newLastInvoiceNumber
+                };
+
+                _invoiceService.SaveLastInvoiceNumber(newLastNumber);
+            }
         }
 
         public void BindData(Invoice invoice)
@@ -160,6 +184,13 @@ namespace EngineeringThesis.Core.ViewModel
                 _invoiceService.SaveInvoice(InvoiceWithRef);
             }
             
+        }
+
+        public LastInvoiceNumber GetLastInvoiceNumber(int valueYear)
+        {
+            var lastInvoiceNumber = _invoiceService.FindLastInvoiceNumber(valueYear.ToString());
+
+            return lastInvoiceNumber;
         }
     }
 }

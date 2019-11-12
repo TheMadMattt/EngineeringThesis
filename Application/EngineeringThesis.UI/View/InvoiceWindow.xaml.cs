@@ -55,6 +55,7 @@ namespace EngineeringThesis.UI.View
                     var lastInvoice = ViewModel.GetLastInvoice();
                     ViewModel.Invoice.InvoiceNumber =
                         ViewModel.CreateInvoiceNumber(lastInvoice.InvoiceNumber);
+                    CheckInvoiceNumber();
                     ViewModel.Invoice.InvoiceItems = new List<InvoiceItem>();
                     BindNewInvoiceToControls();
                 }
@@ -282,6 +283,7 @@ namespace EngineeringThesis.UI.View
 
                     ViewModel.BindDataToRef();
                     ViewModel.SaveInvoice();
+                    ViewModel.SaveLastInvoiceNumber(ViewModel.Invoice.InvoiceNumber);
                     Close();
                 }
                 catch (Exception)
@@ -519,26 +521,11 @@ namespace EngineeringThesis.UI.View
 
         private async void InvoiceDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            CheckInvoiceNumber();
             if (ViewModel != null && !EditingInvoiceBtn.IsEnabled)
             {
                 var comparePaymentDeadline = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice.PaymentDeadline);
                 var comparePaymentDate = ViewModel.Invoice.InvoiceDate.CompareTo(ViewModel.Invoice?.PaymentDate);
-
-                if (InvoiceDatePicker.SelectedDate != null)
-                {
-                    if (ViewModel.InvoiceYear < InvoiceDatePicker.SelectedDate.Value.Year)
-                    {
-                        ViewModel.InvoiceYear = InvoiceDatePicker.SelectedDate.Value.Year;
-                        ViewModel.InvoiceNumber = 1;
-                        ViewModel.Invoice.InvoiceNumber = ViewModel.InvoiceNumber + "/" + ViewModel.InvoiceYear;
-                        TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
-                    }else if (InvoiceDatePicker.SelectedDate.Value.Year == DateTime.Now.Year)
-                    {
-                        ViewModel.Invoice.InvoiceNumber =
-                            ViewModel.CreateInvoiceNumber(ViewModel.LastInvoice.InvoiceNumber);
-                        TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
-                    }
-                }
 
                 InvoiceDialogHost.IsOpen = false;
                 if (comparePaymentDeadline > 0)
@@ -646,6 +633,31 @@ namespace EngineeringThesis.UI.View
                         new Information("Nie udało się utworzyć pliku PDF, " +
                                         "prawdopodobnie plik PDF jest otwarty w innym oknie, " +
                                         "zamknij pozostałe okna i spróbuj ponownie", "Zaznacz produkt", "OK"));
+                }
+            }
+        }
+
+        private void CheckInvoiceNumber()
+        {
+            if (InvoiceDatePicker.SelectedDate != null && ViewModel != null)
+            {
+                if (ViewModel.InvoiceYear != InvoiceDatePicker.SelectedDate.Value.Year)
+                {
+                    var lastInvoiceNumber = ViewModel.GetLastInvoiceNumber(InvoiceDatePicker.SelectedDate.Value.Year);
+
+                    if (lastInvoiceNumber != null)
+                    {
+                        ViewModel.Invoice.InvoiceNumber =
+                            ViewModel.CreateInvoiceNumber(lastInvoiceNumber.InvoiceNumber);
+                        TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
+                    }
+                    else
+                    {
+                        ViewModel.InvoiceYear = InvoiceDatePicker.SelectedDate.Value.Year;
+                        ViewModel.InvoiceNumber = 1;
+                        ViewModel.Invoice.InvoiceNumber = ViewModel.InvoiceNumber + "/" + ViewModel.InvoiceYear;
+                        TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
+                    }
                 }
             }
         }

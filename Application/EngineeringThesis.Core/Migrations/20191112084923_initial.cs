@@ -21,6 +21,19 @@ namespace EngineeringThesis.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LastInvoiceNumbers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    InvoiceNumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LastInvoiceNumbers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentTypes",
                 columns: table => new
                 {
@@ -178,7 +191,7 @@ namespace EngineeringThesis.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "IsProformaInvoice", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 1, null, 2, new DateTime(2019, 11, 8, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", false, new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
+                values: new object[] { 1, null, 2, new DateTime(2019, 11, 12, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", false, new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
@@ -225,6 +238,9 @@ namespace EngineeringThesis.Core.Migrations
         {
             migrationBuilder.DropTable(
                 name: "InvoiceItems");
+
+            migrationBuilder.DropTable(
+                name: "LastInvoiceNumbers");
 
             migrationBuilder.DropTable(
                 name: "Invoices");

@@ -57,5 +57,26 @@ namespace EngineeringThesis.Core.Services
             _ctx.Entry(oldInvoice).CurrentValues.SetValues(invoice);
             _ctx.SaveChanges();
         }
+
+        public LastInvoiceNumber FindLastInvoiceNumber(string lastInvoiceNumber)
+        {
+            return _ctx.LastInvoiceNumbers.FirstOrDefault(x => x.InvoiceNumber.Contains(lastInvoiceNumber));
+        }
+
+        public void UpdateLastInvoiceNumber(LastInvoiceNumber lastNumber)
+        {
+            var oldLastNumber = _ctx.LastInvoiceNumbers.Find(lastNumber.Id);
+
+            _ctx.Entry(oldLastNumber).CurrentValues.SetValues(lastNumber);
+
+            _ctx.SaveChanges();
+        }
+
+        public void SaveLastInvoiceNumber(LastInvoiceNumber newLastNumber)
+        {
+            _ctx.LastInvoiceNumbers.Add(newLastNumber);
+
+            _ctx.SaveChanges();
+        }
     }
 }

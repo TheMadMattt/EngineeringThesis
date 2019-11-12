@@ -10,6 +10,7 @@ namespace EngineeringThesis.Core.Models
         public DbSet<InvoiceItem> InvoiceItems { get; set; }
         public DbSet<CustomerType> CustomerTypes { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<LastInvoiceNumber> LastInvoiceNumbers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,6 +27,7 @@ namespace EngineeringThesis.Core.Models
             modelBuilder.Entity<InvoiceItem>().ToTable("InvoiceItems");
             modelBuilder.Entity<CustomerType>().ToTable("CustomerTypes");
             modelBuilder.Entity<PaymentType>().ToTable("PaymentTypes");
+            modelBuilder.Entity<LastInvoiceNumber>().ToTable("LastInvoiceNumbers");
 
             modelBuilder.Entity<CustomerType>().HasData(
                 new CustomerType { Id = 1, Name = "Kontrahent"},
