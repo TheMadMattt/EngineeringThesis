@@ -28,6 +28,9 @@
       <Property Name="Seller" />
       <Property Name="PaymentType" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="InvoiceItems" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EngineeringThesis.Core.Models.InvoiceItem">
     <Position X="9.5" Y="0.75" Width="1.5" />
