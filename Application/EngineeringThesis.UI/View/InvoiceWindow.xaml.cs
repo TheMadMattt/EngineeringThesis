@@ -53,8 +53,7 @@ namespace EngineeringThesis.UI.View
                     ViewModel.Invoice = new Invoice();
                     ViewModel.IsUpdate = false;
                     var lastInvoice = ViewModel.GetLastInvoice();
-                    ViewModel.Invoice.InvoiceNumber =
-                        ViewModel.CreateInvoiceNumber(lastInvoice.InvoiceNumber);
+                    ViewModel.Invoice.InvoiceNumber = ViewModel.CreateInvoiceNumber(lastInvoice?.InvoiceNumber);
                     CheckInvoiceNumber();
                     ViewModel.Invoice.InvoiceItems = new List<InvoiceItem>();
                     BindNewInvoiceToControls();
@@ -262,7 +261,7 @@ namespace EngineeringThesis.UI.View
 
         private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0;
+            e.CanExecute = true; //ViewModel.Invoice.InvoiceItems.Count > 0;
         }
 
         private async void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)

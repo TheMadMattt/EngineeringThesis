@@ -78,5 +78,11 @@ namespace EngineeringThesis.Core.Services
 
             _ctx.SaveChanges();
         }
+
+        public void DeleteLastInvoiceNumber(LastInvoiceNumber lastInvoiceNumber)
+        {
+            _ctx.LastInvoiceNumbers.Remove(lastInvoiceNumber);
+            _ctx.SaveChanges();
+        }
     }
 }

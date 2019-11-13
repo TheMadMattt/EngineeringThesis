@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
@@ -31,6 +32,26 @@ namespace EngineeringThesis.Core.ViewModel
 
         public void DeleteInvoice(Invoice invoice)
         {
+            var lastInvoiceNumber = _invoiceService.FindLastInvoiceNumber(invoice.InvoiceNumber);
+            if (lastInvoiceNumber != null)
+            {
+                string[] split = lastInvoiceNumber.InvoiceNumber.Split("/");
+                var number = Convert.ToInt32(split[0]);
+                var year = Convert.ToInt32(split[1]);
+                if (number > 1)
+                {
+                    number -= 1;
+                    lastInvoiceNumber.InvoiceNumber = number + "/" + year;
+
+                    _invoiceService.UpdateLastInvoiceNumber(lastInvoiceNumber);
+                }
+
+                if (number == 1)
+                {
+                    _invoiceService.DeleteLastInvoiceNumber(lastInvoiceNumber);
+                }
+
+            }
             _invoiceService.DeleteInvoice(invoice);
         }
 

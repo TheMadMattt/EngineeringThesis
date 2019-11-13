@@ -30,21 +30,24 @@ namespace EngineeringThesis.UI.View
 
         private async void InvoiceDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
+            if (InvoiceDataGrid.SelectedCells.Count > 0)
             {
-                await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
-                if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+                if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
                 {
-                    var index = ViewModel.Invoices.FindIndex(x => x.Id == invoice.Id);
-                    ViewModel.Invoices[index] = invoice;
-                    InvoiceDataGrid.Items.Refresh();
+                    await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
+                    if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+                    {
+                        var index = ViewModel.Invoices.FindIndex(x => x.Id == invoice.Id);
+                        ViewModel.Invoices[index] = invoice;
+                        InvoiceDataGrid.Items.Refresh();
+                    }
                 }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żadna faktura nie została wybrana", "Zaznacz fakturę", "OK"));
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żadna faktura nie została wybrana", "Zaznacz fakturę", "OK"));
             }
-
         }
 
         private async void AddInvoiceButton_Click(object sender, RoutedEventArgs e)
@@ -60,19 +63,23 @@ namespace EngineeringThesis.UI.View
 
         private async void EditInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
+            if (InvoiceDataGrid.SelectedCells.Count > 0)
             {
-                await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
-                if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+                if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
                 {
-                    var index = ViewModel.Invoices.FindIndex(x => x.Id == invoice.Id);
-                    ViewModel.Invoices[index] = invoice;
-                    InvoiceDataGrid.Items.Refresh();
+                    await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
+                    if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+                    {
+                        var index = ViewModel.Invoices.FindIndex(x => x.Id == invoice.Id);
+                        ViewModel.Invoices[index] = invoice;
+                        InvoiceDataGrid.Items.Refresh();
+                    }
                 }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żadna faktura nie została wybrana", "Zaznacz fakturę", "OK"));
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żadna faktura nie została wybrana", "Zaznacz fakturę", "OK"));
             }
         }
 
@@ -88,34 +95,46 @@ namespace EngineeringThesis.UI.View
 
         private async void EditContractorButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ContractorDataGrid.SelectedCells[0].Item is Customer customer)
+            if (ContractorDataGrid.SelectedCells.Count > 0)
             {
-                await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-                ContractorDataGrid.Items.Refresh();
+                if (ContractorDataGrid.SelectedCells[0].Item is Customer customer)
+                {
+                    await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                    ContractorDataGrid.Items.Refresh();
+                }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żaden kontrahent nie został wybrany", "Zaznacz kontrahenta", "OK"));
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden kontrahent nie został wybrany", "Zaznacz kontrahenta", "OK"));
             }
         }
 
         private async void DeleteContractorButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ContractorDataGrid.SelectedCells[0].Item is Customer customer)
+            if (ContractorDataGrid.SelectedCells.Count > 0)
             {
-                var result = await Forge.Forms.Show.Dialog("MainDialogHost").For(
-                    new Warning("Czy napewno chcesz usunąć kontrahenta: " + customer.Name,
-                        "Usuwanie kontrahenta", "Tak", "Nie"));
-                if (result.Action != null)
+                if (ContractorDataGrid.SelectedCells[0].Item is Customer customer)
                 {
-                    if (result.Action.Equals("positive"))
+                    var result = await Forge.Forms.Show.Dialog("MainDialogHost").For(
+                        new Warning("Czy napewno chcesz usunąć kontrahenta: " + customer.Name,
+                            "Usuwanie kontrahenta", "Tak", "Nie"));
+                    if (result.Action != null)
                     {
-                        ViewModel.DeleteCustomer(customer);
-                        ViewModel.Contractors.Remove(customer);
-                        ContractorDataGrid.Items.Refresh();
+                        if (result.Action.Equals("positive"))
+                        {
+                            ViewModel.DeleteCustomer(customer);
+                            ViewModel.Contractors.Remove(customer);
+                            ContractorDataGrid.Items.Refresh();
+                        }
                     }
-                }
 
+                }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden kontrahent nie został wybrany", "Zaznacz kontrahenta", "OK"));
             }
         }
 
@@ -131,80 +150,108 @@ namespace EngineeringThesis.UI.View
 
         private async void EditSellerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SellerDataGrid.SelectedCells[0].Item is Customer customer)
+            if (SellerDataGrid.SelectedCells.Count > 0)
             {
-                await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-                SellerDataGrid.Items.Refresh();
+                if (SellerDataGrid.SelectedCells[0].Item is Customer customer)
+                {
+                    await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                    SellerDataGrid.Items.Refresh();
+                }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
+
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
+
             }
         }
 
         private async void DeleteSellerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SellerDataGrid.SelectedCells[0].Item is Customer customer)
+            if (SellerDataGrid.SelectedCells.Count > 0)
             {
-                var result = await Forge.Forms.Show.Dialog("MainDialogHost").For(
-                    new Warning("Czy napewno chcesz usunąć kontrahenta: " + customer.Name,
-                        "Usuwanie kontrahenta", "Tak", "Nie"));
-                if (result.Action != null)
+                if (SellerDataGrid.SelectedCells[0].Item is Customer customer)
                 {
-                    if (result.Action.Equals("positive"))
+                    var result = await Forge.Forms.Show.Dialog("MainDialogHost").For(
+                        new Warning("Czy napewno chcesz usunąć kontrahenta: " + customer.Name,
+                            "Usuwanie kontrahenta", "Tak", "Nie"));
+                    if (result.Action != null)
                     {
-                        ViewModel.DeleteCustomer(customer);
-                        ViewModel.Sellers.Remove(customer);
-                        SellerDataGrid.Items.Refresh();
+                        if (result.Action.Equals("positive"))
+                        {
+                            ViewModel.DeleteCustomer(customer);
+                            ViewModel.Sellers.Remove(customer);
+                            SellerDataGrid.Items.Refresh();
+                        }
                     }
                 }
-
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
             }
         }
 
         private async void ContractorDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ContractorDataGrid.SelectedCells[0].Item is Customer customer)
+            if (ContractorDataGrid.SelectedCells.Count > 0)
             {
-                await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-                ContractorDataGrid.Items.Refresh();
+                if (ContractorDataGrid.SelectedCells[0].Item is Customer customer)
+                {
+                    await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                    ContractorDataGrid.Items.Refresh();
+                }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żaden kontrahent nie został wybrany", "Zaznacz kontrahenta", "OK"));
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden kontrahent nie został wybrany", "Zaznacz kontrahenta", "OK"));
             }
 
         }
 
         private async void SellerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (SellerDataGrid.SelectedCells[0].Item is Customer customer)
+            if (SellerDataGrid.SelectedCells.Count > 0)
             {
-                await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
-                SellerDataGrid.Items.Refresh();
+                if (SellerDataGrid.SelectedCells[0].Item is Customer customer)
+                {
+                    await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                    SellerDataGrid.Items.Refresh();
+                }
             }
             else
             {
-                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
             }
         }
 
         private async void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
+            if (InvoiceDataGrid.SelectedCells.Count > 0)
             {
-                var result = await Forge.Forms.Show.Dialog("MainDialogHost").For(
-                    new Warning("Czy napewno chcesz usunąć fakturę o numerze: " + invoice.InvoiceNumber,
-                "Usuwanie faktury", "Tak", "Nie"));
-                if (result.Action != null)
+                if (InvoiceDataGrid.SelectedCells[0].Item is Invoice invoice)
                 {
-                    if (result.Action.Equals("positive"))
+                    var result = await Forge.Forms.Show.Dialog("MainDialogHost").For(
+                        new Warning("Czy napewno chcesz usunąć fakturę o numerze: " + invoice.InvoiceNumber,
+                            "Usuwanie faktury", "Tak", "Nie"));
+                    if (result.Action != null)
                     {
-                        ViewModel.DeleteInvoice(invoice);
-                        ViewModel.Invoices.Remove(invoice);
-                        InvoiceDataGrid.Items.Refresh();
+                        if (result.Action.Equals("positive"))
+                        {
+                            ViewModel.DeleteInvoice(invoice);
+                            ViewModel.Invoices.Remove(invoice);
+                            InvoiceDataGrid.Items.Refresh();
+                        }
                     }
                 }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost").For(new Information("Żadna faktura nie została wybrana", "Zaznacz fakturę", "OK"));
             }
         }
 

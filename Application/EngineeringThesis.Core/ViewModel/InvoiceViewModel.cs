@@ -82,18 +82,27 @@ namespace EngineeringThesis.Core.ViewModel
 
         public bool IsUpdate { get; set; }
 
-        public string CreateInvoiceNumber(string lastInvoiceNumber)
+        public string CreateInvoiceNumber(string? lastInvoiceNumber)
         {
-            string[] splitted = lastInvoiceNumber.Split("/");
-            InvoiceNumber = Convert.ToInt32(splitted[0]);
-            InvoiceYear = Convert.ToInt32(splitted[1]);
-
-            InvoiceNumber += 1;
-            if (InvoiceYear < DateTime.Today.Year)
+            if (lastInvoiceNumber != null)
             {
-                InvoiceYear += 1;
-                InvoiceNumber = 1;
+                string[] splitted = lastInvoiceNumber.Split("/");
+                InvoiceNumber = Convert.ToInt32(splitted[0]);
+                InvoiceYear = Convert.ToInt32(splitted[1]);
+
+                InvoiceNumber += 1;
+                if (InvoiceYear < DateTime.Today.Year)
+                {
+                    InvoiceYear += 1;
+                    InvoiceNumber = 1;
+                }
             }
+            else
+            {
+                InvoiceNumber = 1;
+                InvoiceYear = DateTime.Today.Year;
+            }
+            
 
             var newLastInvoiceNumber = InvoiceNumber + "/" + InvoiceYear;
 

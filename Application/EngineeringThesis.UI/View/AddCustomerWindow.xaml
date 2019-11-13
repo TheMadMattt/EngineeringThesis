@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineeringThesis.UI.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:validators="clr-namespace:EngineeringThesis.Core.Utility.Validators;assembly=EngineeringThesis.Core"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
