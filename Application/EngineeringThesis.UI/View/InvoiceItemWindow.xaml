@@ -66,23 +66,17 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignLabel}" Foreground="{DynamicResource PrimaryHueDarkBrush}" 
-                       Content="{x:Static resx:InvoiceItemWindow.NetPrice}"/>
-                    <mah:NumericUpDown Name="NetPriceTextBox" StringFormat="C2" Value="{Binding InvoiceItem.NetPrice}" 
-                                   ValueChanged="NetPriceTextBox_ValueChanged" Grid.Column="0" Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}"
-                                   HideUpDownButtons="True" Margin="0,0,5,0"/>
-                    <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignLabel}" Foreground="{DynamicResource PrimaryHueDarkBrush}" 
                        Content="{x:Static resx:InvoiceItemWindow.Amount}"/>
                     <mah:NumericUpDown Name="AmountTextBox" Margin="0,0,5,0" Minimum="0" Maximum="9999" NumericInputMode="Numbers" ValueChanged="AmountTextBox_ValueChanged"
-                                       Value="{Binding InvoiceItem.Amount}" Grid.Column="1" Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}"/>
+                                       Value="{Binding InvoiceItem.Amount}" Grid.Column="0" Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}"/>
                     <TextBox Name="VATTextBox" materialDesign:HintAssist.Hint="{x:Static resx:InvoiceItemWindow.VAT}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" MaxLength="10" Margin="0,0,5,0" 
+                     VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" MaxLength="10" Margin="0,0,5,0" 
                      PreviewTextInput="VATTextBox_PreviewTextInput" TextChanged="VATTextBox_TextChanged">
                         <Binding Path="InvoiceItem.VAT" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
@@ -91,7 +85,7 @@
                         </Binding>
                     </TextBox>
                     <TextBox Name="UnitTextBox" materialDesign:HintAssist.Hint="{x:Static resx:InvoiceItemWindow.Unit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" MaxLength="10" Margin="0,0,5,0">
+                     VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" MaxLength="10" Margin="0,0,5,0">
                         <Binding Path="InvoiceItem.Unit" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <validators:IsEmptyValidator/>
@@ -99,10 +93,12 @@
                         </Binding>
                     </TextBox>
                     <TextBox Name="PKWiUTextBox" materialDesign:HintAssist.Hint="{x:Static resx:InvoiceItemWindow.pkwiu}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     Text="{Binding InvoiceItem.PKWiU}" VerticalAlignment="Top" Grid.Column="4" Grid.Row="1" MaxLength="10"/>
+                     Text="{Binding InvoiceItem.PKWiU}" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" MaxLength="10"/>
                 </Grid>
                 <Grid Grid.Row="2" Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -110,12 +106,22 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Content="{x:Static resx:InvoiceItemWindow.NetSum}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right"></Label>
-                    <TextBlock Name="NetSumTextBlock" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                       Text="{x:Static resx:InvoiceItemWindow.NullPrice}"></TextBlock>
-                    <Label Content="{x:Static resx:InvoiceItemWindow.GrossSum}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"></Label>
-                    <TextBlock Name="GrossSumTextBlock" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                       Text="{x:Static resx:InvoiceItemWindow.NullPrice}"></TextBlock>
+                    <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignLabel}" Foreground="{DynamicResource PrimaryHueDarkBrush}" 
+                           Content="{x:Static resx:InvoiceItemWindow.NetPrice}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    <mah:NumericUpDown Name="NetPriceTextBox" StringFormat="C2" Value="{Binding InvoiceItem.NetPrice}" Style="{StaticResource MaterialDesignNumericUpDown}"
+                                       ValueChanged="NetPriceTextBox_ValueChanged" Grid.Column="1" Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}"
+                                       HideUpDownButtons="True" Margin="0,0,5,0"/>
+                    <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource MaterialDesignLabel}" Foreground="{DynamicResource PrimaryHueDarkBrush}" 
+                           Content="{x:Static resx:InvoiceItemWindow.GrossPrice}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    <mah:NumericUpDown Name="GrossPriceTextBox" StringFormat="C2" Style="{StaticResource MaterialDesignNumericUpDown}"
+                                       Grid.Column="1" Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}"
+                                       HideUpDownButtons="True" Margin="0,0,5,0" ValueChanged="GrossPriceTextBox_ValueChanged" />
+                    <Label Content="{x:Static resx:InvoiceItemWindow.NetSum}" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                    <TextBlock Name="NetSumTextBlock" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"
+                       Text="{x:Static resx:InvoiceItemWindow.NullPrice}"/>
+                    <Label Content="{x:Static resx:InvoiceItemWindow.GrossSum}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Name="GrossSumTextBlock" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"
+                       Text="{x:Static resx:InvoiceItemWindow.NullPrice}"/>
                 </Grid>
                 <TextBox Name="CommentsTextBox" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="3" Margin="0,20,0,0" Text="{Binding InvoiceItem.Comments}"
                  materialDesign:HintAssist.Hint="{x:Static resx:InvoiceItemWindow.Comments}" FontSize="15" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"

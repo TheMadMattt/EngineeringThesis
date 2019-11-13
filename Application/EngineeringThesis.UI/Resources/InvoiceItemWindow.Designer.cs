@@ -97,6 +97,15 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cena brutto: .
+        /// </summary>
+        public static string GrossPrice {
+            get {
+                return ResourceManager.GetString("GrossPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suma brutto: .
         /// </summary>
         public static string GrossSum {
@@ -115,7 +124,7 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cena netto.
+        ///   Looks up a localized string similar to Cena netto: .
         /// </summary>
         public static string NetPrice {
             get {

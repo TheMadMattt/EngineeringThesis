@@ -129,6 +129,9 @@
   <data name="Comments" xml:space="preserve">
     <value>Uwagi</value>
   </data>
+  <data name="GrossPrice" xml:space="preserve">
+    <value>Cena brutto: </value>
+  </data>
   <data name="GrossSum" xml:space="preserve">
     <value>Suma brutto: </value>
   </data>
@@ -136,7 +139,7 @@
     <value>Nazwa produktu</value>
   </data>
   <data name="NetPrice" xml:space="preserve">
-    <value>Cena netto</value>
+    <value>Cena netto: </value>
   </data>
   <data name="NetSum" xml:space="preserve">
     <value>Suma netto: </value>

@@ -68,47 +68,28 @@ namespace EngineeringThesis.UI.View
 
         private void NetPriceTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
-            {
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
-                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00", CultureInfo.InvariantCulture);
-                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
-            }
-            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
-            {
-                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
-                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00", CultureInfo.InvariantCulture);
-                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
-            }
+            CalculateNetSum();
+            CalculateGrossSumFromNetPrice();
+        }
+
+        private void GrossPriceTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+            CalculateGrossSum();
+            CalculateNetSumFromGrossPrice();
         }
 
         private void AmountTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
-            {
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
-                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00", CultureInfo.InvariantCulture);
-                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
-            }
-            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
-            {
-                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
-                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00", CultureInfo.InvariantCulture);
-                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
-            }
+            CalculateNetSum();
+            CalculateGrossSumFromNetPrice();
+            CalculateNetSumFromGrossPrice();
+            CalculateGrossSum();
         }
 
         private void VATTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
-            {
-                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
-                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value) * vat;
-                ViewModel.InvoiceItem.GrossSum = sum.ToString("#.00", CultureInfo.InvariantCulture);
-                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
-            }
+            CalculateGrossSumFromNetPrice();
+            CalculateNetSumFromGrossPrice();
         }
 
         private void ForceValidation()
@@ -148,7 +129,7 @@ namespace EngineeringThesis.UI.View
             {
                 var vatSum = Convert.ToDecimal(ViewModel.InvoiceItem.GrossSum, CultureInfo.InvariantCulture) -
                              Convert.ToDecimal(ViewModel.InvoiceItem.NetSum, CultureInfo.InvariantCulture);
-                ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("#.00", new CultureInfo("pl"));
+                ViewModel.InvoiceItemWithRef.VATSum = vatSum.ToString("0.00", new CultureInfo("pl"));
             }
 
         }
@@ -213,6 +194,51 @@ namespace EngineeringThesis.UI.View
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void CalculateNetSum()
+        {
+            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()))
+            {
+                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(NetPriceTextBox.Value);
+                ViewModel.InvoiceItem.NetSum = sum.ToString("#.00", CultureInfo.InvariantCulture);
+                NetSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
+            }
+        }
+
+        private void CalculateGrossSum()
+        {
+            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(GrossPriceTextBox.Value.ToString()))
+            {
+                var sum = Convert.ToDecimal(AmountTextBox.Value) * Convert.ToDecimal(GrossPriceTextBox.Value);
+                GrossSumTextBlock.Text = sum.ToString("C2", new CultureInfo("pl"));
+            }
+        }
+
+        private void CalculateGrossSumFromNetPrice()
+        {
+            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(NetPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
+            {
+                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
+                var grossPrice = Convert.ToDecimal(NetPriceTextBox.Value) * vat;
+                var grossSum = grossPrice * Convert.ToDecimal(AmountTextBox.Value);
+                ViewModel.InvoiceItem.GrossSum = grossSum.ToString("#.00", CultureInfo.InvariantCulture);
+                GrossSumTextBlock.Text = grossSum.ToString("C2", new CultureInfo("pl"));
+                GrossPriceTextBox.Value = Convert.ToDouble(grossPrice, CultureInfo.InvariantCulture);
+            }
+        }
+
+        private void CalculateNetSumFromGrossPrice()
+        {
+            if (!string.IsNullOrEmpty(AmountTextBox.Value.ToString()) && !string.IsNullOrEmpty(GrossPriceTextBox.Value.ToString()) && !string.IsNullOrEmpty(VATTextBox.Text))
+            {
+                var vat = (Convert.ToDecimal(VATTextBox.Text) / 100) + 1;
+                var netPrice = Convert.ToDecimal(GrossPriceTextBox.Value) / vat;
+                var netSum = Convert.ToDecimal(AmountTextBox.Value) * netPrice;
+                ViewModel.InvoiceItem.NetSum = netSum.ToString("#.00", CultureInfo.InvariantCulture);
+                NetSumTextBlock.Text = netSum.ToString("C2", new CultureInfo("pl"));
+                NetPriceTextBox.Value = Convert.ToDouble(netPrice, CultureInfo.InvariantCulture);
+            }
         }
     }
 }
