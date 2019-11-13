@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineeringThesis.Core.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20191112084923_initial")]
+    [Migration("20191113185222_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,8 +199,8 @@ namespace EngineeringThesis.Core.Migrations
                         {
                             Id = 1,
                             ContractorId = 2,
-                            InvoiceDate = new DateTime(2019, 11, 12, 0, 0, 0, 0, DateTimeKind.Local),
-                            InvoiceNumber = "01/2019",
+                            InvoiceDate = new DateTime(2019, 11, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            InvoiceNumber = "1/2019",
                             IsProformaInvoice = false,
                             PaymentDate = new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDeadline = new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -212,7 +212,7 @@ namespace EngineeringThesis.Core.Migrations
                             Id = 2,
                             ContractorId = 4,
                             InvoiceDate = new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            InvoiceNumber = "02/2019",
+                            InvoiceNumber = "2/2019",
                             IsProformaInvoice = false,
                             PaymentDeadline = new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 3,

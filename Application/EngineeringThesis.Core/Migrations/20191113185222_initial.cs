@@ -191,12 +191,12 @@ namespace EngineeringThesis.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "IsProformaInvoice", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 1, null, 2, new DateTime(2019, 11, 12, 0, 0, 0, 0, DateTimeKind.Local), "01/2019", false, new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
+                values: new object[] { 1, null, 2, new DateTime(2019, 11, 13, 0, 0, 0, 0, DateTimeKind.Local), "1/2019", false, new DateTime(2020, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "Id", "Comments", "ContractorId", "InvoiceDate", "InvoiceNumber", "IsProformaInvoice", "PaymentDate", "PaymentDeadline", "PaymentTypeId", "SellerId" },
-                values: new object[] { 2, null, 4, new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "02/2019", false, null, new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3 });
+                values: new object[] { 2, null, 4, new DateTime(2019, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "2/2019", false, null, new DateTime(2020, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3 });
 
             migrationBuilder.InsertData(
                 table: "InvoiceItems",

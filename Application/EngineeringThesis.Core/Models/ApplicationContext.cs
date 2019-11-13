@@ -103,7 +103,7 @@ namespace EngineeringThesis.Core.Models
                 new Invoice
                 {
                     Id=1,
-                    InvoiceNumber = "01/2019",
+                    InvoiceNumber = "1/2019",
                     InvoiceDate = DateTime.Today,
                     ContractorId = 2,
                     SellerId = 1,
@@ -114,7 +114,7 @@ namespace EngineeringThesis.Core.Models
                 new Invoice
                 {
                     Id=2,
-                    InvoiceNumber = "02/2019",
+                    InvoiceNumber = "2/2019",
                     InvoiceDate = new DateTime(2019,09,14),
                     ContractorId = 4,
                     SellerId = 3,
