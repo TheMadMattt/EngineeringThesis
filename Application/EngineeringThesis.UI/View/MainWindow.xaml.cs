@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Utility;
@@ -314,6 +316,60 @@ namespace EngineeringThesis.UI.View
             {
                 ViewModel.Sellers.Add(customer);
                 SellerDataGrid.Items.Refresh();
+            }
+        }
+
+        private void SearchContractorTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SearchContractorTextBox.Text))
+            {
+                var filtered =
+                    ViewModel.Contractors.Where(customer =>
+                        customer.Name.ToLower().Contains(SearchContractorTextBox.Text.ToLower()) ||
+                        customer.NIP.Contains(SearchContractorTextBox.Text.ToLower()) ||
+                        customer.REGON.Contains(SearchContractorTextBox.Text.ToLower()));
+
+                ContractorDataGrid.ItemsSource = filtered;
+            }
+            else
+            {
+                ContractorDataGrid.ItemsSource = ViewModel.Contractors;
+            }
+        }
+
+        private void SearchSellerTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SearchSellerTextBox.Text))
+            {
+                var filtered =
+                    ViewModel.Sellers.Where(customer =>
+                        customer.Name.ToLower().Contains(SearchSellerTextBox.Text.ToLower()) ||
+                        customer.NIP.Contains(SearchSellerTextBox.Text.ToLower()) ||
+                        customer.REGON.Contains(SearchSellerTextBox.Text.ToLower()));
+
+                SellerDataGrid.ItemsSource = filtered;
+            }
+            else
+            {
+                SellerDataGrid.ItemsSource = ViewModel.Sellers;
+            }
+        }
+
+        private void SearchInvoiceTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SearchInvoiceTextBox.Text))
+            {
+                var filtered =
+                    ViewModel.Invoices.Where(invoice =>
+                        invoice.InvoiceNumber.Contains(SearchInvoiceTextBox.Text.ToLower()) ||
+                        invoice.Seller.Name.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()) ||
+                        invoice.Contractor.Name.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()));
+
+                InvoiceDataGrid.ItemsSource = filtered;
+            }
+            else
+            {
+                InvoiceDataGrid.ItemsSource = ViewModel.Invoices;
             }
         }
     }

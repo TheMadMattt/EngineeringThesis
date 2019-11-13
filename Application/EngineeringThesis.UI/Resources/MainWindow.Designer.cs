@@ -268,6 +268,33 @@ namespace EngineeringThesis.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Szukaj kontrahenta.
+        /// </summary>
+        public static string SearchContractor {
+            get {
+                return ResourceManager.GetString("SearchContractor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szukaj faktury.
+        /// </summary>
+        public static string SearchInvoice {
+            get {
+                return ResourceManager.GetString("SearchInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szukaj sprzedawcy.
+        /// </summary>
+        public static string SearchSeller {
+            get {
+                return ResourceManager.GetString("SearchSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprzedawca.
         /// </summary>
         public static string SellerName {

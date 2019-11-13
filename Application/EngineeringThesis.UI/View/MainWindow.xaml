@@ -63,14 +63,22 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}">
-                                <Button Name="AddInvoiceButton" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Column="0" Background="{DynamicResource MaterialDesignPaper}">
+                                    <Button Name="AddInvoiceButton" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
                                 ToolTip="{x:Static resx:MainWindow.AddInvoice}" Height="40" Width="40" Click="AddInvoiceButton_Click"></Button>
-                                <Button Name="EditInvoiceButton" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Edit}"
+                                    <Button Name="EditInvoiceButton" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Edit}"
                                         ToolTip="{x:Static resx:MainWindow.EditInvoice}" Height="40" Width="40" Click="EditInvoiceButton_Click" ></Button>
-                                <Button Name="DeleteInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
+                                    <Button Name="DeleteInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
                                 ToolTip="{x:Static resx:MainWindow.DeleteInvoice}" Height="40" Width="40" Click="DeleteInvoiceButton_Click" ></Button>
-                            </ToolBar>
+                                </ToolBar>
+                                <TextBox Name="SearchInvoiceTextBox" MinWidth="200" Grid.Column="1" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                         materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchInvoice}" KeyUp="SearchInvoiceTextBox_KeyUp" Margin="0,0,10,0"/>
+                            </Grid>
                             <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ScrollViewer.CanContentScroll="True"
                               IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Auto" SelectedIndex="0">
@@ -113,14 +121,22 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}">
-                                <Button Name="AddContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Column="0" Background="{DynamicResource MaterialDesignPaper}">
+                                    <Button Name="AddContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
                                 ToolTip="{x:Static resx:MainWindow.AddContractor}" Height="40" Width="40" Margin="0,0,10,0" Click="AddContractorButton_Click"></Button>
-                                <Button Name="EditContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Edit}"
+                                    <Button Name="EditContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Edit}"
                                         ToolTip="{x:Static resx:MainWindow.EditContractor}" Height="40" Width="40" Margin="0,0,10,0" Click="EditContractorButton_Click" ></Button>
-                                <Button Name="DeleteContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
+                                    <Button Name="DeleteContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
                                 ToolTip="{x:Static resx:MainWindow.DeleteContractor}" Height="40" Width="40" Click="DeleteContractorButton_Click" ></Button>
-                            </ToolBar>
+                                </ToolBar>
+                                <TextBox Name="SearchContractorTextBox" MinWidth="200" Grid.Column="1" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                         materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchContractor}" KeyUp="SearchContractorTextBox_KeyUp" Margin="0,0,10,0"/>
+                            </Grid>
                             <DataGrid Name="ContractorDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
                                       IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
                                       HorizontalScrollBarVisibility="Auto" MouseDoubleClick="ContractorDataGrid_MouseDoubleClick" SelectedIndex="0">
@@ -159,14 +175,22 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}">
-                                <Button Name="AddSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToolBar Height="60px" ToolBarTray.IsLocked="True" Margin="20,5,0,0" Grid.Column="0" Background="{DynamicResource MaterialDesignPaper}">
+                                    <Button Name="AddSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Add}"
                                 ToolTip="{x:Static resx:MainWindow.AddSeller}" Height="40" Width="40" Margin="0,0,10,0" Click="AddSellerButton_Click"></Button>
-                                <Button Name="EditSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Edit}"
+                                    <Button Name="EditSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Edit}"
                                         ToolTip="{x:Static resx:MainWindow.EditSeller}" Height="40" Width="40" Margin="0,0,10,0" Click="EditSellerButton_Click"></Button>
-                                <Button Name="DeleteSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
+                                    <Button Name="DeleteSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
                                 ToolTip="{x:Static resx:MainWindow.DeleteSeller}" Height="40" Width="40" Click="DeleteSellerButton_Click" ></Button>
-                            </ToolBar>
+                                </ToolBar>
+                                <TextBox Name="SearchSellerTextBox" MinWidth="200" Grid.Column="1" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                         materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchSeller}" KeyUp="SearchSellerTextBox_KeyUp" Margin="0,0,10,0"/>
+                            </Grid>
                             <DataGrid Name="SellerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
                                       IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
                                       HorizontalScrollBarVisibility="Auto" SelectedIndex="0" MouseDoubleClick="SellerDataGrid_MouseDoubleClick">

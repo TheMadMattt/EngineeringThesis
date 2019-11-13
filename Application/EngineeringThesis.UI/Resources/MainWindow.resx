@@ -186,6 +186,15 @@
   <data name="RegonNumber" xml:space="preserve">
     <value>Regon</value>
   </data>
+  <data name="SearchContractor" xml:space="preserve">
+    <value>Szukaj kontrahenta</value>
+  </data>
+  <data name="SearchInvoice" xml:space="preserve">
+    <value>Szukaj faktury</value>
+  </data>
+  <data name="SearchSeller" xml:space="preserve">
+    <value>Szukaj sprzedawcy</value>
+  </data>
   <data name="SellerName" xml:space="preserve">
     <value>Sprzedawca</value>
   </data>
