@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="EngineeringThesis.UI.View.InvoiceWindow">
-    <Position X="6.25" Y="1.75" Width="3.5" />
+    <Position X="6.25" Y="0.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>ACAIARIAAAxAAAAIMIAGEQACGACBAkAIAAIIQDAAADA=</HashCode>
       <FileName>View\InvoiceWindow.xaml.cs</FileName>
@@ -13,18 +13,18 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EngineeringThesis.UI.Navigation.NavigationService" Collapsed="true">
-    <Position X="11.5" Y="3.5" Width="1.5" />
+    <Position X="11.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAQAABAAA=</HashCode>
       <FileName>Navigation\NavigationService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EngineeringThesis.Core.ViewModel.InvoiceViewModel" Collapsed="true">
-    <Position X="3.25" Y="3.5" Width="1.75" />
+    <Position X="11.25" Y="4" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Interface Name="EngineeringThesis.UI.Navigation.IActivable">
-    <Position X="4.25" Y="1.75" Width="1.5" />
+    <Position X="10.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Navigation\IActivable.cs</FileName>

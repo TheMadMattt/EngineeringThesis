@@ -10,17 +10,16 @@
       <Field Name="_navigationService" />
       <Field Name="ViewModel" />
     </ShowAsAssociation>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="EngineeringThesis.UI.Navigation.NavigationService" Collapsed="true">
-    <Position X="10.5" Y="1.5" Width="1.5" />
+    <Position X="10.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAQAABAAA=</HashCode>
       <FileName>Navigation\NavigationService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EngineeringThesis.Core.ViewModel.MainViewModel" Collapsed="true">
-    <Position X="3" Y="1.5" Width="1.5" />
+    <Position X="10.25" Y="2.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
