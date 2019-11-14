@@ -35,8 +35,7 @@ namespace EngineeringThesis.Core.Utility
         {
             return !string.IsNullOrEmpty(obj.InvoiceNumber)
                    && !string.IsNullOrEmpty(obj.InvoiceDate.ToShortDateString())
-                   && !string.IsNullOrEmpty(obj.PaymentDeadline.ToShortDateString())
-                   && obj.InvoiceItems.Count > 0;
+                   && !string.IsNullOrEmpty(obj.PaymentDeadline.ToShortDateString());
         }
 
         public struct CustomerStruct

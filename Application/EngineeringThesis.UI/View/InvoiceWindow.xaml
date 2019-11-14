@@ -12,7 +12,7 @@
         xmlns:resx="clr-namespace:EngineeringThesis.UI.Resources"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="{x:Static resx:InvoiceWindow.Invoice}" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
+        Title="{x:Static resx:InvoiceWindow.Invoice}" Height="600" Width="850" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="0"
@@ -99,10 +99,10 @@
                                 </Button>
                             </Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Top">
-                                <Grid>
+                                <Grid Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"></RowDefinition>
@@ -165,10 +165,10 @@
                                 </Button>
                             </Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Top">
-                                <Grid>
+                                <Grid Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"></RowDefinition>
