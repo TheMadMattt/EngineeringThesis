@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EngineeringThesis.Core.ViewModel.AddCustomerViewModel">
+    <Position X="6.25" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAEAAAAAiAAIAIAEEAAAAYAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\AddCustomerViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_customerService" />
+      <Field Name="_customer" />
+      <Field Name="CustomerWithRef" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="CustomerTypes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.Customer" Collapsed="true">
+    <Position X="3" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBCEAAAAAAAAAAIAAAIQAQAAAAAAAABBAIAAAAAIAI=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Services.CustomerService" Collapsed="true">
+    <Position X="9.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAIBAAEAAAAAAABAAAAAEAAAEABAAA=</HashCode>
+      <FileName>Services\CustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.CustomerType" Collapsed="true">
+    <Position X="3" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CustomerType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.DisplayModels.CustomerDisplayModel" Collapsed="true">
+    <Position X="9.75" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgBBMAIAEAAAAAAIAAgIQAQAAIAAAAAhBAoAACACIAI=</HashCode>
+      <FileName>Models\DisplayModels\CustomerDisplayModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

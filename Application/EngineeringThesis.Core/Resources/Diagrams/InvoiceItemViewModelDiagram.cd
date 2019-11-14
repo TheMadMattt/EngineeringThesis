@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EngineeringThesis.Core.ViewModel.InvoiceItemViewModel">
+    <Position X="6" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAIACCAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\InvoiceItemViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_invoiceItem" />
+      <Field Name="InvoiceItemWithRef" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.DisplayModels.InvoiceItemDisplayModel" Collapsed="true">
+    <Position X="9.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIgAAEgAoAAACYAAIAAaAAAAACCAAAABAAAAAIaI=</HashCode>
+      <FileName>Models\DisplayModels\InvoiceItemDisplayModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.InvoiceItem" Collapsed="true">
+    <Position X="2.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIgAAAgAAAAAAIAAAAAaAAAAACCAAAAAAAAAAISA=</HashCode>
+      <FileName>Models\InvoiceItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

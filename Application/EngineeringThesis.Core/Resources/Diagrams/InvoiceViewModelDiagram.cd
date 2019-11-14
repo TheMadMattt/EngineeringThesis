@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EngineeringThesis.Core.ViewModel.InvoiceViewModel">
+    <Position X="6.25" Y="0.5" Width="2" />
+    <AssociationLine Name="_invoice" Type="EngineeringThesis.Core.Models.Invoice">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.252" Y="-0.465" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Contractors" Type="EngineeringThesis.Core.Models.Customer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.035" Y="-0.273" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LastInvoice" Type="EngineeringThesis.Core.Models.Invoice">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.21" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="InvoiceWithRef" Type="EngineeringThesis.Core.Models.Invoice">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.227" Y="0.093" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAEAACAQgQCAAAAiAUIAQYAAAQAAABAAAAAEAAQRI=</HashCode>
+      <FileName>ViewModel\InvoiceViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_customerService" />
+      <Field Name="_invoice" />
+      <Field Name="_invoiceService" />
+      <Field Name="_paymentTypeService" />
+      <Field Name="LastInvoice" />
+      <Field Name="InvoiceWithRef" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="Contractors" />
+      <Field Name="Sellers" />
+      <Field Name="PaymentTypes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Services.CustomerService" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAIBAAEAAAAAAABAAAAAEAAAEABAAA=</HashCode>
+      <FileName>Services\CustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.Invoice" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgECAAgAEgAQAAAAAIAAAQCAAAAAAAAAKAA=</HashCode>
+      <FileName>Models\Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Services.InvoiceService" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACAAAAAAAIABEAAAAAAAABAAEBAAAAAEAAABI=</HashCode>
+      <FileName>Services\InvoiceService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Services.PaymentTypeService" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\PaymentTypeService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.Customer" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBCEAAAAAAAAAAIAAAIQAQAAAAAAAABBAIAAAAAIAI=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.PaymentType" Collapsed="true">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PaymentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

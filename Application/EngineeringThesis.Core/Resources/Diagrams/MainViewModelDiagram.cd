@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EngineeringThesis.Core.ViewModel.MainViewModel">
+    <Position X="6.25" Y="1" Width="1.5" />
+    <AssociationLine Name="Sellers" Type="EngineeringThesis.Core.Models.Customer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.118" Y="0.168" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Contractors" Type="EngineeringThesis.Core.Models.Customer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.048" Y="0.202" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIBAAEAAQIAAAAAAAAAAAAAGAAQAA=</HashCode>
+      <FileName>ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_invoiceService" />
+      <Field Name="_customerService" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="Invoices" />
+      <Field Name="Sellers" />
+      <Field Name="Contractors" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Services.CustomerService" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAIBAAEAAAAAAABAAAAAEAAAEABAAA=</HashCode>
+      <FileName>Services\CustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Services.InvoiceService" Collapsed="true">
+    <Position X="2.25" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACAAAAAAAIABEAAAAAAAABAAEBAAAAAEAAABI=</HashCode>
+      <FileName>Services\InvoiceService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.Customer" Collapsed="true">
+    <Position X="6.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBCEAAAAAAAAAAIAAAIQAQAAAAAAAABBAIAAAAAIAI=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.Invoice" Collapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgECAAgAEgAQAAAAAIAAAQCAAAAAAAAAKAA=</HashCode>
+      <FileName>Models\Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

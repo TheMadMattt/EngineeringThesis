@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EngineeringThesis.Core.Models.DisplayModels.CustomerDisplayModel">
+    <Position X="4.75" Y="1" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgBBMAIAEAAAAAAIAAgIQAQAAIAAAAAhBAoAACACIAI=</HashCode>
+      <FileName>Models\DisplayModels\CustomerDisplayModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.DisplayModels.InvoiceItemDisplayModel">
+    <Position X="10.75" Y="1" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIgAAEgAoAAACYAAIAAaAAAAACCAAAABAAAAAIaI=</HashCode>
+      <FileName>Models\DisplayModels\InvoiceItemDisplayModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EngineeringThesis.Core.Models.DisplayModels.BaseModel">
+    <Position X="8" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DisplayModels\BaseModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
