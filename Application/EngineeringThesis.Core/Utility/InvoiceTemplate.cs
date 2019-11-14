@@ -534,7 +534,7 @@ namespace EngineeringThesis.Core.Utility
         {
             PdfPTable table = new PdfPTable(6);
 
-            int[] colWidth = { 20, 20, 10, 20, 20, 10 };
+            int[] colWidth = { 15, 30, 5, 15, 30, 5 };
             table.SetWidths(colWidth);
             table.WidthPercentage = 100;
 

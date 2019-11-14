@@ -638,7 +638,7 @@ namespace EngineeringThesis.UI.View
 
         private void CheckInvoiceNumber()
         {
-            if (InvoiceDatePicker.SelectedDate != null && ViewModel != null)
+            if (InvoiceDatePicker.SelectedDate != null && ViewModel != null && !ViewModel.IsUpdate)
             {
                 if (ViewModel.InvoiceYear != InvoiceDatePicker.SelectedDate.Value.Year)
                 {
