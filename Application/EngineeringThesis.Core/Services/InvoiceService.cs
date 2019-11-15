@@ -52,7 +52,7 @@ namespace EngineeringThesis.Core.Services
 
         public void UpdateInvoice(Invoice invoice)
         {
-            var oldInvoice = _ctx.Customers.Find(invoice.Id);
+            var oldInvoice = _ctx.Invoices.Find(invoice.Id);
 
             _ctx.Entry(oldInvoice).CurrentValues.SetValues(invoice);
             _ctx.SaveChanges();
