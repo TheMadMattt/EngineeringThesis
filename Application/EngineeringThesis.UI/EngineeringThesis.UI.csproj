@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="invoiceWhite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Aptof.Controls" Version="1.0.9" />
     <PackageReference Include="Dragablz" Version="0.0.3.203" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.6.0" />
@@ -25,6 +29,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EngineeringThesis.Core\EngineeringThesis.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="invoice.ico" />
+    <Resource Include="invoiceWhite.png" />
   </ItemGroup>
 
   <ItemGroup>

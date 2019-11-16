@@ -54,12 +54,20 @@ namespace EngineeringThesis.UI.View
 
         private async void AddInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            var invoice = new Invoice();
-            await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
-            if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+            if (ViewModel.Contractors.Count > 0 && ViewModel.Sellers.Count > 0)
             {
-                ViewModel.Invoices.Add(invoice);
-                InvoiceDataGrid.Items.Refresh();
+                var invoice = new Invoice();
+                await _navigationService.ShowDialogAsync<InvoiceWindow>(invoice);
+                if (Utility.IsNotInvoiceNullOrEmpty(invoice))
+                {
+                    ViewModel.Invoices.Add(invoice);
+                    InvoiceDataGrid.Items.Refresh();
+                }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Dodaj kontrahentów i sprzedawców, a następnie utwórz nową fakturę", "Brak kontrahentów i sprzedawców", "OK"));
             }
         }
 
