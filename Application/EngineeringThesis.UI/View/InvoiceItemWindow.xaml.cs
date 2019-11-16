@@ -104,16 +104,22 @@ namespace EngineeringThesis.UI.View
             ForceValidation();
             if (ControlsHasError())
             {
-                try
+                if (NetPriceTextBox.Value == null || GrossPriceTextBox.Value == null)
                 {
-                    UpdateInvoiceItem();
-                    Close();
+                    await Forge.Forms.Show.Dialog("InvoiceItemDialogHost").For(new Information("Podaj cenę netto lub brutto produktu", "Uzupełnij cenę netto lub brutto", "OK"));
                 }
-                catch (FormatException)
+                else
                 {
-                    await Forge.Forms.Show.Dialog("InvoiceItemDialogHost").For(new Information("Wystąpił błąd przy parsowaniu danych", "Uzupełnij wszystkie pola poprawnie", "OK"));
+                    try
+                    {
+                        UpdateInvoiceItem();
+                        Close();
+                    }
+                    catch (Exception)
+                    {
+                        await Forge.Forms.Show.Dialog("InvoiceItemDialogHost").For(new Information("Wystąpił błąd przy parsowaniu danych", "Uzupełnij wszystkie pola poprawnie", "OK"));
+                    }
                 }
-                
             }
             else
             {
