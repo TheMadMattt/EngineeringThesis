@@ -323,25 +323,33 @@
                             Width="50px" PopupMode="Click" StaysOpen="False"
                             Height="50px">
                         <StackPanel Name="StackPanel">
-                            <Button Name="AddItemBtn" Margin="0,0,0,10" Click="AddItemBtn_Click" ToolTip="{x:Static resx:InvoiceWindow.AddItem}">
+                            <Button Name="AddItemBtn" Margin="0,0,0,10" Click="AddItemBtn_Click" ToolTip="{x:Static resx:InvoiceWindow.AddItem}" 
+                                    Background="{DynamicResource PrimaryHueMidBrush}">
                                 <materialDesign:PackIcon Kind="Add" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="EditItemBtn" Margin="0,0,0,10" Click="EditItemBtn_Click" ToolTip="{x:Static resx:InvoiceWindow.EditItem}">
+                            <Button Name="EditItemBtn" Margin="0,0,0,10" Click="EditItemBtn_Click" ToolTip="{x:Static resx:InvoiceWindow.EditItem}" 
+                                    Background="{DynamicResource PrimaryHueMidBrush}">
                                 <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="DeleteItemBtn" Margin="0,0,0,10" ToolTip="{x:Static resx:InvoiceWindow.DeleteItem}" Click="DeleteItemBtn_Click">
+                            <Button Name="DeleteItemBtn" Margin="0,0,0,10" ToolTip="{x:Static resx:InvoiceWindow.DeleteItem}" 
+                                    Click="DeleteItemBtn_Click" Background="{DynamicResource PrimaryHueMidBrush}">
                                 <materialDesign:PackIcon Kind="Delete" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="EditingInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.EditInvoice}" Visibility="Collapsed" IsEnabled="False" Click="EditingInvoiceBtn_Click">
+                            <Button Name="EditingInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.EditInvoice}" 
+                                    Background="{DynamicResource PrimaryHueMidBrush}"
+                                    Visibility="Collapsed" IsEnabled="False" Click="EditingInvoiceBtn_Click">
                                 <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="CreatePdfBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Command="Print">
+                            <Button Name="CreatePdfBtn" ToolTip="{x:Static resx:InvoiceWindow.CreatePDF}" Command="Print" 
+                                    Background="{DynamicResource PrimaryHueMidBrush}">
                                 <materialDesign:PackIcon Kind="PdfBox" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="CreateCorrectionPdfBtn" ToolTip="{x:Static resx:InvoiceWindow.CreateCorrectionPDF}" Command="Replace">
+                            <Button Name="CreateCorrectionPdfBtn" ToolTip="{x:Static resx:InvoiceWindow.CreateCorrectionPDF}" Command="Replace" 
+                                    Background="{DynamicResource PrimaryHueMidBrush}">
                                 <materialDesign:PackIcon Kind="PdfBox" Foreground="White"></materialDesign:PackIcon>
                             </Button>
-                            <Button Name="SaveInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.SaveInvoice}" Command="Save">
+                            <Button Name="SaveInvoiceBtn" ToolTip="{x:Static resx:InvoiceWindow.SaveInvoice}" Command="Save" 
+                                    Background="{DynamicResource PrimaryHueMidBrush}">
                                 <materialDesign:PackIcon Kind="ContentSave" Foreground="White"></materialDesign:PackIcon>
                             </Button>
                         </StackPanel>
