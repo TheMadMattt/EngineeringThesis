@@ -397,7 +397,9 @@ namespace EngineeringThesis.UI.View
 
         private void CreatePDF_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0;
+            e.CanExecute = ViewModel.Invoice.InvoiceItems.Count > 0 
+                           && ContractorComboBox.SelectedItem != null 
+                           && SellerComboBox.SelectedItem != null;
         }
 
         private async void CreatePDF_Executed(object sender, ExecutedRoutedEventArgs e)
