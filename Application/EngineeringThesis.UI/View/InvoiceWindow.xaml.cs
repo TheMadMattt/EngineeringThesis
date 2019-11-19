@@ -106,12 +106,19 @@ namespace EngineeringThesis.UI.View
             ViewModel.Invoice.PaymentTypeId = ((PaymentType)PaymentTypeComboBox.SelectedItem).Id;
             ViewModel.Invoice.ContractorId = ((Customer)ContractorComboBox.SelectedItem).Id;
             ViewModel.Invoice.SellerId = ((Customer)SellerComboBox.SelectedItem).Id;
+
+            ViewModel.SelectedContractor = ((Customer) ContractorComboBox.SelectedItem);
+            ViewModel.SelectedSeller = ((Customer) SellerComboBox.SelectedItem);
         }
 
         public void BindInvoiceToControls()
         {
-            ContractorComboBox.SelectedItem = ViewModel.Contractors.Find(x => x.Id == ViewModel.Invoice.ContractorId);
-            SellerComboBox.SelectedItem = ViewModel.Sellers.Find(x => x.Id == ViewModel.Invoice.SellerId);
+            var selectedContractor = ViewModel.Contractors.FirstOrDefault(x => x.Id == ViewModel.Invoice.ContractorId);
+            ContractorComboBox.SelectedItem = selectedContractor;
+            ViewModel.SelectedContractor = selectedContractor;
+            var selectedSeller = ViewModel.Sellers.FirstOrDefault(x => x.Id == ViewModel.Invoice.SellerId);
+            SellerComboBox.SelectedItem = selectedSeller;
+            ViewModel.SelectedSeller = selectedSeller;
             PaymentTypeComboBox.SelectedItem =
                 ViewModel.PaymentTypes.Find(x => x.Id == ViewModel.Invoice.PaymentTypeId);
             if (ViewModel.Invoice.PaymentDate.HasValue) IsPaidCheckBox.IsChecked = true;
@@ -249,6 +256,33 @@ namespace EngineeringThesis.UI.View
             }
         }
 
+        private async void EditContractorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContractorComboBox.SelectedItem != null)
+            {
+                if (ContractorComboBox.SelectedItem is Customer customer)
+                {
+                    await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                    var amount = ContractorComboBox.Items.Count;
+                    if (amount - 1 != ContractorComboBox.SelectedIndex && amount - 1 > 0)
+                    {
+                        ContractorComboBox.SelectedIndex = amount - 1;
+                    }
+                    else
+                    {
+                        ContractorComboBox.SelectedIndex = 0;
+                    }
+                    ContractorComboBox.SelectedItem = customer;
+                    ViewModel.SelectedContractor = customer;
+                }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden kontrahent nie został wybrany", "Zaznacz kontrahenta", "OK"));
+            }
+        }
+
         private async void AddSellerBtn_Click(object sender, RoutedEventArgs e)
         {
             var seller = new Utility.CustomerStruct
@@ -261,6 +295,32 @@ namespace EngineeringThesis.UI.View
             {
                 ViewModel.Sellers.Add(seller.Customer);
                 SellerComboBox.Items.Refresh();
+            }
+        }
+        private async void EditSellerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (SellerComboBox.SelectedItem != null)
+            {
+                if (SellerComboBox.SelectedItem is Customer customer)
+                {
+                    await _navigationService.ShowDialogAsync<AddCustomerWindow>(customer);
+                    var amount = SellerComboBox.Items.Count;
+                    if (amount - 1 != SellerComboBox.SelectedIndex && amount - 1 > 0)
+                    {
+                        SellerComboBox.SelectedIndex = amount - 1;
+                    }
+                    else
+                    {
+                        SellerComboBox.SelectedIndex = 0;
+                    }
+                    SellerComboBox.SelectedItem = customer;
+                    ViewModel.SelectedSeller = customer;
+                }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("MainDialogHost")
+                    .For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
             }
         }
 
@@ -290,12 +350,22 @@ namespace EngineeringThesis.UI.View
 
         private void ContractorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ContractorComboBox.SelectedItem is Customer customer) ViewModel.Invoice.ContractorId = customer.Id;
+            if (ContractorComboBox.SelectedItem is Customer customer)
+            {
+                ViewModel.Invoice.ContractorId = customer.Id;
+                ViewModel.Invoice.Contractor = customer;
+                ViewModel.SelectedContractor = customer;
+            }
         }
 
         private void SellerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SellerComboBox.SelectedItem is Customer customer) ViewModel.Invoice.SellerId = customer.Id;
+            if (SellerComboBox.SelectedItem is Customer customer)
+            {
+                ViewModel.Invoice.SellerId = customer.Id;
+                ViewModel.Invoice.Seller = customer;
+                ViewModel.SelectedSeller = customer;
+            }
         }
 
         private void PaymentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

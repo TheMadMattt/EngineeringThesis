@@ -100,6 +100,8 @@ namespace EngineeringThesis.UI.View
                     ViewModel.Invoices.Add(invoice);
                     InvoiceDataGrid.Items.Refresh();
                 }
+                SellerDataGrid.Items.Refresh();
+                ContractorDataGrid.Items.Refresh();
             }
             else
             {
@@ -283,6 +285,8 @@ namespace EngineeringThesis.UI.View
                         ViewModel.Invoices[index] = invoice;
                         InvoiceDataGrid.Items.Refresh();
                     }
+                    SellerDataGrid.Items.Refresh();
+                    ContractorDataGrid.Items.Refresh();
                 }
             }
             else

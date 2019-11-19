@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Navigation;
 using EngineeringThesis.Core.Models;
 using EngineeringThesis.Core.Services;
 
@@ -11,12 +14,14 @@ namespace EngineeringThesis.Core.ViewModel
         private readonly InvoiceService _invoiceService;
         private readonly PaymentTypeService _paymentTypeService;
         private Invoice _invoice;
+        private Customer _selectedSeller;
+        private Customer _selectedContractor;
 
         public Invoice InvoiceWithRef;
         public Invoice LastInvoice;
         public List<PaymentType> PaymentTypes;
-        public List<Customer> Contractors;
-        public List<Customer> Sellers;
+        public ObservableCollection<Customer> Contractors;
+        public ObservableCollection<Customer> Sellers;
         public int InvoiceYear;
         public int InvoiceNumber;
         public InvoiceViewModel(CustomerService customerService, InvoiceService invoiceService, 
@@ -27,14 +32,14 @@ namespace EngineeringThesis.Core.ViewModel
             _paymentTypeService = paymentTypeService;
         }
 
-        public List<Customer> GetContractors()
+        public ObservableCollection<Customer> GetContractors()
         {
-            return Contractors = _customerService.GetContractors();
+            return Contractors = new ObservableCollection<Customer>(_customerService.GetContractors());
         }
 
-        public List<Customer> GetSellers()
+        public ObservableCollection<Customer> GetSellers()
         {
-            return Sellers = _customerService.GetSellers();
+            return Sellers = new ObservableCollection<Customer>(_customerService.GetSellers());
         }
 
         public List<PaymentType> GetPaymentTypes()
@@ -78,6 +83,18 @@ namespace EngineeringThesis.Core.ViewModel
                 return _invoice = new Invoice();
             }
             set => SetProperty(ref _invoice, value);
+        }
+
+        public Customer SelectedContractor
+        {
+            get => _selectedContractor;
+            set => SetProperty(ref _selectedContractor, value);
+        }
+
+        public Customer SelectedSeller
+        {
+            get => _selectedSeller;
+            set => SetProperty(ref _selectedSeller, value);
         }
 
         public bool IsUpdate { get; set; }
