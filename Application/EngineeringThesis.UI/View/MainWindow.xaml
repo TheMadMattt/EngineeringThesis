@@ -120,6 +120,12 @@
                                     <DataGridTextColumn Header="{x:Static resx:MainWindow.Comments}" Binding="{Binding Comments}" ElementStyle="{StaticResource WrapCenterColumn}" Width="2*">
                                     </DataGridTextColumn>
                                 </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Margin="0">
+                                        <MenuItem Name="EditInvoiceMenu" Header="{x:Static resx:MainWindow.EditInvoice}" Icon="{materialDesign:PackIcon Edit}" Click="EditInvoiceMenu_Click"/>
+                                        <MenuItem Name="DeleteInvoiceMenu" Header="{x:Static resx:MainWindow.DeleteInvoice}" Icon="{materialDesign:PackIcon Delete}" Click="DeleteInvoiceMenu_Click" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
                             </DataGrid>
                         </Grid>
                     </TabItem>
@@ -174,6 +180,12 @@
                                     <DataGridTextColumn Header="{x:Static resx:MainWindow.Comments}" Binding="{Binding Comments}" 
                                             ElementStyle="{StaticResource WrapCenterColumn}" Width="2*"></DataGridTextColumn>
                                 </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Margin="0">
+                                        <MenuItem Name="EditContractorMenu" Header="{x:Static resx:MainWindow.EditContractor}" Icon="{materialDesign:PackIcon Edit}" Click="EditContractorMenu_Click" />
+                                        <MenuItem Name="DeleteContractorMenu" Header="{x:Static resx:MainWindow.DeleteContractor}" Icon="{materialDesign:PackIcon Delete}" Click="DeleteContractorMenu_Click" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
                             </DataGrid>
                         </Grid>
                     </TabItem>
@@ -228,6 +240,12 @@
                                     <DataGridTextColumn Header="{x:Static resx:MainWindow.Comments}" Binding="{Binding Comments}" 
                                             ElementStyle="{StaticResource WrapCenterColumn}" Width="2*"></DataGridTextColumn>
                                 </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Margin="0">
+                                        <MenuItem Name="EditSellerMenu" Header="{x:Static resx:MainWindow.EditSeller}" Icon="{materialDesign:PackIcon Edit}" Click="EditSellerMenu_Click" />
+                                        <MenuItem Name="DeleteSellerMenu" Header="{x:Static resx:MainWindow.DeleteSeller}" Icon="{materialDesign:PackIcon Delete}" Click="DeleteSellerMenu_Click" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
                             </DataGrid>
                         </Grid>
                     </TabItem>
