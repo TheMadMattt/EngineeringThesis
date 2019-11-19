@@ -39,11 +39,6 @@ namespace EngineeringThesis.UI.View
             }
         }
 
-        private void ContractorDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            EditContractor();
-        }
-
         private void EditContractorButton_Click(object sender, RoutedEventArgs e)
         { 
             EditContractor();   
@@ -72,11 +67,6 @@ namespace EngineeringThesis.UI.View
             {
                 AddCustomer(customer);
             }
-        }
-
-        private void SellerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            EditSeller();
         }
 
         private void EditSellerButton_Click(object sender, RoutedEventArgs e)
@@ -116,11 +106,6 @@ namespace EngineeringThesis.UI.View
                 await Forge.Forms.Show.Dialog("MainDialogHost")
                     .For(new Information("Dodaj kontrahentów i sprzedawców, a następnie utwórz nową fakturę", "Brak kontrahentów i sprzedawców", "OK"));
             }
-        }
-
-        private void InvoiceDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            EditInvoice();
         }
 
         private void EditInvoiceButton_Click(object sender, RoutedEventArgs e)

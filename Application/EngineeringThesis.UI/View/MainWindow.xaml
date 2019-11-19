@@ -88,7 +88,7 @@
                                          materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchInvoice}" KeyUp="SearchInvoiceTextBox_KeyUp" Margin="0,0,10,0"/>
                             </Grid>
                             <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ScrollViewer.CanContentScroll="True"
-                              IsReadOnly="True" MouseDoubleClick="InvoiceDataGrid_MouseDoubleClick" VerticalScrollBarVisibility="Auto"
+                              IsReadOnly="True" VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Auto" SelectedIndex="0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="{x:Static resx:MainWindow.InvoiceNumber}" Binding="{Binding InvoiceNumber}" 
@@ -153,7 +153,7 @@
                             </Grid>
                             <DataGrid Name="ContractorDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
                                       IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
-                                      HorizontalScrollBarVisibility="Auto" MouseDoubleClick="ContractorDataGrid_MouseDoubleClick" SelectedIndex="0">
+                                      HorizontalScrollBarVisibility="Auto" SelectedIndex="0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 
                                             ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>
@@ -213,7 +213,7 @@
                             </Grid>
                             <DataGrid Name="SellerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
                                       IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
-                                      HorizontalScrollBarVisibility="Auto" SelectedIndex="0" MouseDoubleClick="SellerDataGrid_MouseDoubleClick">
+                                      HorizontalScrollBarVisibility="Auto" SelectedIndex="0">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="{x:Static resx:MainWindow.CompanyName}" Binding="{Binding Name}" 
                                             ElementStyle="{StaticResource CenterAlignment}"></DataGridTextColumn>

@@ -130,11 +130,6 @@ namespace EngineeringThesis.UI.View
             }
         }
 
-        private void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            EditInvoiceItem();
-        }
-
         private void EditItemBtn_Click(object sender, RoutedEventArgs e)
         {
             EditInvoiceItem();

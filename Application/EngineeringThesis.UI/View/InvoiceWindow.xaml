@@ -253,7 +253,7 @@
                 <Grid Grid.Row="1">
                     <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
                                   IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
-                                  HorizontalScrollBarVisibility="Auto" Grid.Column="0" SelectedIndex="0" MouseDoubleClick="InvoiceItemsDataGrid_MouseDoubleClick">
+                                  HorizontalScrollBarVisibility="Auto" Grid.Column="0" SelectedIndex="0">
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" MaxWidth="300"
                                                     ElementStyle="{StaticResource WrapCenterColumn}"/>
