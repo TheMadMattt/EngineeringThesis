@@ -45,7 +45,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="0" Source="../invoiceWhite.png" Margin="2"></Image>
-                    <Label Grid.Column="1" Margin="5" Foreground="White" FontSize="15" Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"></Label>
+                    <Label Grid.Column="1" Margin="5" Foreground="White" FontSize="15" Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}" VerticalAlignment="Bottom"></Label>
                 </Grid>
                 <!-- <Label Grid.Column="0" Margin="5" Foreground="White" FontSize="15" Content="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"></Label> -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">

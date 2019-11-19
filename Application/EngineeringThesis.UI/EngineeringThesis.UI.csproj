@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <NoWarn>NU1701</NoWarn>
-    <ApplicationIcon>invoice.ico</ApplicationIcon>
+    <ApplicationIcon>invoiceWhite.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
