@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using EngineeringThesis.Core.Models;
@@ -196,17 +197,21 @@ namespace EngineeringThesis.UI.View
         {
             if (!string.IsNullOrEmpty(SearchContractorTextBox.Text))
             {
+                ClearSearchContractor.Visibility = Visibility.Visible;
                 var filtered =
                     ViewModel.Contractors.Where(customer =>
                         customer.Name.ToLower().Contains(SearchContractorTextBox.Text.ToLower()) ||
-                        customer.NIP.Contains(SearchContractorTextBox.Text.ToLower()) ||
-                        customer.REGON.Contains(SearchContractorTextBox.Text.ToLower()));
+                        (customer.NIP != null && customer.NIP.Contains(SearchContractorTextBox.Text.ToLower())) ||
+                        (customer.REGON != null && customer.REGON.Contains(SearchContractorTextBox.Text.ToLower())) ||
+                        customer.Street.ToLower().Contains(SearchContractorTextBox.Text.ToLower()) ||
+                        customer.City.ToLower().Contains(SearchContractorTextBox.Text.ToLower()));
 
                 ContractorDataGrid.ItemsSource = filtered;
             }
             else
             {
                 ContractorDataGrid.ItemsSource = ViewModel.Contractors;
+                ClearSearchContractor.Visibility = Visibility.Hidden;
             }
         }
 
@@ -214,17 +219,21 @@ namespace EngineeringThesis.UI.View
         {
             if (!string.IsNullOrEmpty(SearchSellerTextBox.Text))
             {
+                ClearSearchSeller.Visibility = Visibility.Visible;
                 var filtered =
                     ViewModel.Sellers.Where(customer =>
                         customer.Name.ToLower().Contains(SearchSellerTextBox.Text.ToLower()) ||
-                        customer.NIP.Contains(SearchSellerTextBox.Text.ToLower()) ||
-                        customer.REGON.Contains(SearchSellerTextBox.Text.ToLower()));
+                        (customer.NIP!=null && customer.NIP.Contains(SearchSellerTextBox.Text.ToLower())) ||
+                        (customer.REGON!=null && customer.REGON.Contains(SearchSellerTextBox.Text.ToLower())) ||
+                        customer.Street.ToLower().Contains(SearchSellerTextBox.Text.ToLower()) ||
+                        customer.City.ToLower().Contains(SearchSellerTextBox.Text.ToLower()));
 
                 SellerDataGrid.ItemsSource = filtered;
             }
             else
             {
                 SellerDataGrid.ItemsSource = ViewModel.Sellers;
+                ClearSearchSeller.Visibility = Visibility.Hidden;
             }
         }
 
@@ -232,17 +241,22 @@ namespace EngineeringThesis.UI.View
         {
             if (!string.IsNullOrEmpty(SearchInvoiceTextBox.Text))
             {
+                ClearSearchInvoice.Visibility = Visibility.Visible;
                 var filtered =
                     ViewModel.Invoices.Where(invoice =>
                         invoice.InvoiceNumber.Contains(SearchInvoiceTextBox.Text.ToLower()) ||
                         invoice.Seller.Name.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()) ||
-                        invoice.Contractor.Name.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()));
+                        invoice.Contractor.Name.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()) ||
+                        invoice.InvoiceDate.ToString("dd.MM.yyyy").Contains(SearchInvoiceTextBox.Text) ||
+                        invoice.Contractor.Street.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()) ||
+                        invoice.Contractor.City.ToLower().Contains(SearchInvoiceTextBox.Text.ToLower()));
 
                 InvoiceDataGrid.ItemsSource = filtered;
             }
             else
             {
                 InvoiceDataGrid.ItemsSource = ViewModel.Invoices;
+                ClearSearchInvoice.Visibility = Visibility.Hidden;
             }
         }
 
@@ -383,6 +397,27 @@ namespace EngineeringThesis.UI.View
                 await Forge.Forms.Show.Dialog("MainDialogHost")
                     .For(new Information("Żaden sprzedawca nie został wybrany", "Zaznacz sprzedawcę", "OK"));
             }
+        }
+
+        private void ClearSearchInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            SearchInvoiceTextBox.Text = String.Empty;
+            ClearSearchInvoice.Visibility = Visibility.Hidden;
+            InvoiceDataGrid.ItemsSource = ViewModel.Invoices;
+        }
+
+        private void ClearSearchContractor_Click(object sender, RoutedEventArgs e)
+        {
+            SearchContractorTextBox.Text = String.Empty;
+            ClearSearchContractor.Visibility = Visibility.Hidden;
+            ContractorDataGrid.ItemsSource = ViewModel.Contractors;
+        }
+
+        private void ClearSearchSeller_Click(object sender, RoutedEventArgs e)
+        {
+            SearchSellerTextBox.Text = String.Empty;
+            ClearSearchSeller.Visibility = Visibility.Hidden;
+            SellerDataGrid.ItemsSource = ViewModel.Sellers;
         }
     }
 }

@@ -84,8 +84,13 @@
                                     <Button Name="DeleteInvoiceButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
                                 ToolTip="{x:Static resx:MainWindow.DeleteInvoice}" Height="40" Width="40" Click="DeleteInvoiceButton_Click" ></Button>
                                 </ToolBar>
-                                <TextBox Name="SearchInvoiceTextBox" MinWidth="200" Grid.Column="1" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                         materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchInvoice}" KeyUp="SearchInvoiceTextBox_KeyUp" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBox Name="SearchInvoiceTextBox" MinWidth="200" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                             materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchInvoice}" KeyUp="SearchInvoiceTextBox_KeyUp">
+                                    </TextBox>
+                                    <Button Name="ClearSearchInvoice" Width="30" Height="30" Content="{materialDesign:PackIcon Clear}" Style="{StaticResource MaterialDesignIconButton}" 
+                                            VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Hidden" Click="ClearSearchInvoice_Click"/>
+                                </StackPanel>
                             </Grid>
                             <DataGrid Name="InvoiceDataGrid" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ScrollViewer.CanContentScroll="True"
                               IsReadOnly="True" VerticalScrollBarVisibility="Auto"
@@ -148,8 +153,12 @@
                                     <Button Name="DeleteContractorButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
                                 ToolTip="{x:Static resx:MainWindow.DeleteContractor}" Height="40" Width="40" Click="DeleteContractorButton_Click" ></Button>
                                 </ToolBar>
-                                <TextBox Name="SearchContractorTextBox" MinWidth="200" Grid.Column="1" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                         materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchContractor}" KeyUp="SearchContractorTextBox_KeyUp" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBox Name="SearchContractorTextBox" MinWidth="200" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                             materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchContractor}" KeyUp="SearchContractorTextBox_KeyUp" Margin="0,0,10,0"/>
+                                    <Button Name="ClearSearchContractor" Width="30" Height="30" Content="{materialDesign:PackIcon Clear}" Style="{StaticResource MaterialDesignIconButton}" 
+                                            VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Hidden" Click="ClearSearchContractor_Click"/>
+                                </StackPanel>
                             </Grid>
                             <DataGrid Name="ContractorDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
                                       IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
@@ -208,8 +217,12 @@
                                     <Button Name="DeleteSellerButton" Style="{DynamicResource MaterialDesignFloatingActionLightButton}" Content="{materialDesign:PackIcon Delete}"
                                 ToolTip="{x:Static resx:MainWindow.DeleteSeller}" Height="40" Width="40" Click="DeleteSellerButton_Click" ></Button>
                                 </ToolBar>
-                                <TextBox Name="SearchSellerTextBox" MinWidth="200" Grid.Column="1" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                         materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchSeller}" KeyUp="SearchSellerTextBox_KeyUp" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBox Name="SearchSellerTextBox" MinWidth="200" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                             materialDesign:HintAssist.Hint="{x:Static resx:MainWindow.SearchSeller}" KeyUp="SearchSellerTextBox_KeyUp" Margin="0,0,10,0"/>
+                                    <Button Name="ClearSearchSeller" Width="30" Height="30" Content="{materialDesign:PackIcon Clear}" Style="{StaticResource MaterialDesignIconButton}" 
+                                            VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Hidden" Click="ClearSearchSeller_Click" />
+                                </StackPanel>
                             </Grid>
                             <DataGrid Name="SellerDataGrid" AutoGenerateColumns="False" VerticalAlignment="Top" Grid.Row="1"
                                       IsReadOnly="True" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
