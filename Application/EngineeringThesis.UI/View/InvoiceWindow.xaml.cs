@@ -119,27 +119,6 @@ namespace EngineeringThesis.UI.View
             InvoiceItemsDataGrid.ItemsSource = ViewModel.Invoice.InvoiceItems;
         }
 
-        private async void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (InvoiceItemsDataGrid.SelectedItem != null)
-            {
-                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
-                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
-                    "Usuwanie produktu", "Tak", "Nie"));
-                if (result.Action != null)
-                    if (result.Action.Equals("positive"))
-                    {
-                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
-                        InvoiceItemsDataGrid.Items.Refresh();
-                    }
-            }
-            else
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
-                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
-            }
-        }
-
         private async void AddItemBtn_Click(object sender, RoutedEventArgs e)
         {
             var invoiceItem = new InvoiceItem();
@@ -151,69 +130,29 @@ namespace EngineeringThesis.UI.View
             }
         }
 
-        private async void EditItemBtn_Click(object sender, RoutedEventArgs e)
+        private void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
-            {
-                await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
-
-                if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
-                {
-                    var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
-                    var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
-                    invoiceItemsList[index] = invoiceItem;
-                }
-
-                InvoiceItemsDataGrid.Items.Refresh();
-            }
-            else
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
-                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
-            }
+            EditInvoiceItem();
         }
 
-        private async void EditMenuItem_Click(object sender, RoutedEventArgs e)
+        private void EditItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
-            {
-                await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
-
-                if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
-                {
-                    var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
-                    var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
-                    invoiceItemsList[index] = invoiceItem;
-                }
-
-                InvoiceItemsDataGrid.Items.Refresh();
-            }
-            else
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
-                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
-            }
+            EditInvoiceItem();
         }
 
-        private async void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        private void EditMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (InvoiceItemsDataGrid.SelectedItem != null)
-            {
-                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
-                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
-                    "Usuwanie produktu", "Tak", "Nie"));
-                if (result.Action != null)
-                    if (result.Action.Equals("positive"))
-                    {
-                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
-                        InvoiceItemsDataGrid.Items.Refresh();
-                    }
-            }
-            else
-            {
-                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
-                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
-            }
+            EditInvoiceItem();
+        }
+
+        private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteInvoiceItem();
+        }
+
+        private void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteInvoiceItem();
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -352,31 +291,6 @@ namespace EngineeringThesis.UI.View
             CommentsTextBox.IsEnabled = true;
             EditMenuItem.IsEnabled = true;
             DeleteMenuItem.IsEnabled = true;
-        }
-
-        private async void InvoiceItemsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (EditItemBtn.IsEnabled && DeleteItemBtn.IsEnabled)
-            {
-                if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
-                {
-                    await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
-
-                    if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
-                    {
-                        var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
-                        var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
-                        invoiceItemsList[index] = invoiceItem;
-                    }
-
-                    InvoiceItemsDataGrid.Items.Refresh();
-                }
-                else
-                {
-                    await Forge.Forms.Show.Dialog("InvoiceDialogHost")
-                        .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
-                }
-            }
         }
 
         private void ContractorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -660,6 +574,49 @@ namespace EngineeringThesis.UI.View
                         TitleLabel.Content = "Faktura nr " + ViewModel.Invoice.InvoiceNumber;
                     }
                 }
+            }
+        }
+
+        private async void EditInvoiceItem()
+        {
+            if (InvoiceItemsDataGrid.SelectedItem is InvoiceItem invoiceItem)
+            {
+                await _navigationService.ShowDialogAsync<InvoiceItemWindow>(invoiceItem);
+
+                if (Utility.IsNotInvoiceItemNullOrEmpty(invoiceItem))
+                {
+                    var invoiceItemsList = ViewModel.Invoice.InvoiceItems.ToList();
+                    var index = invoiceItemsList.FindIndex(x => x.Id == invoiceItem.Id);
+                    invoiceItemsList[index] = invoiceItem;
+                }
+
+                InvoiceItemsDataGrid.Items.Refresh();
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
+            }
+        }
+
+        private async void DeleteInvoiceItem()
+        {
+            if (InvoiceItemsDataGrid.SelectedItem != null)
+            {
+                var result = await Forge.Forms.Show.Dialog("InvoiceDialogHost").For(new Warning(
+                    "Czy napewno chcesz usunąć: " + ((InvoiceItem)InvoiceItemsDataGrid.SelectedItem).Name,
+                    "Usuwanie produktu", "Tak", "Nie"));
+                if (result.Action != null)
+                    if (result.Action.Equals("positive"))
+                    {
+                        ViewModel.Invoice.InvoiceItems.Remove((InvoiceItem)InvoiceItemsDataGrid.SelectedItem);
+                        InvoiceItemsDataGrid.Items.Refresh();
+                    }
+            }
+            else
+            {
+                await Forge.Forms.Show.Dialog("InvoiceDialogHost")
+                    .For(new Information("Żaden produkt nie został wybrany", "Zaznacz produkt", "OK"));
             }
         }
     }
