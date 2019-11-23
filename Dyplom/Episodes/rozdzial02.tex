@@ -1,0 +1,135 @@
+\chapter{Analiza wymagań użytkownika}
+
+Aplikacja skierowana jest do każdego użytkownika lub firmy, który potrzebuje systemy, w którym będzie mógł wprowadzać faktury VAT lub pro forma. Ponadto oprogramowanie umożliwa także generowanie PDFów z wybranych przez użytkownika faktur. Interfejs aplikacji jest bardzo intuicyjny oraz prosty w obsłudze, także każda osoba, będzie potrafiła z niego korzystać.
+
+\section{Wymagania funkcjonalne}
+\begin{enumerate}
+    \item Użytkownik ma możliwość dodania kontrahenta/sprzedawcę \\
+    \textbf{Opis: } Każdy użytkownik po wejściu w odpowiednią zakładkę ma możliwość dodania nowego klienta. Klient może zostać dodany również z widoku dodawania faktury.\\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Użytkownik uzupełnia wymagane pola (nazwa firmy, miasto, ulica, numer domu) oraz może uzupełnić pola opcjonalne (kod pocztowy, numer lokalu, numer telefonu, NIP, REGON, numer konta bankowego, uwagi).
+        \item Aplikacja sprawdza poprawność wpisanych danych (w przypadku błędnie podanych, wyświetla stosowny komunikat).
+        \item Kontrahent/Sprzedawca zostaje dodany do bazy danych oraz wyświetla się na liście dostępnych już klientów.\\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość usunięcia kontrahenta/sprzedawcy\\
+    \textbf{Opis: } Każdy użytkownik ma możliwość wybrania dowolnego sprzedawcy/kontrahenta i usunięcia go.\\
+    \textbf{Przebieg: } 
+    \begin{enumerate}
+        \item Użytkownik wybiera sprzedawcę/kontrahenta z listy dostępnych.
+        \item Użtykownik klika w odpowiedni przycisk i potwierdza usunięcie.\\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość edytowania kontrahenta/sprzedawcy\\
+    \textbf{Opis: } Każdy użytkownik po wybraniu konktretnego kontrahenta/sprzedawcy ma możliwość edytowania go.\\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Po wybraniu konkretnego sprzedawcy/kontrahenta użytkownikowi ukazuje się menu podglądu.
+        \item Po przejściu do trybu edycji użytkownik może edytować wszystkie pola.
+        \item Użytkownik zatwierdza wprowadzone zmiany.
+        \item Wprowadzone zmiany zostają zaktualizowane na liście.\\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość dodania faktury \\
+    \textbf{Opis: } Każdy użytkownik po wejściu w odpowiednią zakładkę ma możliwość dodania nowej faktury.\\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Użytkownik uzupełnia wymagane pola (kontrahent, sprzedawca, data wystawienia faktury, termin płatności) oraz może uzupełnić pola opcjonalne (kiedy faktura została opłacona, dodanie nowych pozycji do faktury, uwagi).
+        \item Numer faktury jest kolejnym numerem porządkowym ostatniej faktury (np. ostatnia faktura 1/2019, następna faktura 2/2019), przy rozpoczęciu nowego roku, numeracja faktur rozpoczyna się od początku.
+        \item Aplikacja sprawdza poprawność wpisanych danych (w przypadku błędnie podanych, wyświetla stosowny komunikat).
+        \item Faktura zostaje dodana do bazy danych oraz wyświetla się na liście dostępnych już faktur.\\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość usunięcia faktury\\
+    \textbf{Opis: } Każdy użytkownik ma możliwość wybrania dowolnej faktury i usunięcia jej.\\
+    \textbf{Przebieg: } 
+    \begin{enumerate}
+        \item Użytkownik wybiera fakturę z listy dostępnych.
+        \item Użtykownik klika w odpowiedni przycisk i potwierdza usunięcie.
+        \item W przypadku, gdy użytkownik usuwa ostatnią fakturę z danego roku, numeracja faktur sie cofa (np. mamy faktury 1/2019, 2/2019, 3/2019, użytkownik usuwa fakturę 3/2019, czyli następna nowa faktura będzie miała numer usuniętej faktury 3/2019).\\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość edytowania faktury\\
+    \textbf{Opis: } Każdy użytkownik po wybraniu konktretnej faktury ma możliwość edytowania jej.\\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Po wybraniu konkretnej faktury, użytkownikowi ukazuje się menu podglądu.
+        \item Po przejściu do trybu edycji użytkownik może edytować wszystkie pola.
+        \item Użytkownik zatwierdza wprowadzone zmiany.
+        \item Wprowadzone zmiany zostają zaktualizowane na liście.\\
+    \end{enumerate}
+    
+        \item Użytkownik ma możliwość dodania pozycji na fakturze \\
+    \textbf{Opis: } Każdy użytkownik po utworzeniu nowej faktury, ma możliwość dodania nowej pozycji do faktury.\\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Użytkownik uzupełnia wymagane pola (nazwa produktu, ilość, VAT [\%], jednostka, cena netto lub brutto) i opcjonalne pola PKWiU oraz uwagi.
+        \item Aplikacja sprawdza poprawność wpisanych danych (w przypadku błędnie podanych, wyświetla stosowny komunikat).
+        \item Pozycja zostaje dodana do faktury oraz wyświetla się na liście pozycji.
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość usunięcia pozycji z faktury\\
+    \textbf{Opis: } Każdy użytkownik ma możliwość wybrania dowolnej pozycji znajdującej się na fakturze i usunięcia jej.\\
+    \textbf{Przebieg: } 
+    \begin{enumerate}
+        \item Użytkownik wybiera pozycję z otwartego okna tworzenia/edycji faktury. 
+        \item Użtykownik klika w odpowiedni przycisk i potwierdza usunięcie. \\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość edytowania pozycji z faktury\\
+    \textbf{Opis: } Każdy użytkownik po wybraniu konktretnej pozycji znajdującej się na fakturze ma możliwość edytowania jej.\\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Użytkownik wybiera konkretna pozycję z faktury.
+        \item Użytkownik edytuje wybrane pola.
+        \item Użytkownik zatwierdza wprowadzone zmiany.
+        \item Wprowadzone zmiany zostają zaktualizowane na liście.\\
+    \end{enumerate}
+    
+    \item Użytkownik ma możliwość wyszukania faktury, sprzedawcy i kontrahenta \\
+    \textbf{Opis: } Każdy użytkownik ma możliwość wyszukania faktury (po numerze faktury, sprzedawcy, kontrahencie), sprzedawcy oraz kontrahenta (po nazwie, NIPie i REGONie). Wprowadzona do wyszukiwarki fraza nie musi być pełna, może to być część nazwy, numeru. \\
+    \textbf{Przebieg: }
+    \begin{enumerate}
+        \item Użytkownik wpisuje frazę w wyszukiwarce
+        \item Jeżeli istnieje obiekt o podanej frazie zwracana jest lista obiektów, które pasują do podanej frazy.
+        \item Jeżeli obiekt nie istnieje zostaje zwrócona pusta lista.\\
+    \end{enumerate}
+    
+    \item Użytkonik ma możliwość wygenerowania pliku PDF z faktury \\
+    \textbf{Opis: } Każdy użytkownik ma możliwość wygenerowania pliku PDF z wybranej faktury. \\
+    \textbf{Przebieg pierwszy (dodanie nowej faktury): }
+    \begin{enumerate}
+        \item Użytkownik tworzy nową fakturę.
+        \item Użytkownik musi uzupełnić wszystkie wymagane dane, w celu wygenerowania faktury (kontrahent, sprzedawca, pozycje na fakturze, data wystawienia).
+        \item Użytkownik ma możliwość zmienienia szablonu faktury zaznaczając odpowiednie opcje (uwagi na fakturze, kto wystawił fakturę, osoba odpowiedzialna za odbiór faktury, faktura VAT lub pro forma).
+        \item Użytkownik generuje fakturę po kliknięciu odpowiedniego przycisku.
+        \item Poprawnie wygenerowana faktura otwiera się w domyślnym programie do PDFów.
+    \end{enumerate}
+    \textbf{Przebieg drugi (edycja istniejącej faktury): }
+    \begin{enumerate}
+        \item Użytkownik wybiera fakturę z listy.
+        \item Użytkownik ma możliwość zmienienia szablonu faktury (w trybie podglądu faktury) zaznaczając odpowiednie opcje (uwagi na fakturze, kto wystawił fakturę, osoba odpowiedzialna za odbiór faktury, faktura VAT lub pro forma).
+        \item Faktura musi mieć uzupełnione wszystkie wymagane pola, w celu wygenerowania faktury (kontrahent, sprzedawca, pozycje na fakturze, data wystawienia).
+        \item Użytkownik generuje fakturę po kliknięciu odpowiedniego przycisku.
+        \item Poprawnie wygenerowana faktura otwiera się w domyślnym programie do PDFów.
+    \end{enumerate}
+\end{enumerate}
+
+\section{Wymagania niefunkcjonalne}
+\begin{enumerate}
+    \item \textbf{Wymagania estetyczne} \\
+    Kolorystyka interfejsu użytkownika powinna skałdać się z zimnych barw. Interfejs ma być przyjazny dla oka użytkownika, tak aby dłuższe użytkowanie niesprawiało problemów.
+    \\
+    \item \textbf{Wymagania dotyczące ergonomii i wygody}
+    \begin{itemize}
+        \item Interfejs powinien posiadać pasek nawigacyjny, ułatwiający poruszanie się po aplikacji
+        \item Aplikacja powinna być odporna na błędy - interfejs powinien zgłaszać niepowodzenie operacji oraz wychwytywać błędy i informować o nich użytkownika. \\
+    \end{itemize}
+    
+    \item \textbf{Wymagania wydajnościowe}\\
+    Każda interakcja użytkownika z interfejsem powinna być nie dłuższa niż 3 sekundy. Każdy użytkownik aplikacji oczekuje płynnego i naturalnego działania interfejsu. \\
+    
+    \item \textbf{Wymagania dotyczące warunków oraz środowiska pracy}\\
+    Aplikacja powinna działać na maszynach z systemem operacyjnym Windows 7 i wyżej.
+\end{enumerate}

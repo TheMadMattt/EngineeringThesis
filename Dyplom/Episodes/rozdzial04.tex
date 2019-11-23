@@ -1,0 +1,56 @@
+\chapter{Testy systemowe}
+Testy systemowe mają na celu przetestowanie systemu jako całości. Testowanie aplikacji odbywa się poprzez realizację konkretnych scenariuszy. Testy systemowe przeprowadzane są w celu zweryfikowania aplikacji pod kątem zgodności z wymaganiami funkcjonalnymi oraz niefunkcjonalnymi. Poniżej zostało przedstawionych kilka scenariuszy testowych:
+\\
+\begin{enumerate}
+    \item Scenariusz dodawania nowej faktury: \\
+        \textbf{Kroki:}
+        \begin{enumerate}
+            \item Uruchomienie aplikacji.
+            \item Kliknięcie przycisku Dodaj fakturę (przycisk z plusem na pasku narzędzi)
+            \item Wypełnienie wszystkich wymaganych pól. 
+            \item Kliknięcie przycisku z plusem w celu otworzenia menu wyboru.
+            \item Wybranie ikonki z dyskietką, w celu zapisania faktury.
+            \item Kliknięcie prawym przyciskiem myszy na nowo dodanej fakturze.
+            \item Wybranie opcji ,,Edytuj fakturę''.
+            \item Sprawdzenie czy wszystkie dane wprowadzone przez użytkownika zgadzają się z wyświetlonymi.
+        \end{enumerate}
+        \textbf{Oczekiwany rezultat:}
+        \begin{itemize}
+            \item Dane wpisane przez użytkownika zgadzają się z danymi wyświetlonymi na ekranie.
+            \item Faktura została poprawnie dodana do bazy danych.\\
+        \end{itemize}
+    \item Scenariusz dodawania nowego kontrahenta: \\
+        \textbf{Kroki:}
+        \begin{enumerate}
+            \item Uruchomienie aplikacji.
+            \item Kliknięcie w zakładkę kontrahenci.
+            \item Kliknięcie przycisku Dodaj kontrahenta (przycisk z plusem na pasku narzędzi).
+            \item Wybranie rodzaju klienta: Kontrahent.
+            \item Wypełnienie wszystkich wymaganych pól.
+            \item Kliknięcie przycisku ,,Dodaj +''.
+            \item Kliknięcie prawym przyciskiem myszy na nowo dodanym kontrahencie.
+            \item Wybranie opcji ,,Edytuj kontrahenta''.
+            \item Sprawdzenie czy wszystkie dane wprowadzone przez użytkownika zgadzają się z wyświetlonymi.
+        \end{enumerate}
+        \textbf{Oczekiwany rezultat:}
+        \begin{itemize}
+            \item Dane wpisane przez użytkownika zgadzają się z danymi wyświetlonymi na ekranie.
+            \item Kontrahent została poprawnie dodana do bazy danych.
+        \end{itemize}
+    \item Scenariusz usuwania faktury: \\
+        \textbf{Warunki początkowe: } \\
+        Dodana minimum jedna faktura na liście.\\
+        \textbf{Kroki: }
+        \begin{enumerate}
+            \item Wybranie konkretnej faktury z listy.
+            \item Kliknięcie prawym przyciskiem.
+            \item Wybranie opcji ,,Usuń fakturę''.
+            \item Potwierdzenie usunięcia faktury kliknięciem w przycisk ,,Tak''
+        \end{enumerate}
+        \textbf{Oczekiwany rezultat:}
+        \begin{itemize}
+            \item Faktura została usunięta z listy.
+            \item Faktura została usunięta z bazy danych.
+            \item Pozycje powiązane z fakturą zostały usunięte z bazy danych.
+        \end{itemize}
+\end{enumerate}
