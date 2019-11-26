@@ -84,18 +84,23 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox Name="ContractorComboBox" VerticalAlignment="Top" SelectedIndex="0" Grid.Column="0" Margin="0,0,10,0" 
                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" StaysOpenOnEdit="True" 
-                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsEditable="True" SelectionChanged="ContractorComboBox_SelectionChanged">
+                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" 
+                                          IsEditable="True" SelectionChanged="ContractorComboBox_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <Button Name="AddContractorBtn" Grid.Column="1" Width="25" Height="25" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="AddContractorBtn_Click">
+                                <Button Name="AddContractorBtn" Grid.Column="1" Width="25" Height="25" Margin="0,0,5,0" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="AddContractorBtn_Click">
                                     <materialDesign:PackIcon Kind="Add" Foreground="White"></materialDesign:PackIcon>
+                                </Button>
+                                <Button Name="EditContractorBtn" Grid.Column="2" Width="25" Height="25" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="EditContractorBtn_Click" >
+                                    <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                                 </Button>
                             </Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Top">
@@ -114,28 +119,28 @@
                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" 
                                    Content="{x:Static resx:InvoiceWindow.Business}"/>
                                     <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.Name}"/>
+                                       Text="{Binding SelectedContractor.Name}"/>
                                     <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" 
                                    Content="{x:Static resx:InvoiceWindow.Address}"/>
                                     <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
-                                                <Binding ElementName="ContractorComboBox" Path="SelectedItem.ZipCode" />
-                                                <Binding ElementName="ContractorComboBox" Path="SelectedItem.City" />
-                                                <Binding ElementName="ContractorComboBox" Path="SelectedItem.Street"></Binding>
-                                                <Binding ElementName="ContractorComboBox" Path="SelectedItem.StreetNumber"></Binding>
+                                                <Binding Path="SelectedContractor.ZipCode" />
+                                                <Binding Path="SelectedContractor.City" />
+                                                <Binding Path="SelectedContractor.Street"></Binding>
+                                                <Binding Path="SelectedContractor.StreetNumber"></Binding>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
                                     <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.NIP}"/>
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.NIP}"/>
+                                       Text="{Binding SelectedContractor.NIP}"/>
                                     <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Regon}"/>
                                     <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.REGON}"/>
+                                       Text="{Binding SelectedContractor.REGON}"/>
                                     <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.BankAccountNumber}"/>
                                     <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=ContractorComboBox, Path=SelectedItem.BankAccountNumber}"/>
+                                       Text="{Binding SelectedContractor.BankAccountNumber}"/>
                                 </Grid>
                             </ScrollViewer>
                         </Grid>
@@ -150,18 +155,23 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox Name="SellerComboBox" VerticalAlignment="Top" SelectedIndex="0" Grid.Column="0" Margin="0,0,10,0"
                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsEditable="True" SelectionChanged="SellerComboBox_SelectionChanged">
+                                          materialDesign:HintAssist.Hint="{x:Static resx:InvoiceWindow.Search}" IsTextSearchEnabled="True" TextSearch.TextPath="Name" 
+                                          IsEditable="True" SelectionChanged="SellerComboBox_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <Button Name="AddSellerBtn" Grid.Column="1" Width="25" Height="25" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="AddSellerBtn_Click">
+                                <Button Name="AddSellerBtn" Grid.Column="1" Width="25" Height="25" Margin="0,0,5,0" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="AddSellerBtn_Click">
                                     <materialDesign:PackIcon Kind="Add" Foreground="White"></materialDesign:PackIcon>
+                                </Button>
+                                <Button Name="EditSellerBtn" Grid.Column="2" Width="25" Height="25" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="EditSellerBtn_Click" >
+                                    <materialDesign:PackIcon Kind="Edit" Foreground="White"></materialDesign:PackIcon>
                                 </Button>
                             </Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Top">
@@ -179,28 +189,28 @@
                                     </Grid.RowDefinitions>
                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Business}"></Label>
                                     <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.Name}"/>
+                                       Text="{Binding SelectedSeller.Name}"/>
                                     <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Address}"></Label>
                                     <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} {1} &#x0a;{2} {3}">
-                                                <Binding ElementName="SellerComboBox" Path="SelectedItem.ZipCode" />
-                                                <Binding ElementName="SellerComboBox" Path="SelectedItem.City" />
-                                                <Binding ElementName="SellerComboBox" Path="SelectedItem.Street"></Binding>
-                                                <Binding ElementName="SellerComboBox" Path="SelectedItem.StreetNumber"></Binding>
+                                                <Binding Path="SelectedSeller.ZipCode" />
+                                                <Binding Path="SelectedSeller.City" />
+                                                <Binding Path="SelectedSeller.Street"></Binding>
+                                                <Binding Path="SelectedSeller.StreetNumber"></Binding>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
                                     <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.NIP}"></Label>
                                     <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.NIP}"/>
+                                       Text="{Binding SelectedSeller.NIP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.Regon}"></Label>
                                     <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.REGON}"/>
+                                       Text="{Binding SelectedSeller.REGON}"/>
                                     <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Content="{x:Static resx:InvoiceWindow.BankAccountNumber}">
                                     </Label>
                                     <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" TextWrapping="Wrap"
-                                       Text="{Binding ElementName=SellerComboBox, Path=SelectedItem.BankAccountNumber}"/>
+                                       Text="{Binding SelectedSeller.BankAccountNumber}"/>
                                 </Grid>
                             </ScrollViewer>
                         </Grid>
@@ -253,7 +263,7 @@
                 <Grid Grid.Row="1">
                     <DataGrid Name="InvoiceItemsDataGrid" AutoGenerateColumns="False" 
                                   IsReadOnly="True" ScrollViewer.CanContentScroll="False" SelectionMode="Single"
-                                  HorizontalScrollBarVisibility="Auto" Grid.Column="0" SelectedIndex="0" MouseDoubleClick="InvoiceItemsDataGrid_MouseDoubleClick">
+                                  HorizontalScrollBarVisibility="Auto" Grid.Column="0" SelectedIndex="0">
                             <DataGrid.Columns >
                                 <DataGridTextColumn Header="{x:Static resx:InvoiceWindow.ItemName}" Binding="{Binding Name}" MaxWidth="300"
                                                     ElementStyle="{StaticResource WrapCenterColumn}"/>
