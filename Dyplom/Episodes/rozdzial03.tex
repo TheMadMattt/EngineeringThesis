@@ -6,10 +6,10 @@ Aplikacja została utworzona za pomocą wzorca projektowego MVVM (Model - View -
 \begin{itemize}
     \item podział stron/widoków/okien na XAML oraz code-behind
     \item separacja warstw
-    \item uproszczenie implementacji złozonych interfejsów
+    \item uproszczenie implementacji złożonych interfejsów
 \end{itemize}
 
-Podział wzorca MVVM na model, widok i widok modelu został opisany w książce J. Matulewskiego \cite{MVVMBook} w rozdziałach drugim i trzecim. W drugim rozdziale możemy przeczytać czym tak naprawdę jest rozdzielenie projektu na warstwy modelu, widoku oraz widoku modelu. Z kolei w trzecim autor pisze o implementacji wzroca MVVM. \\
+Podział wzorca MVVM na model, widok i widok modelu został opisany w książce J. Matulewskiego \cite{MVVMBook} w rozdziałach drugim i trzecim. W drugim rozdziale możemy przeczytać czym tak naprawdę jest rozdzielenie projektu na warstwy modelu, widoku oraz widoku modelu. Z kolei w trzecim autor pisze o implementacji wzorca MVVM. \\
 W projekcie został zastosowany dodatkowo wzorzec Dependency Injection (Wstrzykiwanie zależności) z wykorzystaniem IoC (Inversion of Control). Dependency Injection może być zaimplementowane na trzy sposoby:
 
 \begin{enumerate}
@@ -64,12 +64,12 @@ private void ConfigureServices(IServiceCollection serviceCollection)
 
 Na początku wstrzyknięta zostaje zależność bazy danych (ApplicationContext) oraz NavigationService (jest potrzebny do poprawnego działania dependency injection oraz uruchamiania widoków. Następnie zostają dodane serwisy, view modele oraz widoki. 
 \\\\
-Projekt został rozdzielony na dwa osobne podprojekty Core oraz UI. W projekcie Core znajduje się cała logika aplikacji:
+Projekt został rozdzielony na dwa osobne podprojekty Core oraz UI. W projekcie Core (rys. \ref{fig:Core}) znajduje się cała logika aplikacji:
 \begin{itemize}
     \item Modele,
     \item Serwisy,
     \item View Modele,
-    \item Utility - narzędzią, które wspomagają działanie aplikacji
+    \item Utility - narzędzia, które wspomagają działanie aplikacji
 \end{itemize}
 
 \begin{figure}[ht!]
@@ -79,7 +79,7 @@ Projekt został rozdzielony na dwa osobne podprojekty Core oraz UI. W projekcie 
   \label{fig:Core}
 \end{figure}
 
-Z kolei w UI widoki wyświetlane użytkownikowi.
+Z kolei w UI (rys. \ref{fig:UI}) widoki wyświetlane użytkownikowi.
 
 \begin{figure}[ht!]
 \centering
@@ -88,6 +88,7 @@ Z kolei w UI widoki wyświetlane użytkownikowi.
   \label{fig:UI}
 \end{figure}
 
+\newpage ~\newpage
 \section{Podstawowe obiekty aplikacji\label{AppObjects}}
 Rysunek \ref{fig:classDiagram} przedstawia klasy znajdujące się w aplikacji. Wyróżniamy 3 główne klasy oraz 3 pomocnicze (w przyszłości mogą zostać rozbudowane). 
 
@@ -117,12 +118,12 @@ Właściwości:
 \end{itemize}
 
 \subsection{Invoice}
-Klasa Invoice reprezntuje faktury w aplikacji. Jest to najważniejsza klasa w całej aplikacji.
+Klasa Invoice reprezentuje faktury w aplikacji. Jest to najważniejsza klasa w całej aplikacji.
 \\\\
 Właściwości:
 \begin{itemize}
     \item InvoiceNumber - numer faktury, ustalany na podstawie poprzedniego numeru faktury (format: kolejny numer/rok).
-    \item InvoiceDate - data wysatwienia faktury
+    \item InvoiceDate - data wystawienia faktury
     \item PaymentDeadline - ostateczny termin płatności za fakturę
     \item PaymentDate - data kiedy faktura została opłacona
     \item IsProformaInvoice - czy faktura jest fakturą pro forma
@@ -136,7 +137,7 @@ Właściwości:
 \end{itemize}
 
 \subsection{InvoiceItem}
-Klasa InvoiceItem reprezentuje przedmioty, które znajdują się na fakturze. Bez produktow faktura nie może zostać utworzona.
+Klasa InvoiceItem reprezentuje przedmioty, które znajdują się na fakturze. Bez produktów faktura nie może zostać utworzona.
 \\\\
 Właściwości:
 \begin{itemize}
@@ -151,7 +152,7 @@ Właściwości:
     \item VATSum - suma podatku VAT, jest to różnica sumy brutto i sumy netto produktu
     \item Comments - uwagi do produktu
     \item Invoice - jest to instancja klasy Invoice, która ma na celu zidentyfikowanie do jakiej faktury należy dany produkt
-    \item InvoiceId - pomocniczna zmienna pozwalająca odczytać fakturę
+    \item InvoiceId - pomocnicza zmienna pozwalająca odczytać fakturę
 \end{itemize}
 
 \subsection{CustomerType}
@@ -184,7 +185,7 @@ Na rysunku \ref{fig:displayModelsDiagram} zostały przedstawione klasy CustomerD
 \subsection{AddCustomer}
 
 \subsubsection{ViewModel}
-Na rysunku \ref{fig:addCustomerViewModelDiagram} przedstawiony został, wraz ze związkami z innymi klasami, diagram viewmodelu dodawania klienta. 
+Na rysunku \ref{fig:addCustomerViewModelDiagram} przedstawiony został, wraz ze związkami z innymi klasami, diagram widoku modelu dodawania klienta. 
 
 \begin{figure}[ht!]
   \includegraphics[width=\linewidth]{Rysunki/AddCustomerViewModelDiagram.png}
@@ -193,7 +194,7 @@ Na rysunku \ref{fig:addCustomerViewModelDiagram} przedstawiony został, wraz ze 
 \end{figure}
 
 Właściwość CustomerWithRef jest referencją przekazanego do view modelu obiektu, przez co później łatwiej edytować obiekty.
-Atrybuty pola \_customer są związane z poszczególnymi kontrolkami na widoku AddCustomerWindow. Przez taki zabieg nie musimy się martwić o sczytywanie zawartości, ponieważ mamy je odrazu w atrybutach obiektu \_customer. 
+Atrybuty pola \_customer są związane z poszczególnymi kontrolkami na widoku AddCustomerWindow. Przez taki zabieg nie musimy się martwić o sczytywanie zawartości, ponieważ mamy je od razu w atrybutach obiektu \_customer. 
 \\
 W konstruktorze wstrzykiwana jest zależność \_customerService, przez co nie musimy się martwić przekazywaniem obiektu typu CustomerService, gdy tworzymy nową instancję AddCustomerViewModel. Metody BindData oraz BindToRefObject służą przygotowaniu wprowadzonych danych do zapisania. Metoda SplitAddress, dzieli otrzymany numer budynku oraz lokalu (są połączone) na dwie osobne wartości. 
 
@@ -272,7 +273,7 @@ Na rysunku \ref{fig:InvoiceViewModelDiagram} przedstawiony został diagram klasy
   \label{fig:InvoiceViewModelDiagram}
 \end{figure}
 
-Obiekt InvoiceWithRef trzyma referencję do oryginalnego obiektu faktury (potrzebne przy aktualizacji faktur). LastInvoice jest ostatnią fakturą dodaną do bazy danych. Jest potrzebna w celu ustalenia kolejnego numeru porządkowego faktury. Właściwość Invoice została utworzona w celu wyświetlenia oraz późniejszego sczytania wartości z widoku. Do InvoiceViewModel zostają wstrzyknięte 3 serwisy które dostarczają oraz pozwalają zapisać nasze dane w bazie. Klasa InvoiceViewModel posiada także dwa obiekty typu Customer, które identyfikują kontrahenta oraz sprzedawcę. Model widoku posiada również 3 kolekcje, które oznaczone są na diagramie przez podwóją strzałkę. Listy dostarczają nam wszystkich kontrahentów oraz sprzedawców, a także typy płatności za faktury.
+Obiekt InvoiceWithRef trzyma referencję do oryginalnego obiektu faktury (potrzebne przy aktualizacji faktur). LastInvoice jest ostatnią fakturą dodaną do bazy danych. Jest potrzebna w celu ustalenia kolejnego numeru porządkowego faktury. Właściwość Invoice została utworzona w celu wyświetlenia oraz późniejszego sczytania wartości z widoku. Do InvoiceViewModel zostają wstrzyknięte 3 serwisy które dostarczają oraz pozwalają zapisać nasze dane w bazie. Klasa InvoiceViewModel posiada także dwa obiekty typu Customer, które identyfikują kontrahenta oraz sprzedawcę. Model widoku posiada również 3 kolekcje, które oznaczone są na diagramie przez podwójną strzałkę. Listy dostarczają nam wszystkich kontrahentów oraz sprzedawców, a także typy płatności za faktury.
 
 Ważniejsze metody:
 \begin{enumerate}
@@ -282,16 +283,15 @@ Ważniejsze metody:
 \end{enumerate}
 
 \subsubsection{View}
-Na rysunku \ref{fig:InvoiceWindowDiagram} został przedstawiony diagram klasy widoku faktur. Klasa implementuje interfejs IActivable. Interfejs ten dostarcza nam metodę \textbf{ActivateAsync}, która przyjmuje parametr, dzięki czemu jesteśmy w stanie przekazać obiekt do naszego widoku.
+Na rysunku \ref{fig:InvoiceWindowDiagram} został przedstawiony diagram klasy widoku faktur. Klasa implementuje interfejs IActivable. Interfejs ten dostarcza nam metodę \textbf{ActivateAsync}, która przyjmuje parametr, dzięki czemu jesteśmy w stanie przekazać obiekt do naszego widoku. Klasa posiada dwa obiekty. Pierwszy z nich to InvoiceViewModel, w którym jest zaimplementowana cała logika. Drugi to NavigationService, który pozwala uruchomić kolejne okna z zachowaniem dependency injection. 
 
+\newpage
 \begin{figure}[ht!]
 \centering
   \includegraphics[width=0.7\linewidth]{Rysunki/InvoiceWindowDiagram.png}
   \caption{Diagram widoku faktur}
   \label{fig:InvoiceWindowDiagram}
 \end{figure}
-
-Klasa posiada dwa obiekty. Pierwszy z nich to InvoiceViewModel, w którym jest zaimplementowana cała logika. Drugi to NavigationService, który pozwala uruchomić kolejne okna z zachowaniem dependency injection. 
 
 Ważniejsze metody:
 \begin{enumerate}
@@ -390,8 +390,9 @@ InvoiceItemViewModel posiada dwie ważne metody:
 \end{enumerate}
 
 \subsubsection{View}
-Na rysunku \ref{fig:InvoiceItemWindowDiagram} został przedstawiony diagram klasy widoku pozycji z faktury. Klasa implementuje interfejs IActivable. 
+Na rysunku \ref{fig:InvoiceItemWindowDiagram} został przedstawiony diagram klasy widoku pozycji z faktury. Klasa implementuje interfejs IActivable. Klasa posiada jeden główny obiekt InvoiceItemViewModel, który implementuje cała logikę widoku.
 
+\newpage
 \begin{figure}[ht!]
 \centering
   \includegraphics[width=0.7\linewidth]{Rysunki/InvoiceItemWindowDiagram.png}
@@ -399,8 +400,6 @@ Na rysunku \ref{fig:InvoiceItemWindowDiagram} został przedstawiony diagram klas
   \label{fig:InvoiceItemWindowDiagram}
 \end{figure}
 
-Klasa posiada jeden główny obiekt InvoiceItemViewModel, który implementuje cała logikę widoku.
-\\
 Ważniejsze metody:
 \begin{enumerate}
     \item \textbf{ActivateAsync} \\
@@ -427,7 +426,7 @@ W przypadku InvoiceItem serwis nie został utworzony, ponieważ nie było takiej
 
 \subsubsection{ViewModel}
 Rysunek \ref{fig:MainViewModelDiagram} przedstawia diagram widoku modelu MainViewModel. ViewModel posiada 3 główne kolekcje, które dostarczają dane do naszego widoku. Do MainViewModel zostały wstrzyknięte 2 serwisy: InvoiceService (pobiera dane faktur z bazy) i CustomerService (pobiera dane kontrahentów oraz sprzedawców z bazy). Widok modelu nie posiada skomplikowanych funkcji, ponieważ został stworzony tylko do wyświetlania oraz usuwania danych. \\
-Ważniejszą metodą jest \textbf{DeleteInvoice}. Funkcja nie tylko usuwa wybraną przez użytkownika fakturę, ale także zmienia koljeny numer porządkowy faktury. Numeracja faktur musi odbywać się po kolei i powinna być ciągła.
+Ważniejszą metodą jest \textbf{DeleteInvoice}. Funkcja nie tylko usuwa wybraną przez użytkownika fakturę, ale także zmienia kolejny numer porządkowy faktury. Numeracja faktur musi odbywać się po kolei i powinna być ciągła.
 
 \begin{figure}[ht!]
   \includegraphics[width=\linewidth]{Rysunki/MainViewModelDiagram.png}
@@ -436,7 +435,7 @@ Ważniejszą metodą jest \textbf{DeleteInvoice}. Funkcja nie tylko usuwa wybran
 \end{figure}
 
 \subsubsection{View}
-Na rysunku \ref{fig:MainWindowDiagram} został przedstawiony diagram głównego widoku aplikacji. MainWindow ma wstrzyknięte 2 zależności: NavigationService (służący do otwierania koljenych widoków) i MainViewModel (widok modelu). 
+Na rysunku \ref{fig:MainWindowDiagram} został przedstawiony diagram głównego widoku aplikacji. MainWindow ma wstrzyknięte 2 zależności: NavigationService (służący do otwierania kolejnych widoków) i MainViewModel (widok modelu). 
 \\
 Ważniejsze metody:
 \begin{enumerate}
@@ -450,7 +449,7 @@ Ważniejsze metody:
     Metody służą do wyszukania sprzedawcy/kontrahenta. Osoby te możemy wyszukać po: nazwie, NIPie, REGONie, ulicy oraz mieście.
 \end{enumerate}
 
-Metody z dopiskiem \textbf{\_MouseDoubleClick} służą do edytowania faktury, kontrahenta i sprzedawcy. Funkcja wywyołuje się podczas dwukkrotnego kliknięcia w pozycję na liście.
+Metody z dopiskiem \textbf{\_MouseDoubleClick} służą do edytowania faktury, kontrahenta i sprzedawcy. Funkcja wywołuje się podczas dwukrotnego kliknięcia w pozycję na liście.
 
 \begin{figure}[ht!]
 \centering
@@ -498,7 +497,7 @@ public async Task<bool?> ShowDialogAsync<T>(object parameter = null) where T : W
 \end{lstlisting}
 
 \subsection{InvoiceTemplate}
-InvoiceTemplate jest jedną z głównych klas w projekcie. Odpowiada za generowanie pliku PDF z przekazanej jako paramter faktury. Na rysunku \ref{fig:InvoiceTemplateDiagram} został przedstawiony diagram klasy wraz ze wszsytkimi polami i metodami. Zostało utworzynych kilka podstawowych czcionek o różnych parametrach (wielkość, pogrubienie). W klasie szablonu zostało dodane pole typu Invoice, z którego odczytujemy wszystkie informacje potrzebne do utworzenia faktury. 
+InvoiceTemplate jest jedną z głównych klas w projekcie. Odpowiada za generowanie pliku PDF z przekazanej jako parametr faktury. Na rysunku \ref{fig:InvoiceTemplateDiagram} został przedstawiony diagram klasy wraz ze wszystkimi polami i metodami. Zostało utworzonych kilka podstawowych czcionek o różnych parametrach (wielkość, pogrubienie). W klasie szablonu zostało dodane pole typu Invoice, z którego odczytujemy wszystkie informacje potrzebne do utworzenia faktury. 
 
 \begin{figure}[ht!]
 \centering
@@ -611,17 +610,26 @@ W listingu \ref{list:createTitle} tworzona jest tabela z jedną kolumną o szero
 Rysunek \ref{fig:erdDiagram} przedstawia diagram ERD bazy danych wraz z zależnościami między encjami. Kolejny diagram \ref{fig:erdDiagramForeign} został uzupełniony o klucze obce. Została pokazana także relacja między encjami oraz kluczami. Ostatni rysunek \ref{fig:erdDiagramAttr} został uzupełniony pozostałymi atrybutami encji.
 
 \begin{figure}[ht!]
-  \includegraphics[width=\linewidth]{Rysunki/ERD.png}
+\centering
+  \includegraphics[width=0.7\linewidth]{Rysunki/ERD.png}
   \caption{Diagram ERD w notacji Martina}
   \label{fig:erdDiagram}
 \end{figure}
 
 \begin{figure}[ht!]
-  \includegraphics[width=\linewidth]{Rysunki/ERD-relacje.png}
+\centering
+  \includegraphics[width=0.8\linewidth]{Rysunki/ERD-relacje.png}
   \caption{Diagram ERD uzupełniony o klucze obce}
   \label{fig:erdDiagramForeign}
 \end{figure}
 
+\begin{figure}[ht!]
+  \includegraphics[width=\linewidth]{Rysunki/ERDAttr.png}
+  \caption{Diagram ERD ze wszystkimi atrybutami encji}
+  \label{fig:erdDiagramAttr}
+\end{figure}
+
+\newpage
 Opcjonalność encji:
 
 \begin{itemize}
@@ -633,17 +641,11 @@ Opcjonalność encji:
     \item Każda faktura \textbf{musi} mieć zdefiniowany typ płatności (PaymentTypes)
 \end{itemize}
 
-\begin{figure}[ht!]
-  \includegraphics[width=\linewidth]{Rysunki/ERDAttr.png}
-  \caption{Diagram ERD ze wszystkimi atrybutami encji}
-  \label{fig:erdDiagramAttr}
-\end{figure}
-
 W tabelach \ref{tab:CustomerAttr}, \ref{tab:InvoicesAttr} i \ref{tab:InvoiceItemsAttr} zostały przedstawione wszystkie atrybuty jakie posiadają kolejno encje Customers, Invoices oraz InvoiceItems. Każdy atrybut posiada swój typ oraz krótki opis.
 
 \begin{table}[ht!]
 \centering
-\resizebox{\textwidth}{!}{%
+\resizebox{0.9\textwidth}{!}{%
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Atrybut}  & \textbf{Typ}                                                       & \textbf{Opis}                                                                                                                             \\ \hline
@@ -667,7 +669,7 @@ Comments          & TEXT                                                        
 
 \begin{table}[ht!]
 \centering
-\resizebox{\textwidth}{!}{%
+\resizebox{0.9\textwidth}{!}{%
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Atrybut}  & \textbf{Typ}                                                      & \textbf{Opis}                                                                                                                        \\ \hline
@@ -712,11 +714,12 @@ Comments         & TEXT                                                         
 \label{tab:InvoiceItemsAttr}
 \end{table}
 
+\newpage
 W tabeli \ref{tab:entityRelations} przedstawiono relacje pomiędzy encjami. Encja Customers oraz Invoices połączone są relacją jeden do wielu, ponieważ każda faktura (Invoices) może posiadać jednego sprzedawcę i kontrahenta (Customers), a kontrahent oraz sprzedawca może znajdować się na wielu fakturach. Encja Invoices i InvoiceItems również jest połączona w relacji jeden do wielu. Każda faktura może mieć wiele produktów (InvoiceItems). Encje Customers i Invoices są w relacji 1:1 kolejno z encjami CustomerTypes (definiującej typ klienta - Sprzedawca oraz Kontrahent) oraz PaymentTypes (definiującej typ płatności za fakturę).
 
 \begin{table}[ht!]
 \centering
-\resizebox{0.7\textwidth}{!}{
+\resizebox{0.6\textwidth}{!}{
 \begin{tabular}{|l|c|l|}
 \hline
 \textbf{Encja} & \multicolumn{1}{l|}{\textbf{Relacja}} & \textbf{Encja} \\ \hline
@@ -735,19 +738,25 @@ Invoices       & 1:1                                   & PaymentTypes   \\ \hlin
 Najnowsze środowisko programistyczne \cite{VisualStudio} wydane przez firmę Microsoft w 2019 roku. Używane jest do tworzenia aplikacji konsolowych oraz oprogramowania z graficznym interfejsem użytkownika (np. Windows Forms, WPF czy aplikacji internetowych).
 
 \subsection{C\#}
-C\# \cite{CSharp} jest wysokopoziomowym, obiektowo zorientowanym \cite{CSharpBook} (rozdziały piąty, szósty oraz siódmy), językiem programowania. Programy napisane w tym języku są kompilowane do języka CIL (Common Intermediate Language), jest to kod pośredni wykonywany w środowiskach takich jak .NET Framework lub .NET Core. System operacyjny nie byłby w stanie uruchomić skompilowanego programu bez któregoś tych środowisk. Język C\# jest odpowiedzią Microsoftu na Javę. Był stworzony do pisania aplikacji na platformę Windows, teraz można również tworzyć w nim aplikację na platformy Linux, macOS. Aplikacje w języku C\# pisze się bardzo szybko o czym możemy przeczytać w książce \cite{CSharpBook} od strony 44. 
+C\# \cite{CSharp} jest wysokopoziomowym, obiektowo zorientowanym, językiem programowania  \cite{CSharpBook}. Programy napisane w tym języku są kompilowane do języka CIL (Common Intermediate Language), jest to kod pośredni wykonywany w środowiskach takich jak .NET Framework lub .NET Core. System operacyjny nie byłby w stanie uruchomić skompilowanego programu bez któregoś tych środowisk. Język C\# jest odpowiedzią Microsoftu na Javę. Był stworzony do pisania aplikacji na platformę Windows, teraz można również tworzyć w nim aplikację na platformy Linux, macOS. Aplikacje w języku C\# pisze się bardzo szybko i intuicyjnie. 
 
 \subsection{.NET Core 3.0}
-.NET Core 3.0 \cite{NetCore} to najnowszy framwework, którego premiera odbyła się 23 września 2019 roku. Oprogramowanie pozwala na tworzenie aplikacji dla platform Windows, Linux oraz macOS. Microsoft umożliwił tworzenie aplikacji WPF (Windows Presentation Foundation) w frameworku .NET Core od wersji 3.0. 
+.NET Core 3.0 \cite{NetCore} to najnowszy framework, którego premiera odbyła się 23 września 2019 roku. Oprogramowanie pozwala na tworzenie aplikacji dla platform Windows, Linux oraz macOS. Microsoft umożliwił tworzenie aplikacji WPF (Windows Presentation Foundation) w frameworku .NET Core od wersji 3.0. 
 
 \subsection{WPF}
-WPF, a dokładniej Windows Presentation Foundation \cite{WPF}, jest to silnik graficzny umożliwiający tworzenie aplikacji desktopowych. Interfejs programowania aplikacji opiera się na języku XML, a dokładniej na jego implementacji, która nazywa się XAML. Najważniejsze funkcje Windows Presentation Foundation zostały opisane w książce A. Nathana \cite{WPFBook} (na stronach 23-24 oraz 27-29). 
+WPF, a dokładniej Windows Presentation Foundation \cite{WPF}, jest to silnik graficzny umożliwiający tworzenie aplikacji desktopowych. Interfejs programowania aplikacji opiera się na języku XML, a dokładniej na jego implementacji, która nazywa się XAML. Kilka ważniejszych funkcji WPF \cite{WPFBook} :  %(na stronach 23-24 oraz 27-29)
+\begin{itemize}
+    \item Szeroka integracja
+    \item Akceleracja sprzętowa
+    \item Bogata kompozycja i możliwość dostosowania do swoich potrzeb
+\end{itemize}
+
 
 \subsection{Microsfot.EntityFrameworkCore}
-Entity Framework Core \cite{EFCore} jest to open source'owa platforma programistyczna ułatwiająca korzystanie z baz danych oraz operacji CRUD. Entity Framework umożliwia programistom pracę z bazą danych przy użyciu obiektów .NET, eliminując tym samym potrzebę korzystania z zapytań SQL. Bardzo pomocna okazała się książka P. Anbazhagan \cite{EFCoreBook}, w której krok po kroku opisana jest cała konfiguracja Entity Framework Core do projektu. Pozycja bibliograficzna skupia się na zastosowaniu EF Core w ASP .NET, jednak w Windows Presentation Foundation wygląda to bardzo pdoobnie.
+Entity Framework Core \cite{EFCore} jest to open source'owa platforma programistyczna ułatwiająca korzystanie z baz danych oraz operacji CRUD. Entity Framework umożliwia programistom pracę z bazą danych przy użyciu obiektów .NET, eliminując tym samym potrzebę korzystania z zapytań SQL. Bardzo pomocna okazała się książka P. Anbazhagan \cite{EFCoreBook}, w której krok po kroku opisana została cała konfiguracja Entity Framework Core do projektu. Pozycja bibliograficzna skupia się na zastosowaniu EF Core w ASP .NET, jednak w Windows Presentation Foundation wygląda to bardzo podobnie.
 
 \subsection{Microsoft.Extensions.DependencyInjection}
-Dependency Injection jest to wzorzec projektowy pozwalający na usunięcie zależności pomiędzy komponentami, na rzecz architektury \textbf{plug-in}. Polega na przekazaniu gotowych instacji obiektów, obiektom, które z nich korzystają (np. jako parametry konstruktora).
+Dependency Injection jest to wzorzec projektowy pozwalający na usunięcie zależności pomiędzy komponentami, na rzecz architektury \textbf{plug-in}. Polega na przekazaniu gotowych instancji obiektów, obiektom, które z nich korzystają (np. jako parametry konstruktora).
 
 \subsection{SQLite}
 W projekcie została użyta baza danych SQLite, z kilku prostych powodów \cite{UsingSQLite}:
@@ -773,3 +782,10 @@ LiczbyNaSlowaNetCore \cite{LiczbyNaSlowa} jest to open source'owa biblioteka do 
 iTextSharp \cite{itext} jest open source'owym narzędziem do tworzenia plików PDF. W projekcie zostało użyte w celu generowania faktur.
 
 \section{Proponowane wymagania sprzętowe i programowe}
+Minimalne wymagania sprzętowe jakie trzeba spełnić, by uruchomić aplikację WPF to:
+\begin{itemize}
+    \item Windows XP wraz z Service Pack'iem 2 lub wyżej
+    \item Procesor z taktowaniem większym niż 800 MHz
+    \item 512 MB RAMu
+    \item DirectX 9
+\end{itemize}

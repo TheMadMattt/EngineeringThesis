@@ -1,4 +1,5 @@
-\chapter{Testy systemowe}
+\chapter{Testy aplikacji}
+\section{Testy systemowe}
 Testy systemowe mają na celu przetestowanie systemu jako całości. Testowanie aplikacji odbywa się poprzez realizację konkretnych scenariuszy. Testy systemowe przeprowadzane są w celu zweryfikowania aplikacji pod kątem zgodności z wymaganiami funkcjonalnymi oraz niefunkcjonalnymi. Poniżej zostało przedstawionych kilka scenariuszy testowych:
 \\
 \begin{enumerate}
@@ -54,3 +55,25 @@ Testy systemowe mają na celu przetestowanie systemu jako całości. Testowanie 
             \item Pozycje powiązane z fakturą zostały usunięte z bazy danych.
         \end{itemize}
 \end{enumerate}
+
+Wszystkie powyższe testy zostały przeprowadzone według ukazanych kroków. Testy dały rezultaty zgodne z oczekiwanymi. Nie został napotkany żaden problem.
+
+\section{Testy akceptacyjne}
+Aplikacja została wysłana do kilku osób nie związanych z projektem. Osoby te dostały zadania, które mają wykonać w aplikacji:
+\begin{itemize}
+    \item Dodanie faktury
+    \item Dodanie kontrahenta
+    \item Dodanie sprzedawcy
+    \item Edycja faktury
+    \item Dodanie do faktury kilku pozycji
+    \item Wygenerowanie pliku PDF istniejącej faktury
+\end{itemize}
+
+Podczas wykonywania zadań zostało wykrytych kilka błędów:
+\begin{itemize}
+    \item Jeżeli w aplikacji nie było kontrahentów/sprzedawców aplikacja się zamykała
+    \item Podczas dodawania pozycji do faktury, mając angielski system, waluty były źle formatowane
+    \item Aplikacja źle wyliczała kolejny numer porządkowy faktury.
+\end{itemize}
+
+Wszystkie błędy zostały bezproblemowo i sprawnie naprawione. Po poprawieniu błędów, osobom testującym aplikację, udało się bez problemu wykonać wszystkie powyższe zadania.
